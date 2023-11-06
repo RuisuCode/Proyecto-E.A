@@ -22,11 +22,11 @@ export default function Login() {
           top={0}
           mt={"30px"}
           sx={{
-            width: { xs: "80%", lg: "30%" },
-            height: { xs: "650px", lg: "560px" },
+            width: { xs: "100vw", lg: "25%" },
+            height: { xs: "100vh", lg: "560px" },
             opacity: { xs: 0.8, md: 0.9, lg: 0.9, xl: 0.9 },
             boxShadow: { xs: 5, md: 5, lg: 5, xl: 5 },
-            mt: { xs: "20px", md: "50px", lg: "3%", xl: "90px" },
+            mt: { xs: "1px", md: "50px", lg: "3%", xl: "90px" },
           }}
         >
           <Box
