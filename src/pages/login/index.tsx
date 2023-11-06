@@ -23,10 +23,10 @@ export default function Login() {
           mt={"30px"}
           sx={{
             width: { xs: "80%", lg: "30%" },
-            height: { xs: "700px", lg: "560px" },
+            height: { xs: "650px", lg: "560px" },
             opacity: { xs: 0.8, md: 0.9, lg: 0.9, xl: 0.9 },
             boxShadow: { xs: 5, md: 5, lg: 5, xl: 5 },
-            mt: { xs: "50px", md: "50px", lg: "3%", xl: "90px" },
+            mt: { xs: "20px", md: "50px", lg: "3%", xl: "90px" },
           }}
         >
           <Box
