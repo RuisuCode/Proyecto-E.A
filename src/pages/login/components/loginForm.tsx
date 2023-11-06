@@ -4,8 +4,11 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { ILogin } from "../interfaces/iLogin";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import BadgeIcon from "@mui/icons-material/Badge";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { NavLink, useNavigate } from "react-router-dom";
+
 import {
-  Box,
   Button,
   FormControl,
   FormHelperText,
@@ -13,25 +16,38 @@ import {
   IconButton,
   Stack,
   OutlinedInput,
-  Typography,
 } from "@mui/material";
+import RecoveryPassword from "./RecoveryPassword";
+import { toast } from "react-toastify";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-
+  const Navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ILogin>({ mode: "onSubmit" });
-  const onSubmit: SubmitHandler<ILogin> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<ILogin> = (data) => Entrar(data);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const Entrar = (data: ILogin) => {
+    if (data.ci === "10000000" && data.password === "admin") {
+      Navigate("/inicio");
+      toast.success("Logueo Exitoso!");
+    } else {
+      toast.error("Datos No registrados");
+    }
+  };
 
   return (
     <>
       <Stack gap={2} onSubmit={handleSubmit(onSubmit)} component="form">
         <FormControl>
-          <FormLabel sx={{ fontSize: "18px" }}>Cedula</FormLabel>
+          <FormLabel sx={{ fontSize: "18px", textAlign: "center" }}>
+            Cedula
+          </FormLabel>
           <OutlinedInput
+            sx={{ height: "45px", boxShadow: 1 }}
             type="number"
             error={errors.ci && true}
             startAdornment={
@@ -53,10 +69,13 @@ export default function LoginForm() {
         </FormHelperText>
 
         <FormControl>
-          <FormLabel sx={{ fontSize: "18px" }}>Contraseña</FormLabel>
+          <FormLabel sx={{ fontSize: "18px", textAlign: "center" }}>
+            Contraseña
+          </FormLabel>
           <OutlinedInput
             type={showPassword ? "text" : "password"}
             error={errors.password && true}
+            sx={{ height: "45px", boxShadow: 1 }}
             startAdornment={
               <IconButton
                 sx={{ mr: 1 }}
@@ -83,34 +102,52 @@ export default function LoginForm() {
           type="submit"
           sx={{
             textTransform: "inherit",
-            height: "48px",
+            height: "45px",
             borderRadius: "6px",
             fontSize: "20px",
+            boxShadow: 5,
           }}
         >
           Iniciar sesión
         </Button>
-        {/*  {!isLoading && (
-        )}
-        {isLoading && (
-          <Stack justifyContent="center" alignItems="center" m={2}>
-            <CircularProgress color="primary" />
-          </Stack>
-        )} */}
+        {/* colocar loading de carga */}
       </Stack>
-      <Stack gap={4} sx={{ mt: 2 }}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Box />
-        </Box>
-      </Stack>
-      <Stack alignItems={"right"} width={"100%"}>
-        <Typography>Recuperar Contraseña</Typography>
+      <Stack
+        textAlign={"right"}
+        my={2}
+        width={"100%"}
+        flexDirection={"row"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
+        <Stack flexDirection={"row"}>
+          <NavLink
+            target="_blank"
+            style={{ textDecoration: "none" }}
+            to={"https://www.instagram.com/indem_oficial/"}
+          >
+            <FontAwesomeIcon
+              style={{ marginRight: "40px" }}
+              color="#E84730"
+              size="xl"
+              icon={faInstagram}
+            />
+          </NavLink>
+          <NavLink
+            target="_blank"
+            to={"https://www.facebook.com/Asoatlemo/?locale=es_LA"}
+          >
+            <FontAwesomeIcon
+              style={{ marginRight: "5px" }}
+              color="#E84730"
+              size="xl"
+              icon={faFacebook}
+            />
+          </NavLink>
+        </Stack>
+        <Stack>
+          <RecoveryPassword />
+        </Stack>
       </Stack>
     </>
   );

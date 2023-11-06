@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material";
 import "@fontsource/nunito/400.css";
+import "@fontsource/nunito/900.css";
 const theme = createTheme({
   palette: {
     primary: {

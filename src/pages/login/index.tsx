@@ -3,9 +3,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { StyledBackground } from "../../shared/style-components/theme/styledBackground";
 import LoginForm from "./components/loginForm";
-/* import IconButton from "@mui/material/IconButton"; */
-import SkateboardingIcon from "@mui/icons-material/Skateboarding";
-/* import backgroundImg from "../../shared/assets/atleta-login.jpg"; */
+import Image from "../../shared/style-components/Image";
 
 export default function Login() {
   return (
@@ -13,75 +11,123 @@ export default function Login() {
       <StyledBackground />
       <Stack justifyContent={"center"} alignItems={"center"}>
         <Stack
+          direction={{ xs: "column", sm: "row" }}
           flexDirection={"row"}
           color={"#fff"}
-          width={"1050px"}
-          height={"600px"}
+          height={"550px"}
           borderRadius={"15px"}
-          boxShadow={5}
           position={"absolute"}
+          alignItems={"center"}
+          justifyContent={"center"}
           top={0}
-          mt={"5%"}
-          sx={{ opacity: 0.9 }}
+          mt={"30px"}
+          sx={{
+            width: { xs: "80%", lg: "30%" },
+            height: { xs: "700px", lg: "560px" },
+            opacity: { xs: 0.8, md: 0.9, lg: 0.9, xl: 0.9 },
+            boxShadow: { xs: 5, md: 5, lg: 5, xl: 5 },
+            mt: { xs: "50px", md: "50px", lg: "3%", xl: "90px" },
+          }}
         >
           <Box
             bgcolor={"#fff"}
             color={"#000"}
-            width="41%"
-            textAlign={"center"}
+            width={"100%"}
             borderRadius={"15px"}
             sx={{
-              borderTopRightRadius: "0",
-              borderBottomRightRadius: 0,
-              /* filter: "blur(2px)", */
+              height: { xs: "100%", md: "100%" },
+              justifyContent: "space-evenly",
+              display: "flex",
+              flexDirection: "column",
             }}
           >
-            <Stack
-              flexDirection={"row"}
-              alignContent={"center"}
-              justifyContent={"center"}
+            <Box
+              sx={{
+                backgroundColor: { xs: "rgba(232,71,48,1)" },
+                borderRadius: "15px",
+                borderBottomRightRadius: { xs: 0, lg: 0 },
+                borderBottomLeftRadius: { xs: 0, lg: 0 },
+                height: "15px",
+                position: "absolute",
+                top: 0,
+              }}
+              color={"transparent"}
+              width={"100%"}
             >
-              <SkateboardingIcon
-                color="primary"
-                sx={{
-                  bgcolor: "#fff",
-                  borderRadius: "13px",
-                  mt: "30%",
-                  mr: "10px",
-                }}
-              />
-              {/* <IconButton
-                sx={{ mt: "22%", mr: "5px", height: "20px" }}
-                color="primary"
-              >
-              </IconButton> */}
-              <Typography mt={"28%"} mb={3} variant="h4">
-                Ingresar
+              .
+            </Box>
+            <Stack
+              flexDirection={"column"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              my={4}
+            >
+              <Image />
+            </Stack>
+            <Stack my={"5px"} textAlign={"center"}>
+              <Typography color={"#333"} fontSize={"16px"} variant="inherit">
+                Sistema Administrativo <br /> de la Escuela de Atletismo
               </Typography>
             </Stack>
             <Stack mx={3}>
               <LoginForm />
             </Stack>
+            <Stack mb={2} justifyContent="center" alignItems="center">
+              <Typography variant="body2" textAlign="center">
+                © Universidad Bolivariana de Venezuela <br /> del Estado
+                Monagas-
+                {new Date().getFullYear()}
+              </Typography>
+            </Stack>
+            <Box
+              sx={{
+                backgroundColor: { xs: "rgba(232,71,48,1)" },
+                borderRadius: "15px",
+                borderTopRightRadius: { xs: 0, lg: 0 },
+                borderTopLeftRadius: { xs: 0, lg: 0 },
+                height: "15px",
+                position: "absolute",
+                bottom: "0",
+                mb: 0,
+              }}
+              color={"transparent"}
+              width={"100%"}
+            >
+              .
+            </Box>
           </Box>
-          <Box
-            width={"59%"}
+          {/* <Box
             textAlign={"center"}
             borderRadius={"15px"}
+            minWidth={"59%"}
+            // maxWidth={"100%"}
             sx={{
+              width: { xs: 0, sm: 0, lg: "1" },
+              height: { xs: 0, sm: 0, md: "100%", lg: "100%" },
               background: `linear-gradient(212.38deg, rgba(232,71,48,1) 0%, rgba(240,243,244,0.3) 100%),url('')`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               backgroundPosition: "center",
-              borderTopLeftRadius: "0",
-              borderBottomLeftRadius: 0,
+              borderTopLeftRadius: { lg: 0 },
+              borderBottomLeftRadius: { lg: 0 },
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            <Typography variant="h4" mt={"40%"} sx={{ background: "no" }}>
-              <Typography variant="h4">
+            <Stack
+              sx={{ width: { xs: "0", md: "100%", lg: "100%", xl: "100%" } }}
+            >
+              <Typography
+                sx={{
+                  color: { xs: "transparent", lg: "#fff" },
+                  fontSize: { xs: "0px", lg: "30px" },
+                }}
+              >
                 Sistema Administrativo <br /> de la Escuela de Atletismo
               </Typography>
-            </Typography>
-          </Box>
+            </Stack>
+          </Box> */}
         </Stack>
       </Stack>
     </>

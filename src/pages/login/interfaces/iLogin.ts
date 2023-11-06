@@ -1,4 +1,10 @@
 export interface ILogin {
-  ci: number;
+  ci: string;
   password: string;
+}
+
+export interface IRecovery {
+  ci: string;
+  password: string;
+  confirmPassword: string;
 }

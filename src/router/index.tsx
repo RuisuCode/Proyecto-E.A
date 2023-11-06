@@ -8,6 +8,9 @@ const NotFound: LazyExoticComponent<React.FC> = lazy(
 const Login: LazyExoticComponent<React.FC> = lazy(
   () => import("../pages/login")
 );
+const Inicio: LazyExoticComponent<React.FC> = lazy(
+  () => import("../pages/inicio-admin")
+);
 
 export default function RouterApp(): JSX.Element {
   return (
@@ -27,6 +30,15 @@ export default function RouterApp(): JSX.Element {
           <Suspense>
             <Head title="Pagina no encontrada" />
             <NotFound />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/inicio"
+        element={
+          <Suspense>
+            <Head title="Inicio" />
+            <Inicio />
           </Suspense>
         }
       />
