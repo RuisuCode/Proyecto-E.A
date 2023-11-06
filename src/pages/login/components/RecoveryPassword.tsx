@@ -104,8 +104,8 @@ export default function RecoveryPassword() {
                     message: "Este campo es requerido.",
                   },
                   pattern: {
-                    value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9]+\.[A-Za-z]{2,}$/,
-                    message: "La cedula no tiene un formato válido.",
+                    value: /^[0-9]*$/,
+                    message: "Solo se permiten caracteres numericos.",
                   },
                 })}
               />
