@@ -33,7 +33,7 @@ export default function Login() {
             bgcolor={"#fff"}
             color={"#000"}
             width={"100%"}
-            borderRadius={"15px"}
+            borderRadius={"8px"}
             sx={{
               height: { xs: "100%", md: "100%" },
               justifyContent: "space-evenly",
@@ -44,10 +44,10 @@ export default function Login() {
             <Box
               sx={{
                 backgroundColor: { xs: "rgba(232,71,48,1)" },
-                borderRadius: "15px",
+                borderRadius: "8px",
                 borderBottomRightRadius: { xs: 0, lg: 0 },
-                borderTopRightRadius: { xs: 0, lg: "15px" },
-                borderTopLeftRadius: { xs: 0, lg: "15px" },
+                borderTopRightRadius: { xs: 0, lg: "8px" },
+                borderTopLeftRadius: { xs: 0, lg: "8px" },
                 borderBottomLeftRadius: { xs: 0, lg: 0 },
                 height: "15px",
                 position: "absolute",
@@ -84,10 +84,10 @@ export default function Login() {
             <Box
               sx={{
                 backgroundColor: { xs: "rgba(232,71,48,1)" },
-                borderRadius: "15px",
+                borderRadius: "8px",
                 borderTopRightRadius: { xs: 0, lg: 0 },
-                borderBottomRightRadius: { xs: 0, lg: "15px" },
-                borderBottomLeftRadius: { xs: 0, lg: "15px" },
+                borderBottomRightRadius: { xs: 0, lg: "8px" },
+                borderBottomLeftRadius: { xs: 0, lg: "8px" },
                 borderTopLeftRadius: { xs: 0, lg: 0 },
                 height: "15px",
                 position: "absolute",

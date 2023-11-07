@@ -4,9 +4,9 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { ILogin } from "../interfaces/iLogin";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import BadgeIcon from "@mui/icons-material/Badge";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
-import { NavLink, useNavigate } from "react-router-dom";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 import {
   Button,
@@ -121,7 +121,7 @@ export default function LoginForm() {
         alignItems={"center"}
       >
         <Stack flexDirection={"row"}>
-          <NavLink
+          {/* <NavLink
             target="_blank"
             style={{ textDecoration: "none" }}
             to={"https://www.instagram.com/indem_oficial/"}
@@ -143,7 +143,7 @@ export default function LoginForm() {
               size="xl"
               icon={faFacebook}
             />
-          </NavLink>
+          </NavLink> */}
         </Stack>
         <Stack>
           <RecoveryPassword />
