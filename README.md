@@ -1,6 +1,6 @@
 # Sistema Administrativo de la Escuela de Atletismo del Estado Monagas
 
-## Proyecto-E.A
+## Proyecto-E.A-Front-End
 
 ### Construido en
 
