@@ -47,7 +47,10 @@ export default function LoginForm() {
             Cedula
           </FormLabel>
           <OutlinedInput
-            sx={{ height: "45px", boxShadow: 1 }}
+            sx={{
+              height: "45px",
+              boxShadow: 1,
+            }}
             type="number"
             error={errors.ci && true}
             startAdornment={
