@@ -15,10 +15,6 @@ const NotFound: LazyExoticComponent<React.FC> = lazy(
 const Login: LazyExoticComponent<React.FC> = lazy(
   () => import("../pages/login")
 );
-const Inicio: LazyExoticComponent<React.FC> = lazy(
-  () => import("../pages/inicio-admin")
-);
-
 export default function RouterApp(): JSX.Element {
   // Valor para mapear las rutas del sistema
   const entity: number = useUserInfoStore((state) => state.entity);
