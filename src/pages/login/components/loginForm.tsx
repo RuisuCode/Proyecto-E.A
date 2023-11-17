@@ -6,7 +6,6 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import BadgeIcon from "@mui/icons-material/Badge";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
-import { useNavigate } from "react-router-dom";
 
 import {
   Button,
@@ -16,28 +15,29 @@ import {
   IconButton,
   Stack,
   OutlinedInput,
+  CircularProgress,
 } from "@mui/material";
 import RecoveryPassword from "./RecoveryPassword";
-import { toast } from "react-toastify";
+import { useLogin } from "../hooks/useLogin";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const Navigate = useNavigate();
+  const { mutate, isLoading } = useLogin();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ILogin>({ mode: "onSubmit" });
-  const onSubmit: SubmitHandler<ILogin> = (data) => Entrar(data);
+  const onSubmit: SubmitHandler<ILogin> = (data) => mutate(data);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const Entrar = (data: ILogin) => {
+  /* onst Entrar = (data: ILogin) => {
     if (data.ci === "10000000" && data.password === "admin") {
       Navigate("/inicio");
       toast.success("Logueo Exitoso!");
     } else {
       toast.error("Datos No registrados");
     }
-  };
+  }; */
 
   return (
     <>
@@ -99,21 +99,27 @@ export default function LoginForm() {
           {errors.password?.message && errors.password.message}
         </FormHelperText>
 
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          sx={{
-            textTransform: "inherit",
-            height: "45px",
-            borderRadius: "6px",
-            fontSize: "20px",
-            boxShadow: 5,
-          }}
-        >
-          Iniciar sesión
-        </Button>
-        {/* colocar loading de carga */}
+        {!isLoading && (
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            sx={{
+              textTransform: "inherit",
+              height: "45px",
+              borderRadius: "6px",
+              fontSize: "20px",
+              boxShadow: 5,
+            }}
+          >
+            Iniciar sesión
+          </Button>
+        )}
+        {isLoading && (
+          <Stack justifyContent="center" alignItems="center">
+            <CircularProgress color="primary" />
+          </Stack>
+        )}
       </Stack>
       <Stack
         textAlign={"right"}

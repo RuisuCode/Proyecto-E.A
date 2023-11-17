@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { StyledBackground } from "../../shared/style-components/theme/styledBackground";
+import { StyledBackground } from "../../shared/style-components/styledBackground";
 import LoginForm from "./components/loginForm";
 import Image from "../../shared/style-components/Image";
 

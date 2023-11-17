@@ -1,6 +1,13 @@
 import { lazy, LazyExoticComponent, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import Head from "../shared/components/Head";
+import { map } from "lodash";
+
+import { ProtectedRoutes } from "./protected-routes";
+import { useUserInfoStore } from "../shared/store/UserStore";
+import LayoutDashboard from "./templates/LayoutDashboard";
+import { adminRoutes } from "./routes/AdminRoutes";
+import { IRoutes } from "../shared/interfaces/IRoutes";
 
 const NotFound: LazyExoticComponent<React.FC> = lazy(
   () => import("../pages/not-found")
@@ -13,6 +20,9 @@ const Inicio: LazyExoticComponent<React.FC> = lazy(
 );
 
 export default function RouterApp(): JSX.Element {
+  // Valor para mapear las rutas del sistema
+  const entity: number = useUserInfoStore((state) => state.entity);
+
   return (
     <Routes>
       <Route
@@ -33,15 +43,24 @@ export default function RouterApp(): JSX.Element {
           </Suspense>
         }
       />
-      <Route
-        path="/inicio"
-        element={
-          <Suspense>
-            <Head title="Inicio" />
-            <Inicio />
-          </Suspense>
-        }
-      />
+      {entity === 999 && (
+        <Route element={<ProtectedRoutes />}>
+          <Route element={<LayoutDashboard />}>
+            {map(adminRoutes, (route: IRoutes, index: number) => (
+              <Route
+                key={index}
+                path={route.route}
+                element={
+                  <Suspense>
+                    <Head title={route.title} />
+                    {<route.component />}
+                  </Suspense>
+                }
+              />
+            ))}
+          </Route>
+        </Route>
+      )}
     </Routes>
   );
 }
