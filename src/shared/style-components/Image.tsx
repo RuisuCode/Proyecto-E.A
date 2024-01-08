@@ -1,5 +1,5 @@
 import { Component } from "react";
-import IMG from "../assets/cropped-logo-estandarte-ubv-4.png";
+import IMG from "../assets/banner.png";
 class Image extends Component {
   render() {
     return (

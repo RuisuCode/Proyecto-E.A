@@ -1,5 +1,5 @@
 import { Box, styled } from "@mui/material";
-import backgroundImg from "../../shared/assets/atleta-login.jpg";
+import backgroundImg from "../../shared/assets/background3.jpg";
 
 export const StyledBackground = styled(Box)({
   background: `url(${backgroundImg})`,

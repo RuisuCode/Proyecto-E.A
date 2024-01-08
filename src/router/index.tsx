@@ -4,7 +4,7 @@ import Head from "../shared/components/Head";
 import { map } from "lodash";
 
 import { ProtectedRoutes } from "./protected-routes";
-import { useUserInfoStore } from "../shared/store/UserStore";
+// import { useUserInfoStore } from "../shared/store/UserStore";
 import LayoutDashboard from "./templates/LayoutDashboard";
 import { adminRoutes } from "./routes/AdminRoutes";
 import { IRoutes } from "../shared/interfaces/IRoutes";
@@ -17,7 +17,7 @@ const Login: LazyExoticComponent<React.FC> = lazy(
 );
 export default function RouterApp(): JSX.Element {
   // Valor para mapear las rutas del sistema
-  const entity: number = useUserInfoStore((state) => state.entity);
+  const entity: number = 999;
 
   return (
     <Routes>

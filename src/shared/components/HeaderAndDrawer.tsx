@@ -20,7 +20,7 @@ import useScreenSize from "../hooks/useScreenSize";
 import { useDrawerStore } from "../../shared/store/DrawerStore";
 import { theme } from "../style-components/theme/theme";
 import Header from "./Header";
-import { useUserInfoStore } from "../../shared/store/UserStore";
+// import { useUserInfoStore } from "../../shared/store/UserStore";
 import { ROUTES_ADMIN } from "../consts/ROUTES_NAVBAR";
 import { useState } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
@@ -42,7 +42,7 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
 
   // const { data } = useGetProfileData();
   const drawerState = useDrawerStore((state) => state.drawerState);
-  const entity = useUserInfoStore((state) => state.entity);
+  const entity: number = 999;
   const { handleDrawerState } = useDrawerStore();
 
   let routes: any[];
@@ -114,7 +114,7 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                       location.pathname === item.url
                         ? theme.palette.primary.light
                         : theme.palette.primary.main,
-                    color: "#fff",
+                    color: "#000",
                     cursor: "pointer",
                     paddingX: 2,
                     borderRadius: "6px",
@@ -124,7 +124,7 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                   }}
                 >
                   <ListItemIcon>
-                    <IconComponent sx={{ fontSize: "25px", color: "#fff" }} />
+                    <IconComponent sx={{ fontSize: "25px", color: "#000" }} />
                   </ListItemIcon>
                   <ListItemText primary={item.title} />
                 </ListItem>

@@ -22,7 +22,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <ToastContainer />
       </ThemeProvider>
       {import.meta.env.MODE !== "production" && (
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ReactQueryDevtools
+          initialIsOpen={false}
+          buttonPosition="bottom-left"
+        />
       )}
     </QueryClientProvider>
   </BrowserRouter>

@@ -9,9 +9,16 @@ import Loader from "../shared/components/Loader";
 const QUERY_KEY = "verifyToken";
 
 export function ProtectedRoutes() {
-  const { isLoading, isError } = useQuery([QUERY_KEY], () =>
-    apiService.get("tokenVerify")
-  );
+  /* const {isLoading,isError} =  return useQuery({
+  queryKey: ['verifyToken'],
+  queryFn: () =>  apiService.get("verify_token"),
+}) */
+
+  const { isLoading, isError } = useQuery({
+    queryKey: [QUERY_KEY],
+    queryFn: () => apiService.get("verify_token"),
+  });
+
   const navigate = useNavigate();
 
   useEffect(() => {

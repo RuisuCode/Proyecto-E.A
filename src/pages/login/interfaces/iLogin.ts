@@ -1,10 +1,10 @@
 export interface ILogin {
-  ci: string;
+  cedula: string;
   password: string;
 }
 
 export interface IRecovery {
-  ci: string;
+  cedula: string;
   password: string;
   confirmPassword: string;
 }

@@ -39,8 +39,8 @@ export default function Header() {
 
   const logOut = async () => {
     handleCloseUserMenu();
-    logoutMutation();
-    // await logoutMutation.mutateAsync();
+    // logoutMutation();
+    await logoutMutation.mutateAsync();
   };
 
   return (
@@ -96,7 +96,7 @@ export default function Header() {
                 <Stack direction="row" alignItems="center" gap={1}>
                   <PersonIcon />
                   <Typography textAlign="start" fontWeight={700}>
-                    SACE
+                    Usuario
                   </Typography>
                 </Stack>
               </Stack>
