@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import LoginForm from "./components/loginForm";
@@ -13,6 +12,7 @@ import backgroundImg from "../../shared/assets/background3.jpg";
 import backgroundImg2 from "../../shared/assets/atleta-login.jpg";
 import backgroundImg3 from "../../shared/assets/backgroundImg4.jpg";
 import { useEffect, useState } from "react";
+import Box from "@mui/material/Box";
 
 export default function Login() {
   const Variants = {
