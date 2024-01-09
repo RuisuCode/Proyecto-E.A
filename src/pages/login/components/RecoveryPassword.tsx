@@ -16,7 +16,6 @@ import { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Modal from "@mui/material/Modal";
-//   import { useChangePassword, useRecoveryPassword } from '../hooks/useRecovery';
 
 export default function RecoveryPassword() {
   const [open, setOpen] = useState(false);
@@ -96,9 +95,9 @@ export default function RecoveryPassword() {
               <FormLabel>Cedula</FormLabel>
               <Input
                 type="string"
-                error={errors.ci && true}
+                error={errors.cedula && true}
                 placeholder="Colocar su Cedula"
-                {...register("ci", {
+                {...register("cedula", {
                   required: {
                     value: true,
                     message: "Este campo es requerido.",
@@ -111,7 +110,7 @@ export default function RecoveryPassword() {
               />
             </FormControl>
             <FormHelperText sx={{ color: "#f00" }}>
-              {errors.ci?.message && errors.ci.message}
+              {errors.cedula?.message && errors.cedula.message}
             </FormHelperText>
             <FormControl>
               <FormLabel>Contraseña</FormLabel>

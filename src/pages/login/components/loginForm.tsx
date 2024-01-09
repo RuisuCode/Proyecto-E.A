@@ -122,14 +122,14 @@ export default function LoginForm() {
       </Stack>
       <Stack
         textAlign={"right"}
-        my={2}
+        my={{ xs: 2, md: 0, lg: 2 }}
         width={"100%"}
         flexDirection={"row"}
         justifyContent={"space-between"}
         alignItems={"center"}
       >
         <Stack flexDirection={"row"}></Stack>
-        <Stack mt={2}>
+        <Stack mt={{ xs: "6vh", md: 0, lg: "5vh" }}>
           <RecoveryPassword />
         </Stack>
       </Stack>

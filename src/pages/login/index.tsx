@@ -146,7 +146,7 @@ export default function Login() {
                       >
                         <Typography
                           color={"#333"}
-                          fontSize={"3em"}
+                          fontSize={"2.8em"}
                           fontWeight={"bold"}
                           variant="inherit"
                         >
@@ -177,7 +177,7 @@ export default function Login() {
                       </Stack>
 
                       <Stack
-                        mt={6}
+                        mt={{ xs: 4, md: 0, lg: 2 }}
                         justifyContent="center"
                         alignItems={{ xs: "center", md: "flex-end" }}
                         mr={{ xs: 0, md: 18 }}
@@ -196,8 +196,8 @@ export default function Login() {
                               fontSize: { md: "1.3vw" },
                             }}
                           />
-                          Universidad Bolivariana de Venezuela <br /> del Estado
-                          Monagas-
+                          Universidad Bolivariana de Venezuela <br />
+                          del Estado Monagas-
                           {new Date().getFullYear()}
                         </Typography>
                       </Stack>
@@ -296,7 +296,7 @@ export default function Login() {
                     </Stack>
 
                     <Stack
-                      mt={6}
+                      mt={4}
                       justifyContent="center"
                       alignItems={{ xs: "center", md: "flex-end" }}
                       mr={{ xs: 0, md: 18 }}
