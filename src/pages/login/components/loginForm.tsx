@@ -14,7 +14,6 @@ import {
   Stack,
   OutlinedInput,
   CircularProgress,
-  Typography,
 } from "@mui/material";
 import RecoveryPassword from "./RecoveryPassword";
 import { useLogin } from "../hooks/useLogin";
@@ -22,10 +21,10 @@ import { useLogin } from "../hooks/useLogin";
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const { mutate, isPending } = useLogin();
-  const [inputValue, setInputValue] = useState("");
+  /*   const [inputValue, setInputValue] = useState("");
   const handleinputChange = (e: any) => {
     setInputValue(e.target.value);
-  };
+  }; */
   const {
     register,
     handleSubmit,
@@ -68,9 +67,9 @@ export default function LoginForm() {
                 message: "El máximo de dígitos que debe ingresar es 10",
               },
             })}
-            inputProps={{ startAdornment: <Typography>V-</Typography> }}
+            /*  inputProps={{ startAdornment: <Typography>V-</Typography> }}
             value={inputValue}
-            onChange={handleinputChange}
+            onChange={handleinputChange} */
           />
         </FormControl>
         <FormHelperText sx={{ color: "#000" }}>
