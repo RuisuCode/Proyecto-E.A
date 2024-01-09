@@ -5,11 +5,8 @@ import { ILogin } from "../interfaces/iLogin";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import BadgeIcon from "@mui/icons-material/Badge";
 import LockIcon from "@mui/icons-material/Lock";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
 
 import {
-  Button,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -17,7 +14,7 @@ import {
   Stack,
   OutlinedInput,
   CircularProgress,
-  colors,
+  Typography,
 } from "@mui/material";
 import RecoveryPassword from "./RecoveryPassword";
 import { useLogin } from "../hooks/useLogin";
@@ -25,6 +22,10 @@ import { useLogin } from "../hooks/useLogin";
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const { mutate, isPending } = useLogin();
+  const [inputValue, setInputValue] = useState("");
+  const handleinputChange = (e: any) => {
+    setInputValue(e.target.value);
+  };
   const {
     register,
     handleSubmit,
@@ -58,11 +59,21 @@ export default function LoginForm() {
                 value: true,
                 message: "Este campo es requerido.",
               },
+              minLength: {
+                value: 8,
+                message: "Debe tener un mínimo de 8 dígitos",
+              },
+              maxLength: {
+                value: 10,
+                message: "El máximo de dígitos que debe ingresar es 10",
+              },
             })}
+            inputProps={{ startAdornment: <Typography>V-</Typography> }}
+            value={inputValue}
+            onChange={handleinputChange}
           />
-          {/* Colocar aqui un patron de numero cedula */}
         </FormControl>
-        <FormHelperText sx={{ color: "#f00" }}>
+        <FormHelperText sx={{ color: "#000" }}>
           {errors.cedula?.message && errors.cedula.message}
         </FormHelperText>
 
@@ -92,25 +103,13 @@ export default function LoginForm() {
             })}
           />
         </FormControl>
-        <FormHelperText sx={{ color: "#f00" }}>
+        <FormHelperText sx={{ color: "#000" }}>
           {errors.password?.message && errors.password.message}
         </FormHelperText>
 
         {!isPending && (
           <Stack alignItems={"center"}>
-            <button
-              className="learn-more"
-              style={{ width: "80%" }}
-              // variant="contained"
-              // color="primary"
-              // type="submit"
-              /* sx={{
-                textTransform: "inherit",
-                height: "45px",
-                boxShadow: 5,
-                width: "80%",
-              }} */
-            >
+            <button className="learn-more" style={{ width: "80%" }}>
               <span>Iniciar sesión</span>
             </button>
           </Stack>
@@ -129,31 +128,7 @@ export default function LoginForm() {
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <Stack flexDirection={"row"}>
-          {/* <NavLink
-            target="_blank"
-            style={{ textDecoration: "none" }}
-            to={"https://www.instagram.com/indem_oficial/"}
-          >
-            <FontAwesomeIcon
-              style={{ marginRight: "40px" }}
-              color="#E84730"
-              size="xl"
-              icon={faInstagram}
-            />
-          </NavLink>
-          <NavLink
-            target="_blank"
-            to={"https://www.facebook.com/Asoatlemo/?locale=es_LA"}
-          >
-            <FontAwesomeIcon
-              style={{ marginRight: "5px" }}
-              color="#E84730"
-              size="xl"
-              icon={faFacebook}
-            />
-          </NavLink> */}
-        </Stack>
+        <Stack flexDirection={"row"}></Stack>
         <Stack mt={2}>
           <RecoveryPassword />
         </Stack>

@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-// import jwtDecode from "jwt-decode";
 
 // Local
 import { ACCESS_TOKEN } from "../../../shared/consts/ACCESS_TOKEN";
@@ -42,7 +41,7 @@ export function useLogin() {
         return;
       }
       if (statusResponse === 404) {
-        toast.error("Usuario o contraseña incorrectos.", {
+        toast.error("A ocurrido un error al intentar iniciar sesión", {
           position: "top-left",
         });
         return;
@@ -69,10 +68,3 @@ export function useLogout() {
     },
   });
 }
-//Cuando exista el borrar token en el back eliminar esto y descomentar lo de abajo
-/* const logOut = () => {
-    sessionStorage.removeItem(ACCESS_TOKEN);
-    navigate("/", { replace: true });
-  };
-
-  return logOut; */
