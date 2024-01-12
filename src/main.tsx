@@ -1,6 +1,7 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import ReactDOM from "react-dom/client";
 import "./shared/styles/index.css";
+import "./shared/styles/button.css";
 import { ThemeProvider } from "@emotion/react";
 import { BrowserRouter } from "react-router-dom";
 import RouterApp from "./router/index.tsx";
