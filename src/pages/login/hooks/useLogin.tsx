@@ -64,7 +64,10 @@ export function useLogout() {
       sessionStorage.removeItem(ACCESS_TOKEN);
       navigate("/", { replace: true });
       queryClient.clear();
-      toast.success("Éxito al cerrar session");
+      toast.success("Éxito al cerrar sesión");
+    },
+    onError: () => {
+      toast.error("Error al intentar cerrar sesión");
     },
   });
 }

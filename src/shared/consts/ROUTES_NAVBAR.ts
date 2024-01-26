@@ -1,4 +1,7 @@
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+
 /* export const ROUTES_SUPERADMIN = [
   {
     type: 'button',
@@ -44,6 +47,18 @@ export const ROUTES_ADMIN = [
     title: "Inicio",
     url: "/inicio",
     icon: HomeRoundedIcon,
+  },
+  {
+    type: "button" /* va a ser un collapse */,
+    title: "Atletas",
+    url: "/atletas",
+    icon: DirectionsRunIcon,
+  },
+  {
+    type: "button" /* va a ser un collapse */,
+    title: "Eventos",
+    url: "/eventos",
+    icon: CalendarMonthIcon,
   },
   /* {
     type: 'collapse',

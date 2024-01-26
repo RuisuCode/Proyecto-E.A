@@ -24,7 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       {import.meta.env.MODE !== "production" && (
         <ReactQueryDevtools
           initialIsOpen={false}
-          buttonPosition="bottom-left"
+          buttonPosition="bottom-right"
         />
       )}
     </QueryClientProvider>

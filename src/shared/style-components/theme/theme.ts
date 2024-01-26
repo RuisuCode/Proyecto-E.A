@@ -6,7 +6,8 @@ const theme = createTheme({
   palette: {
     primary: {
       main: "#E84730", //E84730 color principal
-      light: "#fff",
+      light: "#FFF3E0",
+      dark: "#7c2d12",
       "50": "#F9CEC8",
       "100": "#F39E91",
       "200": "#EF7E6C",
@@ -19,7 +20,7 @@ const theme = createTheme({
       "900": "#7c2d12",
     },
     secondary: { main: "#5E6973" },
-    info: { main: "#CA2E16" },
+    info: { main: "#fff" },
   },
   typography: {
     fontFamily: [

@@ -40,7 +40,7 @@ export default function RouterApp(): JSX.Element {
         }
       />
       {entity === 999 && (
-        <Route element={<ProtectedRoutes />}>
+        <Route /* element={<ProtectedRoutes />} */>
           <Route element={<LayoutDashboard />}>
             {map(adminRoutes, (route: IRoutes, index: number) => (
               <Route

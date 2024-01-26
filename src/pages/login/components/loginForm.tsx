@@ -21,10 +21,6 @@ import { useLogin } from "../hooks/useLogin";
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const { mutate, isPending } = useLogin();
-  /*   const [inputValue, setInputValue] = useState("");
-  const handleinputChange = (e: any) => {
-    setInputValue(e.target.value);
-  }; */
   const {
     register,
     handleSubmit,
@@ -48,6 +44,7 @@ export default function LoginForm() {
             sx={{
               height: "45px",
               boxShadow: 1,
+              borderRadius: "5em",
             }}
             type="number"
             error={errors.cedula && true}
@@ -67,9 +64,6 @@ export default function LoginForm() {
                 message: "El máximo de dígitos que debe ingresar es 10",
               },
             })}
-            /*  inputProps={{ startAdornment: <Typography>V-</Typography> }}
-            value={inputValue}
-            onChange={handleinputChange} */
           />
         </FormControl>
         <FormHelperText sx={{ color: "#000" }}>
@@ -84,7 +78,7 @@ export default function LoginForm() {
             type={showPassword ? "text" : "password"}
             error={errors.password && true}
             placeholder="Ingrese su contraseña"
-            sx={{ height: "45px", boxShadow: 1 }}
+            sx={{ height: "45px", boxShadow: 1, borderRadius: "5em" }}
             endAdornment={<LockIcon color="secondary" sx={{ ml: 1, mr: 1 }} />}
             startAdornment={
               <IconButton
@@ -108,7 +102,10 @@ export default function LoginForm() {
 
         {!isPending && (
           <Stack alignItems={"center"}>
-            <button className="learn-more" style={{ width: "80%" }}>
+            <button
+              className="learn-more"
+              style={{ width: "80%", borderRadius: "5em" }}
+            >
               <span>Iniciar sesión</span>
             </button>
           </Stack>
