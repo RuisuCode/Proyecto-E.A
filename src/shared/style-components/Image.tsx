@@ -1,5 +1,5 @@
 import { Component } from "react";
-import IMG from "../assets/banner.png";
+import IMG from "../assets/banner-sinfondo.png";
 class Image extends Component {
   render() {
     return (

@@ -1,6 +1,7 @@
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import RecentActorsIcon from "@mui/icons-material/RecentActors";
 
 /* export const ROUTES_SUPERADMIN = [
   {
@@ -49,10 +50,12 @@ export const ROUTES_ADMIN = [
     icon: HomeRoundedIcon,
   },
   {
-    type: "button" /* va a ser un collapse */,
-    title: "Atletas",
-    url: "/atletas",
+    type: "collapse",
+    titleButton: "Atletas",
     icon: DirectionsRunIcon,
+    buttonMenu: [
+      { icon: RecentActorsIcon, title: "Listado de Atletas", url: "/atletas" },
+    ],
   },
   {
     type: "button" /* va a ser un collapse */,

@@ -91,7 +91,7 @@ export default function InicioAdmin() {
             <HelpIcon
               fontSize="large"
               sx={{
-                color: "#f8e6d9",
+                color: "#f5f5f5",
                 boxShadow: 4,
                 borderRadius: "50%",
                 padding: 0,

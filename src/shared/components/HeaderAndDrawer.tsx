@@ -1,3 +1,4 @@
+import CssBaseline from "@mui/material/CssBaseline";
 import {
   Box,
   Toolbar,
@@ -23,7 +24,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import MuiDrawer from "@mui/material/Drawer";
 import { styled, Theme, CSSObject } from "@mui/material/styles";
 import { motion } from "framer-motion";
-import CssBaseline from "@mui/material/CssBaseline";
 import LogoutIcon from "@mui/icons-material/Logout";
 // Local
 import useScreenSize from "../hooks/useScreenSize";
@@ -152,7 +152,7 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
     ...theme.mixins.toolbar,
   }));
 
-  const drawer = (
+  /*  const drawer = (
     <div>
       <Stack
         direction="row"
@@ -305,7 +305,7 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
         </List>
       </Box>
     </div>
-  );
+  ); */
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -414,7 +414,7 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
             variant="permanent"
             sx={{ display: { sm: "none", xs: "block" } }}
           >
-            {drawer}
+            {/* {drawer} */}
           </Drawer>
         </Box>
       )}
@@ -500,17 +500,16 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
             />
 
             {routes.map((item, index) => {
-              const [open, setOpen] = useState(false);
+              const [open1, setOpen1] = useState(false);
 
               const handleClick = () => {
-                setOpen(!open);
+                setOpen1(!open1);
               };
-              console.log(item.url);
+              // console.log(item.url);
               if (item.type === "button") {
                 const IconComponent = item.icon;
-
                 return (
-                  <motion.div key={index} whileHover={{ marginLeft: 10 }}>
+                  <motion.div whileHover={{ marginLeft: 10 }}>
                     <ListItem
                       key={item.title}
                       onClick={() => (navigate(item.url), handleDrawer())}
@@ -550,81 +549,100 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
               }
               if (item.type === "collapse") {
                 const IconComponent = item.icon;
+
                 return (
                   <Stack key={index}>
-                    <ListItemButton
-                      onClick={handleClick}
-                      sx={{
-                        cursor: "pointer",
-                        paddingX: 2,
-                        borderRadius: "6px",
-                        "&:hover ": {
-                          background:
-                            location.pathname === item.url
-                              ? theme.palette.primary.main
-                              : theme.palette.primary.light,
-                        },
-                      }}
-                    >
-                      <ListItemIcon>
-                        <IconComponent
-                          sx={{ fontSize: "30px", color: "#fff" }}
+                    <motion.div whileHover={{ marginLeft: 10 }}>
+                      <ListItemButton
+                        onClick={handleClick}
+                        sx={{
+                          cursor: "pointer",
+                          paddingX: 2,
+                          borderRadius: "4px",
+                          "&:hover": {
+                            boxShadow: " rgba(0, 0, 0, 0.35) 0px 5px 15px;",
+                          },
+                        }}
+                      >
+                        <ListItemIcon>
+                          <IconComponent
+                            sx={{ fontSize: "30px", color: "#E84730" }}
+                          />
+                        </ListItemIcon>
+                        <ListItemText
+                          sx={{ color: "#E8473" }}
+                          primary={item.titleButton}
                         />
-                      </ListItemIcon>
-                      <ListItemText
-                        sx={{ color: "#fff" }}
-                        primary={item.titleButton}
-                      />
-                      {open ? (
-                        <ExpandLess sx={{ color: "#fff" }} />
-                      ) : (
-                        <ExpandMore sx={{ color: "#fff" }} />
-                      )}
-                    </ListItemButton>
-                    <Collapse
-                      in={open}
-                      timeout="auto"
-                      unmountOnExit
-                      sx={{ background: theme.palette.primary.main }}
-                    >
-                      <List component="div" disablePadding>
-                        {item.buttonMenu.map((item: any) => {
-                          const IconComponent = item.icon;
-                          return (
-                            <ListItem
-                              key={item.title}
-                              onClick={() => (
-                                navigate(item.url), handleDrawer()
-                              )}
-                              sx={{
-                                background:
-                                  location.pathname === item.url
-                                    ? theme.palette.primary.light
-                                    : theme.palette.primary.main,
-                                color:
-                                  location.pathname === item.url
-                                    ? "#fff"
-                                    : "#fff",
-                                cursor: "pointer",
-                                paddingX: 2,
-                                borderRadius: "6px",
-                                "&:hover ": {
-                                  background: theme.palette.primary.light,
-                                },
-                                paddingLeft: 5,
-                              }}
-                            >
-                              <ListItemIcon>
-                                <IconComponent
-                                  sx={{ fontSize: "30px", color: "#fff" }}
-                                />
-                              </ListItemIcon>
-                              <ListItemText primary={item.title} />
-                            </ListItem>
-                          );
-                        })}
-                      </List>
-                    </Collapse>
+                        {open1 ? (
+                          <ExpandLess sx={{ color: "#E84730", ml: 8 }} />
+                        ) : (
+                          <ExpandMore sx={{ color: "#E84730", ml: 8 }} />
+                        )}
+                      </ListItemButton>
+                    </motion.div>
+
+                    <motion.div whileHover={{ marginLeft: 10 }}>
+                      <Collapse
+                        in={open1}
+                        timeout="auto"
+                        unmountOnExit
+                        sx={{
+                          // background: theme.palette.primary.main,
+                          borderRadius: "4px",
+                          "&:hover": {
+                            boxShadow: " rgba(0, 0, 0, 0.35) 0px 5px 15px;",
+                          },
+                        }}
+                      >
+                        <List component="div" disablePadding>
+                          {item.buttonMenu.map((item: any) => {
+                            const IconComponent2 = item.icon;
+
+                            return (
+                              <ListItem
+                                key={item.title}
+                                onClick={() => (
+                                  navigate(item.url), handleDrawer()
+                                )}
+                                sx={{
+                                  background:
+                                    location.pathname === item.url
+                                      ? "#E84730"
+                                      : "#fff",
+                                  color:
+                                    location.pathname === item.url
+                                      ? "#fff"
+                                      : "#E84730",
+                                  cursor: "pointer",
+                                  paddingX: 2,
+                                  borderRadius: "6px",
+                                  mb: 1,
+
+                                  "&:hover": {
+                                    boxShadow:
+                                      " rgba(0, 0, 0, 0.35) 0px 5px 15px;",
+                                  },
+                                  // paddingLeft: 5,
+                                }}
+                              >
+                                <ListItemIcon>
+                                  <IconComponent2
+                                    sx={{
+                                      fontSize: "30px",
+                                      color:
+                                        location.pathname === item.url
+                                          ? "#fff"
+                                          : "#E84730",
+                                    }}
+                                  />
+                                </ListItemIcon>
+                                <ListItemText primary={item.title} />
+                              </ListItem>
+                            );
+                          })}
+                        </List>
+                      </Collapse>
+                    </motion.div>
                   </Stack>
                 );
               }

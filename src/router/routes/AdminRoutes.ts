@@ -7,7 +7,7 @@ const Atletas: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/atletas")
 );
 const Eventos: LazyExoticComponent<React.FC> = lazy(
-  () => import("../../pages/atletas")
+  () => import("../../pages/eventos")
 );
 
 export const adminRoutes = [
