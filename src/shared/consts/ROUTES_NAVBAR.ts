@@ -2,6 +2,9 @@ import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
+import EventNoteIcon from "@mui/icons-material/EventNote";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 
 /* export const ROUTES_SUPERADMIN = [
   {
@@ -55,13 +58,26 @@ export const ROUTES_ADMIN = [
     icon: DirectionsRunIcon,
     buttonMenu: [
       { icon: RecentActorsIcon, title: "Listado de Atletas", url: "/atletas" },
+      {
+        icon: PersonAddAlt1Icon,
+        title: "Agregar Atletas",
+        url: "/agregar-atletas",
+      },
     ],
   },
   {
-    type: "button" /* va a ser un collapse */,
-    title: "Eventos",
-    url: "/eventos",
-    icon: CalendarMonthIcon,
+    type: "collapse" /* va a ser un collapse */,
+    titleButton: "Eventos",
+    icon: EventNoteIcon,
+    buttonMenu: [
+      { icon: CalendarMonthIcon, title: "Listado de Eventos", url: "/eventos" },
+    ],
+  },
+  {
+    type: "button",
+    title: "Configuración del Entrenador",
+    url: "/config-user",
+    icon: ManageAccountsIcon,
   },
   /* {
     type: 'collapse',

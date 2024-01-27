@@ -21,10 +21,11 @@ import PersonIcon from "@mui/icons-material/Person";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BadgeIcon from "@mui/icons-material/Badge";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
-import SettingsIcon from "@mui/icons-material/Settings";
+// import SettingsIcon from "@mui/icons-material/Settings";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import HelpIcon from "@mui/icons-material/Help";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 
 export default function InicioAdmin() {
   const data = [
@@ -328,7 +329,7 @@ export default function InicioAdmin() {
                       Nombre del entrenador
                     </Typography>
                     <IconButton sx={{ mt: 2 }}>
-                      <SettingsIcon />
+                      <ManageAccountsIcon />
                     </IconButton>
                   </Stack>
                   <Stack direction={"row"}>
