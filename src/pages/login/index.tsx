@@ -50,8 +50,9 @@ export default function Login() {
           infiniteLoop={true}
           interval={20000}
           showArrows={false}
-          showIndicators={true}
+          showIndicators={false}
           showThumbs={false}
+          showStatus={false}
         >
           <div>
             <img src={backgroundImg} />

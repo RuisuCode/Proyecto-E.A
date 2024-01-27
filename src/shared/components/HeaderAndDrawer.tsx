@@ -1,3 +1,4 @@
+import CssBaseline from "@mui/material/CssBaseline";
 import {
   Box,
   Toolbar,
@@ -14,16 +15,12 @@ import {
   Drawer,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-// import InboxIcon from "@mui/icons-material/MoveToInbox";
-// import MailIcon from "@mui/icons-material/Mail";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useLocation, useNavigate } from "react-router-dom";
-// import Tooltip from "@mui/material/Tooltip";
 import MuiDrawer from "@mui/material/Drawer";
 import { styled, Theme, CSSObject } from "@mui/material/styles";
 import { motion } from "framer-motion";
-import CssBaseline from "@mui/material/CssBaseline";
 import LogoutIcon from "@mui/icons-material/Logout";
 // Local
 import useScreenSize from "../hooks/useScreenSize";
@@ -196,7 +193,6 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
             const handleClick = () => {
               setOpen(!open);
             };
-            console.log(item.url);
 
             if (item.type === "button") {
               const IconComponent = item.icon;
@@ -206,20 +202,21 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                   onClick={() => (navigate(item.url), handleDrawer())}
                   sx={{
                     background:
-                      location.pathname === item.url
-                        ? theme.palette.primary.main
-                        : theme.palette.primary.light,
-                    color: "#fff",
+                      location.pathname === item.url ? "#E84730" : "#fff",
+                    color: location.pathname === item.url ? "#fff" : "#E84730",
                     cursor: "pointer",
                     paddingX: 2,
                     borderRadius: "6px",
-                    "&:hover ": {
-                      background: theme.palette.primary.light,
-                    },
                   }}
                 >
                   <ListItemIcon>
-                    <IconComponent sx={{ fontSize: "25px", color: "#fff" }} />
+                    <IconComponent
+                      sx={{
+                        fontSize: "25px",
+                        color:
+                          location.pathname === item.url ? "#fff" : "#E84730",
+                      }}
+                    />
                   </ListItemIcon>
                   <ListItemText primary={item.title} />
                 </ListItem>
@@ -235,36 +232,39 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                       cursor: "pointer",
                       paddingX: 2,
                       borderRadius: "6px",
-                      "&:hover ": {
-                        background:
-                          location.pathname === item.url
-                            ? theme.palette.primary.main
-                            : theme.palette.primary.light,
+                      mb: 1,
+                      "&:hover": {
+                        boxShadow: " rgba(0, 0, 0, 0.35) 0px 5px 15px;",
                       },
                     }}
                   >
                     <ListItemIcon>
-                      <IconComponent sx={{ fontSize: "30px", color: "#fff" }} />
+                      <IconComponent
+                        sx={{ fontSize: "30px", color: "#E84730" }}
+                      />
                     </ListItemIcon>
                     <ListItemText
-                      sx={{ color: "#fff" }}
+                      sx={{ color: "#E84730" }}
                       primary={item.titleButton}
                     />
                     {open ? (
-                      <ExpandLess sx={{ color: "#fff" }} />
+                      <ExpandLess sx={{ color: "#E84730", ml: 8 }} />
                     ) : (
-                      <ExpandMore sx={{ color: "#fff" }} />
+                      <ExpandMore sx={{ color: "#E84730", ml: 8 }} />
                     )}
                   </ListItemButton>
                   <Collapse
                     in={open}
                     timeout="auto"
                     unmountOnExit
-                    sx={{ background: theme.palette.primary.main }}
+                    sx={{
+                      borderRadius: "4px",
+                    }}
                   >
                     <List component="div" disablePadding>
                       {item.buttonMenu.map((item: any) => {
-                        const IconComponent = item.icon;
+                        const IconComponent2 = item.icon;
+
                         return (
                           <ListItem
                             key={item.title}
@@ -272,24 +272,30 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                             sx={{
                               background:
                                 location.pathname === item.url
-                                  ? theme.palette.primary.light
-                                  : theme.palette.primary.main,
+                                  ? "#E84730"
+                                  : "#fff",
                               color:
                                 location.pathname === item.url
                                   ? "#fff"
-                                  : "#fff",
+                                  : "#E84730",
                               cursor: "pointer",
                               paddingX: 2,
                               borderRadius: "6px",
-                              "&:hover ": {
-                                background: theme.palette.primary.light,
+                              "&:hover": {
+                                boxShadow: " rgba(0, 0, 0, 0.35) 0px 5px 15px;",
                               },
                               paddingLeft: 5,
                             }}
                           >
                             <ListItemIcon>
-                              <IconComponent
-                                sx={{ fontSize: "30px", color: "#fff" }}
+                              <IconComponent2
+                                sx={{
+                                  fontSize: "30px",
+                                  color:
+                                    location.pathname === item.url
+                                      ? "#fff"
+                                      : "#E84730",
+                                }}
                               />
                             </ListItemIcon>
                             <ListItemText primary={item.title} />
@@ -310,7 +316,6 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      {/* <Header /> */}
       <AppBar
         position="fixed"
         open={open}
@@ -322,10 +327,6 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
             aria-label="open drawer"
             onClick={handleShowdrawer}
             sx={{
-              // display: "flex",
-              // position: "absolute",
-              // right: "-18px",
-              // zIndex: 350,
               ...(open && { display: "none" }),
             }}
           >
@@ -421,7 +422,6 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
       <Box
         component="nav"
         sx={{
-          // width: width < DRAWER_SPAWN ? 0 : DRAWER_WIDTH,
           flexShrink: { sm: 0 },
           display: { xs: "none", md: "initial", lg: "initial" },
           backgroundColor: "#f8e6d9",
@@ -448,24 +448,12 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               sx={{
-                // display: "flex",
-                // position: "absolute",
-                // right: "-18px",
-                // zIndex: 350,
                 ...(open && { display: "none" }),
               }}
             >
               <ChevronRightIcon sx={{ color: "#E84730" }} />
             </IconButton>
             {open && (
-              // <Typography
-              //   sx={{ color: "#E84730" }}
-              //   letterSpacing={5}
-              //   width={"100%"}
-              //   align="center"
-              // >
-              //   Logo
-              // </Typography>
               <Stack height={120}>
                 <Image />
               </Stack>
@@ -481,34 +469,21 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
               )}
             </IconButton>
           </DrawerHeader>
-          <Divider />
-          <List
-          // sx={{
-          //   paddingTop: 0,
-          //   ".MuiListItemIcon-root": {
-          //     minWidth: "35px",
-          //   },
-          //   ".MuiListItem-root": {
-          //     height: "40px",
-          //     marginY: "5px",
-          //   },
-          // }}
-          >
+          <Divider sx={{ mt: 1 }} />
+          <List>
             <Stack
               justifyContent="center"
               sx={{ height: "30px", paddingLeft: 2 }}
             />
 
             {routes.map((item, index) => {
-              const [open, setOpen] = useState(false);
+              const [open1, setOpen1] = useState(false);
 
               const handleClick = () => {
-                setOpen(!open);
+                setOpen1(!open1);
               };
-              console.log(item.url);
               if (item.type === "button") {
                 const IconComponent = item.icon;
-
                 return (
                   <motion.div key={index} whileHover={{ marginLeft: 10 }}>
                     <ListItem
@@ -519,10 +494,6 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                           location.pathname === item.url ? "#E84730" : "#fff",
                         color:
                           location.pathname === item.url ? "#fff" : "#E84730",
-                        // border: "solid 2px",
-                        // borderColor: "#20272F",
-                        // borderTop: "none",
-                        // borderInline: "none",
                         cursor: "pointer",
                         paddingX: 2,
                         borderRadius: "4px",
@@ -550,77 +521,92 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
               }
               if (item.type === "collapse") {
                 const IconComponent = item.icon;
+
                 return (
                   <Stack key={index}>
-                    <ListItemButton
-                      onClick={handleClick}
+                    <motion.div whileHover={{ marginLeft: 10 }}>
+                      <ListItemButton
+                        onClick={handleClick}
+                        sx={{
+                          cursor: "pointer",
+                          paddingX: 2,
+                          borderRadius: "4px",
+                          mb: 1,
+                          "&:hover": {
+                            boxShadow: " rgba(0, 0, 0, 0.35) 0px 5px 15px;",
+                          },
+                        }}
+                      >
+                        <ListItemIcon>
+                          <IconComponent
+                            sx={{ fontSize: "30px", color: "#E84730" }}
+                          />
+                        </ListItemIcon>
+                        <ListItemText
+                          sx={{ color: "#E84730" }}
+                          primary={item.titleButton}
+                        />
+                        {open1 ? (
+                          <ExpandLess sx={{ color: "#E84730", ml: 8 }} />
+                        ) : (
+                          <ExpandMore sx={{ color: "#E84730", ml: 8 }} />
+                        )}
+                      </ListItemButton>
+                    </motion.div>
+
+                    <Collapse
+                      in={open1}
+                      timeout="auto"
+                      unmountOnExit
                       sx={{
-                        cursor: "pointer",
-                        paddingX: 2,
-                        borderRadius: "6px",
-                        "&:hover ": {
-                          background:
-                            location.pathname === item.url
-                              ? theme.palette.primary.main
-                              : theme.palette.primary.light,
+                        borderRadius: "4px",
+                        "&:hover": {
+                          boxShadow: " rgba(0, 0, 0, 0.35) 0px 5px 15px;",
                         },
                       }}
                     >
-                      <ListItemIcon>
-                        <IconComponent
-                          sx={{ fontSize: "30px", color: "#fff" }}
-                        />
-                      </ListItemIcon>
-                      <ListItemText
-                        sx={{ color: "#fff" }}
-                        primary={item.titleButton}
-                      />
-                      {open ? (
-                        <ExpandLess sx={{ color: "#fff" }} />
-                      ) : (
-                        <ExpandMore sx={{ color: "#fff" }} />
-                      )}
-                    </ListItemButton>
-                    <Collapse
-                      in={open}
-                      timeout="auto"
-                      unmountOnExit
-                      sx={{ background: theme.palette.primary.main }}
-                    >
                       <List component="div" disablePadding>
                         {item.buttonMenu.map((item: any) => {
-                          const IconComponent = item.icon;
+                          const IconComponent2 = item.icon;
+
                           return (
-                            <ListItem
-                              key={item.title}
-                              onClick={() => (
-                                navigate(item.url), handleDrawer()
-                              )}
-                              sx={{
-                                background:
-                                  location.pathname === item.url
-                                    ? theme.palette.primary.light
-                                    : theme.palette.primary.main,
-                                color:
-                                  location.pathname === item.url
-                                    ? "#fff"
-                                    : "#fff",
-                                cursor: "pointer",
-                                paddingX: 2,
-                                borderRadius: "6px",
-                                "&:hover ": {
-                                  background: theme.palette.primary.light,
-                                },
-                                paddingLeft: 5,
-                              }}
+                            <motion.div
+                              key={index}
+                              whileHover={{ marginLeft: 10 }}
                             >
-                              <ListItemIcon>
-                                <IconComponent
-                                  sx={{ fontSize: "30px", color: "#fff" }}
-                                />
-                              </ListItemIcon>
-                              <ListItemText primary={item.title} />
-                            </ListItem>
+                              <ListItem
+                                key={item.title}
+                                onClick={() => (
+                                  navigate(item.url), handleDrawer()
+                                )}
+                                sx={{
+                                  background:
+                                    location.pathname === item.url
+                                      ? "#E84730"
+                                      : "#fff",
+                                  color:
+                                    location.pathname === item.url
+                                      ? "#fff"
+                                      : "#E84730",
+                                  cursor: "pointer",
+                                  paddingX: 2,
+                                  borderRadius: "6px",
+                                }}
+                              >
+                                <ListItemIcon>
+                                  <IconComponent2
+                                    sx={{
+                                      fontSize: "30px",
+                                      color:
+                                        location.pathname === item.url
+                                          ? "#fff"
+                                          : "#E84730",
+                                    }}
+                                  />
+                                </ListItemIcon>
+                                <ListItemText primary={item.title} />
+                              </ListItem>
+                            </motion.div>
                           );
                         })}
                       </List>
@@ -636,13 +622,9 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
               onClick={logOut}
               sx={{
                 color: "#E84730",
-                // border: "solid 2px",
-                // borderColor: "#20272F",
-                // borderTop: "none",
-                // borderInline: "none",
                 cursor: "pointer",
                 paddingX: 2,
-                // borderRadius: "6px",
+
                 "&:hover ": {
                   background: "rgba(0, 0, 0, 0.04)",
                 },

@@ -5,11 +5,11 @@ import Typography from "@mui/material/Typography";
 
 /* icons */
 
-export default function Eventos() {
+export default function agregarAtletas() {
   return (
     <>
-      <Stack justifyContent={"center"} alignItems={"center"}>
-        <Typography>Eventos</Typography>
+      <Stack mt={5} justifyContent={"center"} alignItems={"center"}>
+        <Typography>Agregar Atletas</Typography>
       </Stack>
     </>
   );

@@ -30,7 +30,7 @@ export default function LoginForm() {
   return (
     <>
       <Stack
-        gap={2}
+        gap={3}
         width={{ xs: "100%", md: "32vw" }}
         onSubmit={handleSubmit(onSubmit)}
         component="form"
@@ -65,10 +65,10 @@ export default function LoginForm() {
               },
             })}
           />
+          <FormHelperText sx={{ color: "#000" }}>
+            {errors.cedula?.message && errors.cedula.message}
+          </FormHelperText>
         </FormControl>
-        <FormHelperText sx={{ color: "#000" }}>
-          {errors.cedula?.message && errors.cedula.message}
-        </FormHelperText>
 
         <FormControl>
           <FormLabel sx={{ fontSize: "18px", textAlign: "center" }}>
@@ -95,10 +95,10 @@ export default function LoginForm() {
               },
             })}
           />
+          <FormHelperText sx={{ color: "#000" }}>
+            {errors.password?.message && errors.password.message}
+          </FormHelperText>
         </FormControl>
-        <FormHelperText sx={{ color: "#000" }}>
-          {errors.password?.message && errors.password.message}
-        </FormHelperText>
 
         {!isPending && (
           <Stack alignItems={"center"}>

@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import Logoubv from "../assets/cropped-logo-estandarte-ubv-4.png";
-import deltaAtletics from "../assets/banner.png";
+import deltaAtletics from "../assets/banner-sinfondo.png";
 
 export default function Footer() {
   return (
@@ -10,13 +10,14 @@ export default function Footer() {
         alignItems="center"
         justifyContent="space-between"
         width={"100%"}
+        mt={1}
         sx={{
-          backgroundColor: "#fff",
+          backgroundColor: "transparent",
           paddingY: 1,
           paddingX: 2,
           position: "relative",
-          bottom: 0,
-          minHeight: "17vh",
+          bottom: "0.1",
+          minHeight: "200",
         }}
       >
         <Box>
@@ -24,10 +25,14 @@ export default function Footer() {
         </Box>
 
         <Stack alignItems="center">
-          <Typography fontWeight={600} fontSize="14px">
+          <Typography
+            fontWeight={600}
+            sx={{ textShadow: " 0px 3px  #f5f5f5 " }}
+            fontSize="14px"
+          >
             Universidad Bolivariana del estado Monagas
           </Typography>
-          <Typography fontSize="12px">
+          <Typography fontSize="12px" sx={{ textShadow: " 0px 3px  #f5f5f5 " }}>
             Todos los derechos reservados. © {new Date().getFullYear()}
           </Typography>
         </Stack>
