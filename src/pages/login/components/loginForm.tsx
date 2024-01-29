@@ -36,7 +36,7 @@ export default function LoginForm() {
         component="form"
         mr={{ xs: 0, md: 5 }}
       >
-        <FormControl>
+        <FormControl sx={{ height: "10vh" }}>
           <FormLabel sx={{ fontSize: "18px", textAlign: "center" }}>
             Cedula
           </FormLabel>
@@ -70,7 +70,7 @@ export default function LoginForm() {
           </FormHelperText>
         </FormControl>
 
-        <FormControl>
+        <FormControl sx={{ height: "10vh" }}>
           <FormLabel sx={{ fontSize: "18px", textAlign: "center" }}>
             Contraseña
           </FormLabel>

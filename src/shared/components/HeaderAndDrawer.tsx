@@ -471,11 +471,6 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
           </DrawerHeader>
           <Divider sx={{ mt: 1 }} />
           <List>
-            <Stack
-              justifyContent="center"
-              sx={{ height: "30px", paddingLeft: 2 }}
-            />
-
             {routes.map((item, index) => {
               const [open1, setOpen1] = useState(false);
 
