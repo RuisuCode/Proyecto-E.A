@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import { Portal } from "@mui/base/Portal";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import { GridColDef } from "@mui/x-data-grid";
 import {
   DataGrid,
   GridToolbarQuickFilter,
@@ -52,32 +53,33 @@ export default function Atletas() {
   ];
 
   // Otherwise filter will be applied on fields such as the hidden column id
-  const columns = [
+  const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90 },
     {
       field: "title",
       headerName: "Titulo",
-      width: 150,
+      width: 200,
       editable: true,
     },
     {
       field: "completed",
       headerName: "Completado",
-      width: 150,
+      width: 200,
       editable: true,
     },
     {
       field: "createdAt",
       headerName: "creado el",
       type: "number",
-      width: 110,
+      width: 220,
       editable: true,
+      headerAlign: "center",
     },
     {
       field: "updatedAt",
       headerName: "actualizado el",
       type: "number",
-      width: 110,
+      width: 210,
       editable: true,
     },
   ];
@@ -163,7 +165,7 @@ export default function Atletas() {
             </Grid>
             <Grid item style={{ height: 400, width: "100%" }}>
               <DataGrid
-                style={{ borderRadius: "1em" }}
+                style={{ borderRadius: "1em", width: "100%" }}
                 rows={todos}
                 columns={columns}
                 slots={{
