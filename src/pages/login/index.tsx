@@ -50,18 +50,27 @@ export default function Login() {
           infiniteLoop={true}
           interval={20000}
           showArrows={false}
-          showIndicators={false}
+          showIndicators={true}
           showThumbs={false}
           showStatus={false}
         >
           <div>
-            <img src={backgroundImg} />
+            <img
+              src={backgroundImg}
+              style={{ backgroundSize: "cover", height: "100vh" }}
+            />
           </div>
           <div>
-            <img src={backgroundImg2} />
+            <img
+              src={backgroundImg2}
+              style={{ backgroundSize: "cover", height: "100vh" }}
+            />
           </div>
           <div>
-            <img src={backgroundImg3} />
+            <img
+              src={backgroundImg3}
+              style={{ backgroundSize: "cover", height: "100vh" }}
+            />
           </div>
         </Carousel>
       </Box>
@@ -85,12 +94,30 @@ export default function Login() {
                 duration: 1,
                 delay: 0.2,
               }}
-              style={{ width: "100%" }}
+              style={{
+                width: "100%",
+                // filter: "drop-shadow(-3px 3px 10px  #f2e6e1)",
+              }}
             >
-              <Box
+              {/*  <Box
                 style={{
                   width: "100%",
-                  filter: "drop-shadow(-3px 3px 10px  #f2e6e1)",
+                }}
+              >
+              </Box> */}
+              <motion.div
+                viewport={{ once: true }}
+                initial={{ filter: "drop-shadow(-4px 3px 10px  #f2e6e1)" }}
+                animate={{ filter: "drop-shadow(-6px 3px 15px  #F77540)" }}
+                transition={{
+                  ease: "easeOut",
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  duration: 8,
+                  delay: 0.3,
+                }}
+                style={{
+                  width: "100%",
                 }}
               >
                 <Stack
@@ -205,7 +232,7 @@ export default function Login() {
                     </motion.div>
                   </Box>
                 </Stack>
-              </Box>
+              </motion.div>
             </motion.div>
           )}
           {!isVisible && (
@@ -225,9 +252,7 @@ export default function Login() {
                   width: { xs: "100vw", lg: "100%" },
                   height: { xs: "100vh", lg: "100vh" },
                   opacity: { xs: 1, md: 1 },
-
                   border: "transparent",
-
                   zIndex: { xs: 0, md: "999" },
                   clipPath: { xs: 0, md: "circle(50% at 94% 53%)" },
                 }}

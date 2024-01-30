@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 import "../../shared/styles/notfound.css";
+import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 
 export default function notFound() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -18,11 +19,13 @@ export default function notFound() {
         </Box>
         <Stack alignItems={"center"} width={"100vw"}>
           <Button
-            sx={{
+            style={{
+              borderRadius: "10em",
               height: "6vh",
               position: "absolute",
               bottom: "30vh",
             }}
+            startIcon={<ReplyAllIcon />}
             className="learn-more"
             onClick={() => navigate(-1)}
           >

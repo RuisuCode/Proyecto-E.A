@@ -6,7 +6,8 @@ class Image extends Component {
       <img
         width={"240px"}
         height={"auto"}
-        style={{ marginBottom: 0 }}
+        style={{ marginBottom: 0, pointerEvents: "none" }}
+        draggable={false}
         src={IMG}
       />
     );
