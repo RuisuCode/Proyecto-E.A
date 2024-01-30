@@ -14,6 +14,7 @@ import IconButton from "@mui/material/IconButton";
 import { Divider } from "@mui/material";
 import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
 import { Carousel } from "react-responsive-carousel";
+import { useNavigate } from "react-router-dom";
 /* local */
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 /* icons */
@@ -21,8 +22,9 @@ import PersonIcon from "@mui/icons-material/Person";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import BadgeIcon from "@mui/icons-material/Badge";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
-// import SettingsIcon from "@mui/icons-material/Settings";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+
 import HelpIcon from "@mui/icons-material/Help";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
@@ -38,7 +40,7 @@ export default function InicioAdmin() {
     { value: 5, color: "#ee6633" },
     { value: 20, color: "#648589" },
   ];
-
+  const navigate = useNavigate();
   const TOTAL = data.map((item) => item.value).reduce((a, b) => a + b, 0);
 
   const getArcLabel = (params: DefaultizedPieValueType) => {
@@ -52,7 +54,7 @@ export default function InicioAdmin() {
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
-          mt={5}
+          my={3}
           sx={{ width: "80vw" }}
         >
           <Badge
@@ -61,15 +63,16 @@ export default function InicioAdmin() {
               borderRadius: "10px",
               boxShadow: 4,
               height: 40,
-              width: 280,
+              width: "auto",
               alignItems: "center",
               justifyContent: "center",
               gap: 2,
+              paddingInline: 2,
             }}
           >
             <HomeRoundedIcon sx={{ color: "#fff" }} fontSize="medium" />
             <Typography fontSize={"0.9em"} fontWeight={"bold"} color="#fff">
-              /
+              <NavigateNextIcon />
             </Typography>
             <Typography
               fontSize={"0.9em"}
@@ -77,7 +80,7 @@ export default function InicioAdmin() {
               letterSpacing={1.5}
               color="#fff"
             >
-              Información General
+              {location.pathname.split("/")[1]}
             </Typography>
           </Badge>
           <Badge
@@ -109,7 +112,7 @@ export default function InicioAdmin() {
             boxShadow: 5,
             width: { lg: "80vw", xs: "95%" },
             height: { xs: "100%", lg: "65vh" },
-            my: 3,
+            my: 1,
             borderRadius: "1em",
           }}
         >
@@ -198,11 +201,9 @@ export default function InicioAdmin() {
                   >
                     <div
                       style={{
-                        backgroundColor: "rgba(255,177,166,1) ",
+                        backgroundColor: "transparent",
                         height: 100,
                         borderRadius: "1em",
-
-                        boxShadow: " rgba(0, 0, 0, 0.24) 0px 3px 8px",
                       }}
                     >
                       <Typography
@@ -218,11 +219,9 @@ export default function InicioAdmin() {
                     </div>
                     <div
                       style={{
-                        backgroundColor: "rgba(255,177,166,1) ",
+                        backgroundColor: "transparent ",
                         height: 100,
                         borderRadius: "1em",
-
-                        boxShadow: " rgba(0, 0, 0, 0.24) 0px 3px 8px",
                       }}
                     >
                       <Typography
@@ -328,11 +327,14 @@ export default function InicioAdmin() {
                     >
                       Nombre del entrenador
                     </Typography>
-                    <IconButton sx={{ mt: 2 }}>
+                    <IconButton
+                      sx={{ mt: 2 }}
+                      onClick={() => navigate("/config-user")}
+                    >
                       <ManageAccountsIcon />
                     </IconButton>
                   </Stack>
-                  <Stack direction={"row"}>
+                  <Stack direction={"row"} alignItems={"center"}>
                     <List
                       sx={{
                         width: "100%",

@@ -15,6 +15,9 @@ const agregarAtletas: LazyExoticComponent<React.FC> = lazy(
 const configEntrenador: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/configuracion-entrenador")
 );
+const editConfigEntrenador: LazyExoticComponent<React.FC> = lazy(
+  () => import("../../pages/editar-config-entrenador")
+);
 
 export const adminRoutes = [
   {
@@ -40,6 +43,11 @@ export const adminRoutes = [
   {
     route: "/config-user",
     component: configEntrenador,
-    title: "Agregar Atletas",
+    title: "Configurar Entrenador",
+  },
+  {
+    route: "/edit-config-user",
+    component: editConfigEntrenador,
+    title: "Editar Entrenador",
   },
 ];

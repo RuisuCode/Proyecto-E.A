@@ -18,6 +18,9 @@ export default function Footer() {
           position: "relative",
           bottom: "0.1",
           minHeight: "200",
+          border: "solid 1px rgba(0, 0, 0, 0.14)",
+          borderInline: "none",
+          borderBottom: "none",
         }}
       >
         <Box>

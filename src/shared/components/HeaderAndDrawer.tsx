@@ -555,9 +555,7 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                       unmountOnExit
                       sx={{
                         borderRadius: "4px",
-                        "&:hover": {
-                          boxShadow: " rgba(0, 0, 0, 0.35) 0px 5px 15px;",
-                        },
+                        mb: 1,
                       }}
                     >
                       <List component="div" disablePadding>
@@ -586,6 +584,10 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                                   cursor: "pointer",
                                   paddingX: 2,
                                   borderRadius: "6px",
+                                  "&:hover": {
+                                    boxShadow:
+                                      " rgba(0, 0, 0, 0.35) 0px 5px 15px;",
+                                  },
                                 }}
                               >
                                 <ListItemIcon>
