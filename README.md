@@ -25,7 +25,7 @@ YARN:
 2. Ejecutar el comando "yarn dev" para ejecutar la aplicación.
 
 > [!NOTE]
-> Si tiene problemas con al cargar la pagina, colocar el siguiente comando "npm run dev --force".
+> Si tiene problemas al cargar la pagina, colocar el siguiente comando "npm run dev --force".
 > En caso de usar yarn colocar "yarn dev --force".
 
 ### Rutas de la aplicación
