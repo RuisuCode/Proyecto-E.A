@@ -14,8 +14,19 @@ Clone este repositorio. Necesitarás node y npm instalado globalmente en tu equi
 
 Instalación:
 
+NPM:
+
 1. Ejecutar el comando "npm install" en la consola para instalar las dependencias.
 2. Ejecutar el comando "npm run dev" para ejecutar la aplicación.
+
+YARN:
+
+1. Ejecutar el comando "yarn" en la consola para instalar las dependencias.
+2. Ejecutar el comando "yarn dev" para ejecutar la aplicación.
+
+> [!NOTE]
+> Si tiene problemas con al cargar la pagina, colocar el siguiente comando "npm run dev --force".
+> En caso de usar yarn colocar "yarn dev --force".
 
 ### Rutas de la aplicación
 
