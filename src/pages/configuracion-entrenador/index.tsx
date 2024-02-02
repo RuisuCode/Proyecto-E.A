@@ -42,6 +42,7 @@ export default function configurarUser() {
           direction={"row"}
           justifyContent={"space-between"}
           my={3}
+          mt={{ xs: 6 }}
           sx={{ width: "80vw" }}
         >
           <Badge
@@ -95,17 +96,17 @@ export default function configurarUser() {
         </Stack>
         <Stack
           bgcolor={"#fff"}
-          width={"50vw"}
-          height={"80vh"}
+          width={{ xs: "95vw", lg: "60vw" }}
+          height={"auto"}
           borderRadius={"1em"}
           boxShadow={5}
-          px={3}
+          px={{ lg: 3, xs: 0 }}
           pb={3}
           sx={{ overflowX: "hidden" }}
           alignItems={"center"}
         >
           <Box
-            width={"110%"}
+            width={{ lg: "110%", xs: "100%" }}
             height={"150px"}
             bgcolor={"#E84730"}
             borderRadius={"1em"}
@@ -123,12 +124,18 @@ export default function configurarUser() {
                 position: "relative",
                 boxShadow: 5,
                 top: 50,
+                ml: 1,
                 "&:hover": { background: "#fff" },
               }}
             >
               <AccountCircleIcon color="primary" sx={{ fontSize: 150 }} />
             </IconButton>
-            <Stack justifyContent={"space-between"} direction={"row"}>
+
+            <Stack
+              justifyContent={"space-between"}
+              width={"100%"}
+              direction={"row"}
+            >
               <Stack gap={1} mx={2} my={1} direction={"column"}>
                 <ListItem sx={{ paddingInline: "0" }}>
                   <ListItemAvatar>
@@ -139,7 +146,7 @@ export default function configurarUser() {
                   <Typography
                     width={"100%"}
                     color={"#fff"}
-                    fontSize={"1.5em"}
+                    fontSize={{ lg: "1.5em", xs: "1em" }}
                     fontWeight={"bold"}
                   >
                     Nombre del Entrenador Completo
@@ -154,14 +161,19 @@ export default function configurarUser() {
                   <Typography
                     width={"100%"}
                     color={"#fff"}
-                    fontSize={"1.5em"}
+                    fontSize={{ lg: "1.5em", xs: "1.2em" }}
                     fontWeight={"bold"}
                   >
                     Cedula
                   </Typography>
                 </ListItem>
               </Stack>
-              <Stack justifyContent={"center"} width={180} alignItems={"end"}>
+              <Stack
+                justifyContent={"center"}
+                mr={2}
+                display={{ xs: "none", md: "flex" }}
+                alignItems={"end"}
+              >
                 <motion.div whileHover={{ scale: 1.1 }}>
                   <IconButton
                     onClick={() => navigate("/edit-config-user")}
@@ -180,18 +192,56 @@ export default function configurarUser() {
               </Stack>
             </Stack>
           </Box>
+          <Stack
+            justifyContent={"center"}
+            mr={{ lg: 2, xs: 5 }}
+            my={1}
+            width={"100%"}
+            display={{ xs: "flex", md: "none" }}
+            alignItems={"end"}
+          >
+            <motion.div whileHover={{ scale: 1.1 }}>
+              <IconButton
+                onClick={() => navigate("/edit-config-user")}
+                sx={{
+                  bgcolor: "#fff",
+                  boxShadow: 3,
+                  "&:hover": { bgcolor: "#fff", boxShadow: 10 },
+                }}
+              >
+                <DriveFileRenameOutlineIcon fontSize="large" color="primary" />
+              </IconButton>
+            </motion.div>
+          </Stack>
           <Box
             width={"100%"}
-            height={210}
+            height={"auto"}
             bgcolor={"#fff"}
             borderRadius={"1em"}
-            boxShadow={5}
-            mt={8}
+            mt={{ lg: 8, xs: 2 }}
             pb={3}
           >
-            <Grid container direction={"row"}>
-              <Grid width={"50%"}>
-                <Typography width={"100%"} align="center" bgcolor={"#f5f5f5"}>
+            <Grid
+              container
+              direction={{ md: "row", xs: "column" }}
+              justifyContent={"space-between"}
+            >
+              <Grid
+                md={5.8}
+                boxShadow={2}
+                borderRadius={"1em"}
+                pb={1}
+                mb={{ xs: 2, md: 0 }}
+              >
+                <Typography
+                  width={"100%"}
+                  sx={{
+                    borderTopLeftRadius: "1em",
+                    borderTopRightRadius: "1em",
+                  }}
+                  align="center"
+                  bgcolor={"#f5f5f5"}
+                >
                   Datos personales
                 </Typography>
                 <Stack direction={"row"} alignItems={"center"}>
@@ -251,11 +301,23 @@ export default function configurarUser() {
                   </List>
                 </Stack>
               </Grid>
-              <Grid width={"50%"}>
-                <Typography width={"100%"} align="center" bgcolor={"#f5f5f5"}>
+              <Grid md={5.8} boxShadow={2} pb={1} borderRadius={"1em"}>
+                <Typography
+                  width={"100%"}
+                  align="center"
+                  sx={{
+                    borderTopLeftRadius: "1em",
+                    borderTopRightRadius: "1em",
+                  }}
+                  bgcolor={"#f5f5f5"}
+                >
                   Datos de Comunicación
                 </Typography>
-                <Stack direction={"row"} alignItems={"center"}>
+                <Stack
+                  direction={"row"}
+                  justifyContent={{ xs: "center", md: "initial" }}
+                  alignItems={"center"}
+                >
                   <List
                     sx={{
                       width: "100%",
@@ -295,11 +357,18 @@ export default function configurarUser() {
             height={"auto"}
             bgcolor={"#fff"}
             borderRadius={"1em"}
-            boxShadow={5}
+            boxShadow={2}
             mt={2}
-            // pb={3}
           >
-            <Typography width={"100%"} align="center" bgcolor={"#f5f5f5"}>
+            <Typography
+              width={"100%"}
+              align="center"
+              sx={{
+                borderTopLeftRadius: "1em",
+                borderTopRightRadius: "1em",
+              }}
+              bgcolor={"#f5f5f5"}
+            >
               Datos de Académicos
             </Typography>
             <Stack

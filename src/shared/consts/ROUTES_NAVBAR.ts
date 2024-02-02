@@ -5,6 +5,7 @@ import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import AssignmentIcon from "@mui/icons-material/Assignment";
 
 /* export const ROUTES_SUPERADMIN = [
   {
@@ -64,6 +65,12 @@ export const ROUTES_ADMIN = [
         url: "/agregar-atletas",
       },
     ],
+  },
+  {
+    type: "button",
+    title: "Actividades",
+    url: "/activities",
+    icon: AssignmentIcon,
   },
   {
     type: "collapse" /* va a ser un collapse */,

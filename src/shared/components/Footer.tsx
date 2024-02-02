@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
-import Logoubv from "../assets/cropped-logo-estandarte-ubv-4.png";
-import deltaAtletics from "../assets/banner-sinfondo.png";
+// import Logoubv from "../assets/cropped-logo-estandarte-ubv-4.png";
+// import deltaAtletics from "../assets/banner-sinfondo.png";
 
 export default function Footer() {
   return (
@@ -16,18 +16,18 @@ export default function Footer() {
           paddingY: 1,
           paddingX: 2,
           position: "relative",
-          bottom: "0.1",
-          minHeight: "200",
+          bottom: 0,
+          minHeight: "100px",
           border: "solid 1px rgba(0, 0, 0, 0.14)",
           borderInline: "none",
           borderBottom: "none",
         }}
       >
         <Box>
-          <Box component="img" src={deltaAtletics} sx={{ width: "13em" }} />
+          <Box sx={{ width: "13em" }} /> {/* component=img */}
         </Box>
 
-        <Stack alignItems="center">
+        <Stack textAlign={"center"} height={"50px"} justifyContent={"center"}>
           <Typography
             fontWeight={600}
             sx={{ textShadow: " 0px 3px  #f5f5f5 " }}
@@ -41,7 +41,7 @@ export default function Footer() {
         </Stack>
 
         <Box sx={{ height: "60", width: "220px" }}>
-          <Box component="img" src={Logoubv} sx={{ width: "13em" }} />
+          <Box sx={{ width: "13em" }} />
         </Box>
       </Stack>
     </>

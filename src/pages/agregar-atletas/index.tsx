@@ -1,10 +1,7 @@
-import Box from "@mui/material/Box/Box";
 import Badge from "@mui/material/Badge/Badge";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2";
-import TextField from "@mui/material/TextField";
-import { DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -20,7 +17,6 @@ import OutlinedInput from "@mui/material/OutlinedInput/OutlinedInput";
 import FormLabel from "@mui/material/FormLabel/FormLabel";
 import FormControl from "@mui/material/FormControl/FormControl";
 import FormHelperText from "@mui/material/FormHelperText/FormHelperText";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import { theme } from "../../shared/style-components/theme/theme";
 import SendIcon from "@mui/icons-material/Send";
 import Select, { SelectChangeEvent } from "@mui/material/Select/Select";
@@ -53,6 +49,7 @@ export default function agregarAtletas() {
           direction={"row"}
           justifyContent={"space-between"}
           my={3}
+          mt={{ xs: 6 }}
           sx={{ width: "80vw" }}
         >
           <Badge
@@ -105,12 +102,12 @@ export default function agregarAtletas() {
           </Badge>
         </Stack>
         <Stack
-          width={"80vw"}
-          height={"75vh"}
+          width={{ md: "80vw", xs: "95vw" }}
+          height={"auto"}
           bgcolor={"#fff"}
           borderRadius={"1em"}
           boxShadow={5}
-          px={3}
+          px={{ md: 3, xs: 0 }}
           pb={3}
           sx={{ overflowX: "hidden" }}
           alignItems={"center"}
@@ -120,7 +117,7 @@ export default function agregarAtletas() {
             letterSpacing={3}
             bgcolor={"#E84730"}
             color={"#fff"}
-            width={"110%"}
+            width={{ md: "110%", xs: "100%" }}
             align="center"
             fontWeight={"bold"}
             fontSize={"1.1em"}
@@ -129,13 +126,14 @@ export default function agregarAtletas() {
           </Typography>
           <Grid
             container
-            direction={"row"}
+            direction={{ md: "row", xs: "column" }}
             my={1}
             gap={1}
             height={"100%"}
             width={"100%"}
+            justifyContent={"space-between"}
           >
-            <Grid width={"48%"}>
+            <Grid md={5.9}>
               <Stack
                 width={"100%"}
                 bgcolor={"#fff"}
@@ -149,12 +147,21 @@ export default function agregarAtletas() {
                   bgcolor={"#f5f5f5"}
                   letterSpacing={1}
                   align="center"
+                  sx={{
+                    borderTopLeftRadius: "1em",
+                    borderTopRightRadius: "1em",
+                  }}
                 >
                   Datos Personales
                 </Typography>
                 <Stack justifyContent={"space-around"} height={"100%"}>
-                  <Stack direction={"row"} justifyContent={"space-around"}>
-                    <FormControl sx={{ my: 1, px: 1, width: "50%" }}>
+                  <Stack
+                    direction={{ md: "row", xs: "column" }}
+                    justifyContent={"space-around"}
+                  >
+                    <FormControl
+                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                    >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Primer Nombre
                       </FormLabel>
@@ -170,7 +177,9 @@ export default function agregarAtletas() {
                       />
                       <FormHelperText sx={{ color: "#000" }}></FormHelperText>
                     </FormControl>
-                    <FormControl sx={{ my: 1, px: 1, width: "50%" }}>
+                    <FormControl
+                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                    >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Segundo Nombre
                       </FormLabel>
@@ -187,8 +196,13 @@ export default function agregarAtletas() {
                       <FormHelperText sx={{ color: "#000" }}></FormHelperText>
                     </FormControl>
                   </Stack>
-                  <Stack direction={"row"} justifyContent={"space-around"}>
-                    <FormControl sx={{ my: 1, px: 1, width: "50%" }}>
+                  <Stack
+                    direction={{ md: "row", xs: "column" }}
+                    justifyContent={"space-around"}
+                  >
+                    <FormControl
+                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                    >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Primer Apellido
                       </FormLabel>
@@ -204,7 +218,9 @@ export default function agregarAtletas() {
                       />
                       <FormHelperText sx={{ color: "#000" }}></FormHelperText>
                     </FormControl>
-                    <FormControl sx={{ my: 1, px: 1, width: "50%" }}>
+                    <FormControl
+                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                    >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Segundo Apeliido
                       </FormLabel>
@@ -222,8 +238,10 @@ export default function agregarAtletas() {
                       <FormHelperText sx={{ color: "#000" }}></FormHelperText>
                     </FormControl>
                   </Stack>
-                  <Stack direction={"row"}>
-                    <FormControl sx={{ my: 1, px: 1, width: "50%" }}>
+                  <Stack direction={{ md: "row", xs: "column" }}>
+                    <FormControl
+                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                    >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Cedula
                       </FormLabel>
@@ -239,7 +257,9 @@ export default function agregarAtletas() {
                       />
                       <FormHelperText sx={{ color: "#000" }}></FormHelperText>
                     </FormControl>
-                    <FormControl sx={{ my: 1, px: 1, width: "50%" }}>
+                    <FormControl
+                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                    >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Genero
                       </FormLabel>
@@ -252,6 +272,9 @@ export default function agregarAtletas() {
                           height: "45px",
                         }}
                       >
+                        {/*     <MenuItem disabled value="1">
+                          <em>Placeholder</em>
+                        </MenuItem> */}
                         <MenuItem value={1}>Masculino</MenuItem>
                         <MenuItem value={2}>Femenino</MenuItem>
                       </Select>
@@ -289,7 +312,7 @@ export default function agregarAtletas() {
                 </Stack>
               </Stack>
             </Grid>
-            <Grid width={"48%"}>
+            <Grid md={5.9}>
               {/* datos de comunicacion */}{" "}
               {/*  <Stack
                 width={"100%"}
@@ -357,13 +380,19 @@ export default function agregarAtletas() {
                   width={"100%"}
                   bgcolor={"#f5f5f5"}
                   letterSpacing={1}
+                  sx={{
+                    borderTopLeftRadius: "1em",
+                    borderTopRightRadius: "1em",
+                  }}
                   align="center"
                 >
                   Datos Genéticos
                 </Typography>
                 <Stack justifyContent={"space-around"} height={"100%"}>
-                  <Stack direction={"row"}>
-                    <FormControl sx={{ my: 1, px: 1, width: "50%" }}>
+                  <Stack direction={{ md: "row", xs: "column" }}>
+                    <FormControl
+                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                    >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Estatura
                       </FormLabel>
@@ -380,7 +409,9 @@ export default function agregarAtletas() {
 
                       <FormHelperText sx={{ color: "#000" }}></FormHelperText>
                     </FormControl>
-                    <FormControl sx={{ my: 1, px: 1, width: "50%" }}>
+                    <FormControl
+                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                    >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Peso
                       </FormLabel>
@@ -398,8 +429,10 @@ export default function agregarAtletas() {
                       <FormHelperText sx={{ color: "#000" }}></FormHelperText>
                     </FormControl>
                   </Stack>
-                  <Stack direction={"row"}>
-                    <FormControl sx={{ my: 1, px: 1, width: "50%" }}>
+                  <Stack direction={{ md: "row", xs: "column" }}>
+                    <FormControl
+                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                    >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Envergadura
                       </FormLabel>
@@ -416,7 +449,9 @@ export default function agregarAtletas() {
 
                       <FormHelperText sx={{ color: "#000" }}></FormHelperText>
                     </FormControl>
-                    <FormControl sx={{ my: 1, px: 1, width: "50%" }}>
+                    <FormControl
+                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                    >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Tipo de Sangre
                       </FormLabel>
@@ -448,13 +483,19 @@ export default function agregarAtletas() {
                   width={"100%"}
                   bgcolor={"#f5f5f5"}
                   letterSpacing={1}
+                  sx={{
+                    borderTopLeftRadius: "1em",
+                    borderTopRightRadius: "1em",
+                  }}
                   align="center"
                 >
                   Datos Deportivos
                 </Typography>
                 <Stack justifyContent={"space-around"} height={"100%"}>
-                  <Stack direction={"row"}>
-                    <FormControl sx={{ my: 1, px: 1, width: "50%" }}>
+                  <Stack direction={{ md: "row", xs: "column" }}>
+                    <FormControl
+                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                    >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Categoría
                       </FormLabel>
@@ -471,7 +512,9 @@ export default function agregarAtletas() {
 
                       <FormHelperText sx={{ color: "#000" }}></FormHelperText>
                     </FormControl>
-                    <FormControl sx={{ my: 1, px: 1, width: "50%" }}>
+                    <FormControl
+                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                    >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Especialidad
                       </FormLabel>
@@ -489,8 +532,10 @@ export default function agregarAtletas() {
                       <FormHelperText sx={{ color: "#000" }}></FormHelperText>
                     </FormControl>
                   </Stack>
-                  <Stack direction={"row"}>
-                    <FormControl sx={{ my: 1, px: 1, width: "50%" }}>
+                  <Stack direction={{ md: "row", xs: "column" }}>
+                    <FormControl
+                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                    >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Observaciones
                       </FormLabel>
@@ -507,7 +552,9 @@ export default function agregarAtletas() {
 
                       <FormHelperText sx={{ color: "#000" }}></FormHelperText>
                     </FormControl>
-                    <FormControl sx={{ my: 1, px: 1, width: "50%" }}>
+                    <FormControl
+                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                    >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Marcas
                       </FormLabel>

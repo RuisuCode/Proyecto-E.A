@@ -11,7 +11,6 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
-import { Divider } from "@mui/material";
 import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
 import { Carousel } from "react-responsive-carousel";
 import { useNavigate } from "react-router-dom";
@@ -55,6 +54,7 @@ export default function InicioAdmin() {
           direction={"row"}
           justifyContent={"space-between"}
           my={3}
+          mt={{ xs: 6 }}
           sx={{ width: "80vw" }}
         >
           <Badge
@@ -119,9 +119,8 @@ export default function InicioAdmin() {
           <Grid
             direction={{ xs: "column", lg: "row" }}
             container
-            // spacing={1}
             width={"100%"}
-            height={"100%"}
+            height={"auto"}
           >
             <Grid
               width={{ xs: "100%", lg: "50%", md: "50%" }}
@@ -146,12 +145,6 @@ export default function InicioAdmin() {
                 >
                   Resumen General
                 </Typography>
-                <Divider
-                  sx={{
-                    width: "100%",
-                    mb: 1,
-                  }}
-                />
               </Stack>
               <Stack
                 mb={10}
@@ -262,6 +255,53 @@ export default function InicioAdmin() {
                   width={630}
                   height={200}
                 />
+                <Stack width={"100%"} mt={3} height={100} alignItems={"center"}>
+                  <Carousel
+                    autoPlay={true}
+                    interval={20000}
+                    infiniteLoop={true}
+                    showArrows={true}
+                    showIndicators={false}
+                    showThumbs={false}
+                    showStatus={false}
+                  >
+                    <div
+                      style={{
+                        backgroundColor: "transparent",
+                        height: 100,
+                        borderRadius: "1em",
+                      }}
+                    >
+                      <Typography
+                        textAlign={"center"}
+                        display={"flex"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                        height={"100%"}
+                        fontWeight={"bold"}
+                      >
+                        Actividad 1
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        backgroundColor: "transparent ",
+                        height: 100,
+                        borderRadius: "1em",
+                      }}
+                    >
+                      <Typography
+                        display={"flex"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                        height={"100%"}
+                        fontWeight={"bold"}
+                      >
+                        Actividad 2
+                      </Typography>
+                    </div>
+                  </Carousel>
+                </Stack>
               </Stack>
             </Grid>
             <Grid
@@ -287,13 +327,6 @@ export default function InicioAdmin() {
               >
                 Datos del Entrenador
               </Typography>
-              <Divider
-                sx={{
-                  width: "100%",
-                  mb: 1,
-                }}
-              />
-
               <IconButton
                 sx={{
                   padding: 0,

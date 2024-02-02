@@ -24,63 +24,68 @@ export default function Atletas() {
   const todos = [
     {
       id: 1,
-      title: "Fullstack course",
-      completed: false,
-      createdAt: "2022-03-01T14:48:00.000Z",
-      updatedAt: "2022-03-01T14:48:00.000Z",
+      name: "Juan Perez",
+      ci: 9182792,
+
+      fnac: "2022-03-01T14:48:00.000Z",
+      catg: "Por definir",
     },
     {
       id: 2,
-      title: "HTML 0 a experto creeme bro",
-      completed: false,
-      createdAt: "2022-03-01T14:48:00.000Z",
-      updatedAt: "2022-03-01T14:48:00.000Z",
+      name: "Benito Paez",
+      ci: 9182792,
+      fnac: "2022-03-01T14:48:00.000Z",
+      catg: "Por definir",
     },
     {
       id: 3,
-      title: "CSS para trabajar en la nasa",
-      completed: false,
-      createdAt: "2022-03-01T14:48:00.000Z",
-      updatedAt: "2022-03-01T14:48:00.000Z",
+      name: "Simon Rodriguez",
+      ci: 9182792,
+      fnac: "2022-03-01T14:48:00.000Z",
+      catg: "Por definir",
     },
     {
       id: 4,
-      title: "Fullstack en 1 hora",
-      completed: false,
-      createdAt: "2022-03-01T14:48:00.000Z",
-      updatedAt: "2022-03-01T14:48:00.000Z",
+      name: "Pedro Valdomero",
+      ci: 9182792,
+      fnac: "2022-03-01T14:48:00.000Z",
+      catg: "Por definir",
     },
   ];
 
   // Otherwise filter will be applied on fields such as the hidden column id
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 90, flex: 0.1 },
     {
-      field: "title",
-      headerName: "Titulo",
+      field: "name",
+      headerName: "Nombre",
       width: 200,
       editable: true,
+      flex: 0.1,
     },
     {
-      field: "completed",
-      headerName: "Completado",
+      field: "ci",
+      headerName: "Cedula",
       width: 200,
       editable: true,
+      flex: 0.1,
     },
     {
-      field: "createdAt",
-      headerName: "creado el",
+      field: "fnac",
+      headerName: "Fecha de nacimiento",
       type: "number",
       width: 220,
       editable: true,
       headerAlign: "center",
+      flex: 0.1,
     },
     {
-      field: "updatedAt",
-      headerName: "actualizado el",
+      field: "catg",
+      headerName: "Categoria",
       type: "number",
       width: 210,
       editable: true,
+      flex: 0.1,
     },
   ];
 
@@ -108,7 +113,8 @@ export default function Atletas() {
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
-          mt={5}
+          my={3}
+          mt={{ xs: 6 }}
           sx={{ width: "80vw" }}
         >
           <Badge
@@ -158,16 +164,28 @@ export default function Atletas() {
             />
           </Badge>
         </Stack>
-        <Stack my={3} bgcolor={"#fff"} p={2} borderRadius={"1em"} boxShadow={6}>
+        <Stack
+          my={3}
+          bgcolor={"#fff"}
+          p={2}
+          borderRadius={"1em"}
+          maxWidth={{ md: "70vw", xs: "auto" }}
+          boxShadow={6}
+        >
           <Grid container spacing={2}>
             <Grid item>
               <Box id="filter-panel" />
             </Grid>
             <Grid item style={{ height: 400, width: "100%" }}>
               <DataGrid
-                style={{ borderRadius: "1em", width: "100%" }}
+                style={{
+                  borderRadius: "1em",
+                  width: "auto",
+                }}
                 rows={todos}
                 columns={columns}
+                columnBuffer={2}
+                columnThreshold={2}
                 slots={{
                   toolbar: MyCustomToolbar,
                 }}

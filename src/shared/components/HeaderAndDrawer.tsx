@@ -152,22 +152,12 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
   const drawer = (
     <div>
       <Stack
-        direction="row"
         alignItems="center"
         justifyContent="center"
-        sx={{
-          height: "64px",
-          background: "transparent",
-          color: "#fff",
-          borderBottom: "2px solid #fff",
-          borderRight: "2px solid #fff",
-        }}
+        height={"120px"}
+        mt={5}
       >
-        <Typography
-          variant="h5"
-          fontWeight={700}
-          letterSpacing={20}
-        ></Typography>
+        <Image />
       </Stack>
       <Box sx={{ marginX: 1, width: 200 }}>
         <List
@@ -182,10 +172,10 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
             },
           }}
         >
-          <Stack
+          {/* <Stack
             justifyContent="center"
             sx={{ height: "30px", paddingLeft: 2 }}
-          />
+          /> */}
 
           {routes.map((item, index) => {
             const [open, setOpen] = useState(false);
@@ -641,9 +631,12 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
         sx={{
           flexGrow: 1,
           width: { sm: `calc(100% - ${DRAWER_WIDTH}px )`, lg: "100vw" },
-          minHeight: "100vh",
+          height: "100dvh",
           background: "#f8e6d9",
           overflowX: "hidden",
+          display: "block",
+          flexDirection: "column",
+          justifyContent: "space-between",
         }}
       >
         <Toolbar sx={{ display: { xs: "initial", lg: "none" } }} />

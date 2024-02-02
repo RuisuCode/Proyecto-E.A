@@ -11,6 +11,7 @@ export default function LayoutDashboard() {
           sx={{
             background: "primary",
             minHeight: "calc(100vh - 150px)",
+
             // paddingY: 1,
           }}
         >

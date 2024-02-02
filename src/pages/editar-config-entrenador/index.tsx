@@ -18,7 +18,7 @@ export default function editarConfigurarUser() {
           direction={"row"}
           justifyContent={"space-between"}
           my={5}
-          sx={{ width: "80vw" }}
+          sx={{ width: { md: "80vw", xs: "95vw" } }}
         >
           <Badge
             sx={{
@@ -34,11 +34,15 @@ export default function editarConfigurarUser() {
             }}
           >
             <ManageAccountsIcon sx={{ color: "#fff" }} fontSize="medium" />
-            <Typography fontSize={"0.9em"} fontWeight={"bold"} color="#fff">
+            <Typography
+              fontSize={{ lg: "0.9em", xs: "0.7em" }}
+              fontWeight={"bold"}
+              color="#fff"
+            >
               <NavigateNextIcon />
             </Typography>
             <Typography
-              fontSize={"0.9em"}
+              fontSize={{ lg: "0.9em", xs: "0.7em" }}
               fontWeight={"bold"}
               letterSpacing={1.5}
               color="#fff"
@@ -46,16 +50,19 @@ export default function editarConfigurarUser() {
               {/* {location.pathname.split("/")[1]} */}
               Datos del Entrenador
             </Typography>
-            <Typography fontSize={"0.9em"} fontWeight={"bold"} color="#fff">
+            <Typography
+              fontSize={{ lg: "0.9em", xs: "0.7em" }}
+              fontWeight={"bold"}
+              color="#fff"
+            >
               <NavigateNextIcon />
             </Typography>
             <Typography
-              fontSize={"0.9em"}
+              fontSize={{ lg: "0.9em", xs: "0.7em" }}
               fontWeight={"bold"}
               letterSpacing={1.5}
               color="#fff"
             >
-              {/* {location.pathname.split("/")[1]} */}
               Editar
             </Typography>
           </Badge>

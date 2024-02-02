@@ -1,25 +1,24 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import Badge from "@mui/material/Badge";
 
 /* local */
 
 /* icons */
 import WarningIcon from "@mui/icons-material/Warning";
-import Badge from "@mui/material/Badge/Badge";
+import AssignmentIcon from "@mui/icons-material/Assignment";
 import HelpIcon from "@mui/icons-material/Help";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
-export default function Eventos() {
+export default function Activities() {
   return (
     <>
       <Stack justifyContent={"center"} alignItems={"center"}>
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
-          my={3}
-          mt={{ xs: 6 }}
-          sx={{ width: "80vw" }}
+          my={5}
+          sx={{ width: { md: "80vw", xs: "95vw" } }}
         >
           <Badge
             sx={{
@@ -34,18 +33,22 @@ export default function Eventos() {
               paddingInline: 2,
             }}
           >
-            <CalendarMonthIcon sx={{ color: "#fff" }} fontSize="medium" />
-            <Typography fontSize={"0.9em"} fontWeight={"bold"} color="#fff">
+            <AssignmentIcon sx={{ color: "#fff" }} fontSize="medium" />
+            <Typography
+              fontSize={{ lg: "0.9em", xs: "0.7em" }}
+              fontWeight={"bold"}
+              color="#fff"
+            >
               <NavigateNextIcon />
             </Typography>
             <Typography
-              fontSize={"0.9em"}
+              fontSize={{ lg: "0.9em", xs: "0.7em" }}
               fontWeight={"bold"}
               letterSpacing={1.5}
               color="#fff"
             >
               {/* {location.pathname.split("/")[1]} */}
-              Listado de Eventos
+              Actividades
             </Typography>
           </Badge>
           <Badge
