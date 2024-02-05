@@ -41,6 +41,40 @@ const theme = createTheme(
         '"Segoe UI Symbol"',
       ].join(","),
     },
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          body: {
+            scrollbarColor: "#fffff #f8e6d9",
+            "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
+              backgroundColor: "transparent",
+              width: "17px",
+            },
+            "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
+              borderRadius: 15,
+              backgroundColor: "#EB5D47",
+              minHeight: 24,
+              border: "3px solid #f5f5f5",
+            },
+            /*   "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus":
+              {
+                backgroundColor: "#959595",
+              },
+            "&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active":
+              {
+                backgroundColor: "#959595",
+              },
+            "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover":
+              {
+                backgroundColor: "#959595",
+              },
+            "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
+              backgroundColor: "#2b2b2b",
+            }, */
+          },
+        },
+      },
+    },
   },
   esES
 );
