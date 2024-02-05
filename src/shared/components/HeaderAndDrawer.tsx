@@ -588,6 +588,7 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                                         : "#E84730",
                                     cursor: "pointer",
                                     paddingX: 2,
+                                    mb: "5px",
                                     borderRadius: "6px",
                                     "&:hover": {
                                       boxShadow:

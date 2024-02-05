@@ -1,16 +1,22 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
+import CardMedia from "@mui/material/CardMedia";
+import Grid from "@mui/material/Unstable_Grid2";
 
 /* local */
-
+import img from "../../shared/assets/backgroundImg4.jpg";
 /* icons */
-import WarningIcon from "@mui/icons-material/Warning";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import HelpIcon from "@mui/icons-material/Help";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { Box, Button } from "@mui/material";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function Activities() {
+  const navigate = useNavigate();
   return (
     <>
       <Stack justifyContent={"center"} alignItems={"center"}>
@@ -73,11 +79,264 @@ export default function Activities() {
             />
           </Badge>
         </Stack>
-        <Stack width={"80%"} alignItems={"center"} height={"100%"}>
+        {/*  <Stack width={"80%"} alignItems={"center"} height={"100%"}>
           <WarningIcon color="warning" sx={{ fontSize: "20em" }} />
           <Typography letterSpacing={4} fontWeight={"bold"}>
             Work in progress
           </Typography>
+        </Stack> */}
+        <Stack mb={4} width={"80%"} alignItems={"flex-end"}>
+          <Button
+            className="learn-more"
+            sx={{ width: "230px", height: "50px" }}
+            endIcon={<PostAddIcon />}
+            onClick={() => navigate("/create-activities")}
+          >
+            Crear Actividad
+          </Button>
+        </Stack>
+        <Stack>
+          <Grid
+            container
+            direction={{ md: "row", xs: "column" }}
+            spacing={4}
+            gap={4}
+          >
+            <Grid>
+              <Stack
+                bgcolor={"transparent"}
+                borderRadius={"4px"}
+                // boxShadow={2}
+                sx={{ maxWidth: 280, height: "auto" }}
+                // overflow={"hidden"}
+              >
+                <motion.div
+                  whileHover={{
+                    transform: "translateY(-15px)",
+                    boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
+                  }}
+                  style={{
+                    overflowY: "hidden",
+                    height: 430,
+                    boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
+                    borderTopRightRadius: "1em",
+                    borderTopLeftRadius: "1em",
+                    borderBottomRightRadius: "1em",
+                    borderBottomLeftRadius: "1em",
+                  }}
+                >
+                  <CardMedia
+                    sx={{
+                      height: 280,
+                      zIndex: 100,
+                      // position: "relative",
+                      borderTopRightRadius: "1em",
+                      borderTopLeftRadius: "1em",
+                      // transform: "translateY(50px)",
+                      boxShadow: 10,
+                    }}
+                    image={img}
+                    title="green iguana"
+                  />
+                  <Box
+                    sx={{
+                      // borderRadius: "1em",
+                      height: 300,
+                      zIndex: 3000,
+                      // position: "relative",
+                      transform: "translateY(-70px)",
+                      borderTopRightRadius: "5em",
+                      borderTopLeftRadius: "5em",
+                      borderBottomRightRadius: "1em",
+                      borderBottomLeftRadius: "1em",
+                      boxShadow: 5,
+                      bgcolor: "#fff",
+                      // border: "solid",
+                    }}
+                  >
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      // borderRadius={"50%"}
+                      component="div"
+                      align="center"
+                    >
+                      Lizard
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      display={"flex"}
+                      alignItems={"center"}
+                      // justifyContent={"center"}
+                      align="center"
+                      color="text.secondary"
+                      height={"70%"}
+                    >
+                      Lizards are a widespread group of squamate reptiles, with
+                      over 6,000 species, ranging across all continents except
+                      Antarctica
+                    </Typography>
+                  </Box>
+                </motion.div>
+              </Stack>
+            </Grid>
+            <Grid>
+              <Stack
+                bgcolor={"transparent"}
+                borderRadius={"4px"}
+                // boxShadow={2}
+                sx={{ maxWidth: 280, height: "auto" }}
+                // overflow={"hidden"}
+              >
+                <motion.div
+                  whileHover={{
+                    transform: "translateY(-15px)",
+                    boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
+                  }}
+                  style={{
+                    overflowY: "hidden",
+                    height: 430,
+                    boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
+                    borderTopRightRadius: "1em",
+                    borderTopLeftRadius: "1em",
+                    borderBottomRightRadius: "1em",
+                    borderBottomLeftRadius: "1em",
+                  }}
+                >
+                  <CardMedia
+                    sx={{
+                      height: 280,
+                      zIndex: 100,
+                      // position: "relative",
+                      borderTopRightRadius: "1em",
+                      borderTopLeftRadius: "1em",
+                      // transform: "translateY(50px)",
+                      boxShadow: 10,
+                    }}
+                    image={img}
+                    title="green iguana"
+                  />
+                  <Box
+                    sx={{
+                      // borderRadius: "1em",
+                      height: 300,
+                      zIndex: 3000,
+                      // position: "relative",
+                      transform: "translateY(-70px)",
+                      borderTopRightRadius: "5em",
+                      borderTopLeftRadius: "5em",
+                      borderBottomRightRadius: "1em",
+                      borderBottomLeftRadius: "1em",
+                      boxShadow: 5,
+                      bgcolor: "#fff",
+                      // border: "solid",
+                    }}
+                  >
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      // borderRadius={"50%"}
+                      component="div"
+                      align="center"
+                    >
+                      Lizard
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      display={"flex"}
+                      alignItems={"center"}
+                      // justifyContent={"center"}
+                      align="center"
+                      color="text.secondary"
+                      height={"70%"}
+                    >
+                      Lizards are a widespread group of squamate reptiles, with
+                      over 6,000 species, ranging across all continents except
+                      Antarctica
+                    </Typography>
+                  </Box>
+                </motion.div>
+              </Stack>
+            </Grid>
+            <Grid>
+              <Stack
+                bgcolor={"transparent"}
+                borderRadius={"4px"}
+                // boxShadow={2}
+                sx={{ maxWidth: 280, height: "auto" }}
+                // overflow={"hidden"}
+              >
+                <motion.div
+                  whileHover={{
+                    transform: "translateY(-15px)",
+                    boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
+                  }}
+                  style={{
+                    overflowY: "hidden",
+                    height: 430,
+                    boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
+                    borderTopRightRadius: "1em",
+                    borderTopLeftRadius: "1em",
+                    borderBottomRightRadius: "1em",
+                    borderBottomLeftRadius: "1em",
+                  }}
+                >
+                  <CardMedia
+                    sx={{
+                      height: 280,
+                      zIndex: 100,
+                      // position: "relative",
+                      borderTopRightRadius: "1em",
+                      borderTopLeftRadius: "1em",
+                      // transform: "translateY(50px)",
+                      boxShadow: 10,
+                    }}
+                    image={img}
+                    title="green iguana"
+                  />
+                  <Box
+                    sx={{
+                      // borderRadius: "1em",
+                      height: 300,
+                      zIndex: 3000,
+                      // position: "relative",
+                      transform: "translateY(-70px)",
+                      borderTopRightRadius: "5em",
+                      borderTopLeftRadius: "5em",
+                      borderBottomRightRadius: "1em",
+                      borderBottomLeftRadius: "1em",
+                      boxShadow: 5,
+                      bgcolor: "#fff",
+                      // border: "solid",
+                    }}
+                  >
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      // borderRadius={"50%"}
+                      component="div"
+                      align="center"
+                    >
+                      Lizard
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      display={"flex"}
+                      alignItems={"center"}
+                      // justifyContent={"center"}
+                      align="center"
+                      color="text.secondary"
+                      height={"70%"}
+                    >
+                      Lizards are a widespread group of squamate reptiles, with
+                      over 6,000 species, ranging across all continents except
+                      Antarctica
+                    </Typography>
+                  </Box>
+                </motion.div>
+              </Stack>
+            </Grid>
+          </Grid>
         </Stack>
       </Stack>
     </>

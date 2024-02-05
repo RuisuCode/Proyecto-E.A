@@ -113,9 +113,8 @@ export default function Atletas() {
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
-          my={3}
-          mt={{ xs: 6 }}
-          sx={{ width: "80vw" }}
+          my={5}
+          sx={{ width: { md: "80vw", xs: "95vw" } }}
         >
           <Badge
             sx={{

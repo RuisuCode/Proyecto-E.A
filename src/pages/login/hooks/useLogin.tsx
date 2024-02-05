@@ -35,7 +35,7 @@ export function useLogin() {
       }
 
       if (statusResponse === 400) {
-        toast.error("Usuario o contraseña incorrectos.", {
+        toast.error(err.response.data.message, {
           position: "top-left",
         });
         return;

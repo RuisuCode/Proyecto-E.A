@@ -1,16 +1,17 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import Badge from "@mui/material/Badge";
 
 /* local */
 
 /* icons */
 import WarningIcon from "@mui/icons-material/Warning";
-import Badge from "@mui/material/Badge/Badge";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+
 import HelpIcon from "@mui/icons-material/Help";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
-export default function Eventos() {
+export default function crearActividad() {
   return (
     <>
       <Stack justifyContent={"center"} alignItems={"center"}>
@@ -33,18 +34,37 @@ export default function Eventos() {
               paddingInline: 2,
             }}
           >
-            <CalendarMonthIcon sx={{ color: "#fff" }} fontSize="medium" />
-            <Typography fontSize={"0.9em"} fontWeight={"bold"} color="#fff">
+            <PostAddIcon sx={{ color: "#fff" }} fontSize="medium" />
+            <Typography
+              fontSize={{ lg: "0.9em", xs: "0.7em" }}
+              fontWeight={"bold"}
+              color="#fff"
+            >
               <NavigateNextIcon />
             </Typography>
             <Typography
-              fontSize={"0.9em"}
+              fontSize={{ lg: "0.9em", xs: "0.7em" }}
               fontWeight={"bold"}
               letterSpacing={1.5}
               color="#fff"
             >
               {/* {location.pathname.split("/")[1]} */}
-              Listado de Eventos
+              Actividades
+            </Typography>
+            <Typography
+              fontSize={{ lg: "0.9em", xs: "0.7em" }}
+              fontWeight={"bold"}
+              color="#fff"
+            >
+              <NavigateNextIcon />
+            </Typography>
+            <Typography
+              fontSize={{ lg: "0.9em", xs: "0.7em" }}
+              fontWeight={"bold"}
+              letterSpacing={1.5}
+              color="#fff"
+            >
+              Crear
             </Typography>
           </Badge>
           <Badge
