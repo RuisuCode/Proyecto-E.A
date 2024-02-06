@@ -6,6 +6,7 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import EventIcon from "@mui/icons-material/Event";
 
 /* export const ROUTES_SUPERADMIN = [
   {
@@ -58,7 +59,7 @@ export const ROUTES_ADMIN = [
     titleButton: "Atletas",
     icon: DirectionsRunIcon,
     buttonMenu: [
-      { icon: RecentActorsIcon, title: "Listado de Atletas", url: "/atletas" },
+      { icon: RecentActorsIcon, title: "Listado de atletas", url: "/atletas" },
       {
         icon: PersonAddAlt1Icon,
         title: "Agregar Atletas",
@@ -77,7 +78,8 @@ export const ROUTES_ADMIN = [
     titleButton: "Eventos",
     icon: EventNoteIcon,
     buttonMenu: [
-      { icon: CalendarMonthIcon, title: "Listado de Eventos", url: "/eventos" },
+      { icon: CalendarMonthIcon, title: "Listado de eventos", url: "/eventos" },
+      { icon: EventIcon, title: "Agregar evento", url: "/add-event" },
     ],
   },
   {

@@ -7,8 +7,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { styled } from "@mui/material/styles";
 import { esES } from "@mui/x-date-pickers/locales";
-/* local */
+import { useForm, SubmitHandler } from "react-hook-form";
 
+/* local */
+import { IAtlets } from "./interface/IAtlets";
+import { useAggAtlets } from "../../shared/hooks/useAtlets";
 /* icons */
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import HelpIcon from "@mui/icons-material/Help";
@@ -23,6 +26,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select/Select";
 import MenuItem from "@mui/material/MenuItem/MenuItem";
 import { useState } from "react";
 import Button from "@mui/material/Button/Button";
+import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 export default function agregarAtletas() {
   const Theme = theme;
   const StyledDatePicker = styled(DatePicker)({
@@ -37,7 +41,14 @@ export default function agregarAtletas() {
   });
 
   const [gen, setGen] = useState("");
+  const { mutate, isPending } = useAggAtlets();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IAtlets>({ mode: "onSubmit" });
+  const onSubmit: SubmitHandler<IAtlets> = (data) => mutate(data);
   const handleChange = (event: SelectChangeEvent) => {
     setGen(event.target.value as string);
   };
@@ -110,6 +121,7 @@ export default function agregarAtletas() {
           pb={3}
           sx={{ overflowX: "hidden" }}
           alignItems={"center"}
+          onSubmit={handleSubmit(onSubmit)}
           component={"form"}
         >
           <Typography
@@ -159,7 +171,12 @@ export default function agregarAtletas() {
                     justifyContent={"space-around"}
                   >
                     <FormControl
-                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                      sx={{
+                        my: 1,
+                        px: 1,
+                        width: { md: "50%", xs: "100%" },
+                        height: "10vh",
+                      }}
                     >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Primer Nombre
@@ -171,13 +188,26 @@ export default function agregarAtletas() {
                           borderRadius: "1em",
                         }}
                         type="text"
-                        error={true}
                         placeholder="Ingrese su primer nombre"
+                        error={errors.prinomb && true}
+                        {...register("prinomb", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
                       />
-                      <FormHelperText sx={{ color: "#000" }}></FormHelperText>
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.prinomb?.message && errors.prinomb.message}{" "}
+                      </FormHelperText>
                     </FormControl>
                     <FormControl
-                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                      sx={{
+                        my: 1,
+                        px: 1,
+                        width: { md: "50%", xs: "100%" },
+                        height: "10vh",
+                      }}
                     >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Segundo Nombre
@@ -189,10 +219,19 @@ export default function agregarAtletas() {
                           borderRadius: "1em",
                         }}
                         type="text"
-                        error={true}
                         placeholder="Ingrese su segundo nombre"
+                        error={errors.secnomb && true}
+                        {...register("secnomb", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
                       />
-                      <FormHelperText sx={{ color: "#000" }}></FormHelperText>
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {" "}
+                        {errors.secnomb?.message && errors.secnomb.message}
+                      </FormHelperText>
                     </FormControl>
                   </Stack>
                   <Stack
@@ -200,7 +239,12 @@ export default function agregarAtletas() {
                     justifyContent={"space-around"}
                   >
                     <FormControl
-                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                      sx={{
+                        my: 1,
+                        px: 1,
+                        width: { md: "50%", xs: "100%" },
+                        height: "10vh",
+                      }}
                     >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Primer Apellido
@@ -212,13 +256,26 @@ export default function agregarAtletas() {
                           borderRadius: "1em",
                         }}
                         type="text"
-                        error={true}
                         placeholder="Ingrese su primer apellido"
+                        error={errors.priape && true}
+                        {...register("priape", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
                       />
-                      <FormHelperText sx={{ color: "#000" }}></FormHelperText>
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.priape?.message && errors.priape.message}
+                      </FormHelperText>
                     </FormControl>
                     <FormControl
-                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                      sx={{
+                        my: 1,
+                        px: 1,
+                        width: { md: "50%", xs: "100%" },
+                        height: "10vh",
+                      }}
                     >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Segundo Apeliido
@@ -230,16 +287,28 @@ export default function agregarAtletas() {
                           borderRadius: "1em",
                         }}
                         type="text"
-                        error={true}
-                        placeholder="Ingrese su primer nombre"
+                        placeholder="Ingrese su segundo appelido"
+                        error={errors.secape && true}
+                        {...register("secape", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
                       />
-
-                      <FormHelperText sx={{ color: "#000" }}></FormHelperText>
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.secape?.message && errors.secape.message}
+                      </FormHelperText>
                     </FormControl>
                   </Stack>
                   <Stack direction={{ md: "row", xs: "column" }}>
                     <FormControl
-                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                      sx={{
+                        my: 1,
+                        px: 1,
+                        width: { md: "50%", xs: "100%" },
+                        height: "10vh",
+                      }}
                     >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Cedula
@@ -251,13 +320,26 @@ export default function agregarAtletas() {
                           borderRadius: "1em",
                         }}
                         type="number"
-                        error={true}
                         placeholder="Ingrese su cedula"
+                        error={errors.cedula && true}
+                        {...register("cedula", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
                       />
-                      <FormHelperText sx={{ color: "#000" }}></FormHelperText>
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.cedula?.message && errors.cedula.message}
+                      </FormHelperText>
                     </FormControl>
                     <FormControl
-                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                      sx={{
+                        my: 1,
+                        px: 1,
+                        width: { md: "50%", xs: "100%" },
+                        height: "10vh",
+                      }}
                     >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Genero
@@ -277,12 +359,12 @@ export default function agregarAtletas() {
                         <MenuItem value={1}>Masculino</MenuItem>
                         <MenuItem value={2}>Femenino</MenuItem>
                       </Select>
-
+                      {/* ! colocar el registro */}
                       <FormHelperText sx={{ color: "#000" }}></FormHelperText>
                     </FormControl>
                   </Stack>
                   <Stack>
-                    <FormControl sx={{ my: 1, px: 1 }}>
+                    <FormControl sx={{ my: 1, px: 1, height: "10vh" }}>
                       <LocalizationProvider
                         dateAdapter={AdapterDayjs}
                         localeText={
@@ -390,7 +472,12 @@ export default function agregarAtletas() {
                 <Stack justifyContent={"space-around"} height={"100%"}>
                   <Stack direction={{ md: "row", xs: "column" }}>
                     <FormControl
-                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                      sx={{
+                        my: 1,
+                        px: 1,
+                        width: { md: "50%", xs: "100%" },
+                        height: "10vh",
+                      }}
                     >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Estatura
@@ -402,14 +489,26 @@ export default function agregarAtletas() {
                           borderRadius: "1em",
                         }}
                         type="text"
-                        error={true}
                         placeholder="Ingrese su estatura"
+                        error={errors.estatura && true}
+                        {...register("estatura", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
                       />
-
-                      <FormHelperText sx={{ color: "#000" }}></FormHelperText>
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.estatura?.message && errors.estatura.message}
+                      </FormHelperText>
                     </FormControl>
                     <FormControl
-                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                      sx={{
+                        my: 1,
+                        px: 1,
+                        width: { md: "50%", xs: "100%" },
+                        height: "10vh",
+                      }}
                     >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Peso
@@ -421,16 +520,28 @@ export default function agregarAtletas() {
                           borderRadius: "1em",
                         }}
                         type="text"
-                        error={true}
                         placeholder="Ingrese su peso"
+                        error={errors.peso && true}
+                        {...register("peso", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
                       />
-
-                      <FormHelperText sx={{ color: "#000" }}></FormHelperText>
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.peso?.message && errors.peso.message}
+                      </FormHelperText>
                     </FormControl>
                   </Stack>
                   <Stack direction={{ md: "row", xs: "column" }}>
                     <FormControl
-                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                      sx={{
+                        my: 1,
+                        px: 1,
+                        width: { md: "50%", xs: "100%" },
+                        height: "10vh",
+                      }}
                     >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Envergadura
@@ -442,14 +553,27 @@ export default function agregarAtletas() {
                           borderRadius: "1em",
                         }}
                         type="text"
-                        error={true}
                         placeholder="Ingrese su envergadura"
+                        error={errors.envergadura && true}
+                        {...register("envergadura", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
                       />
-
-                      <FormHelperText sx={{ color: "#000" }}></FormHelperText>
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.envergadura?.message &&
+                          errors.envergadura.message}
+                      </FormHelperText>
                     </FormControl>
                     <FormControl
-                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                      sx={{
+                        my: 1,
+                        px: 1,
+                        width: { md: "50%", xs: "100%" },
+                        height: "10vh",
+                      }}
                     >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Tipo de Sangre
@@ -461,11 +585,19 @@ export default function agregarAtletas() {
                           borderRadius: "1em",
                         }}
                         type="text"
-                        error={true}
                         placeholder="Ingrese su tipo de sangre"
+                        error={errors.tiposangre && true}
+                        {...register("tiposangre", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
                       />
-
-                      <FormHelperText sx={{ color: "#000" }}></FormHelperText>
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.tiposangre?.message &&
+                          errors.tiposangre.message}
+                      </FormHelperText>
                     </FormControl>
                   </Stack>
                 </Stack>
@@ -493,7 +625,12 @@ export default function agregarAtletas() {
                 <Stack justifyContent={"space-around"} height={"100%"}>
                   <Stack direction={{ md: "row", xs: "column" }}>
                     <FormControl
-                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                      sx={{
+                        my: 1,
+                        px: 1,
+                        width: { md: "50%", xs: "100%" },
+                        height: "10vh",
+                      }}
                     >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Categoría
@@ -505,14 +642,26 @@ export default function agregarAtletas() {
                           borderRadius: "1em",
                         }}
                         type="text"
-                        error={true}
                         placeholder="Ingrese su categoría asignada"
+                        error={errors.categoria && true}
+                        {...register("categoria", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
                       />
-
-                      <FormHelperText sx={{ color: "#000" }}></FormHelperText>
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.categoria?.message && errors.categoria.message}
+                      </FormHelperText>
                     </FormControl>
                     <FormControl
-                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                      sx={{
+                        my: 1,
+                        px: 1,
+                        width: { md: "50%", xs: "100%" },
+                        height: "10vh",
+                      }}
                     >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Especialidad
@@ -524,16 +673,29 @@ export default function agregarAtletas() {
                           borderRadius: "1em",
                         }}
                         type="text"
-                        error={true}
                         placeholder="Ingrese su especialidad"
+                        error={errors.especialidad && true}
+                        {...register("especialidad", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
                       />
-
-                      <FormHelperText sx={{ color: "#000" }}></FormHelperText>
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.especialidad?.message &&
+                          errors.especialidad.message}
+                      </FormHelperText>
                     </FormControl>
                   </Stack>
                   <Stack direction={{ md: "row", xs: "column" }}>
                     <FormControl
-                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                      sx={{
+                        my: 1,
+                        px: 1,
+                        width: { md: "50%", xs: "100%" },
+                        height: "10vh",
+                      }}
                     >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Observaciones
@@ -545,14 +707,27 @@ export default function agregarAtletas() {
                           borderRadius: "1em",
                         }}
                         type="text"
-                        error={true}
                         // placeholder="Ing"
+                        error={errors.observaciones && true}
+                        {...register("observaciones", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
                       />
-
-                      <FormHelperText sx={{ color: "#000" }}></FormHelperText>
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.observaciones?.message &&
+                          errors.observaciones.message}
+                      </FormHelperText>
                     </FormControl>
                     <FormControl
-                      sx={{ my: 1, px: 1, width: { md: "50%", xs: "100%" } }}
+                      sx={{
+                        my: 1,
+                        px: 1,
+                        width: { md: "50%", xs: "100%" },
+                        height: "10vh",
+                      }}
                     >
                       <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
                         Marcas
@@ -564,11 +739,18 @@ export default function agregarAtletas() {
                           borderRadius: "1em",
                         }}
                         type="text"
-                        error={true}
                         placeholder="Ingrese su marca personal"
+                        error={errors.marcas && true}
+                        {...register("marcas", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
                       />
-
-                      <FormHelperText sx={{ color: "#000" }}></FormHelperText>
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.marcas?.message && errors.marcas.message}
+                      </FormHelperText>
                     </FormControl>
                   </Stack>
                 </Stack>
@@ -576,13 +758,30 @@ export default function agregarAtletas() {
             </Grid>
           </Grid>
           <Stack my={2}>
-            <Button
+            {/* <Button
               endIcon={<SendIcon />}
               className="learn-more"
               style={{ width: "80%", borderRadius: "5em", height: "35px" }}
             >
               Enviar
-            </Button>
+            </Button> */}
+            {!isPending && (
+              <Stack alignItems={"center"}>
+                <Button
+                  endIcon={<SendIcon />}
+                  className="learn-more"
+                  type="submit"
+                  style={{ width: "80%", borderRadius: "5em", height: "35px" }}
+                >
+                  Enviar
+                </Button>
+              </Stack>
+            )}
+            {isPending && (
+              <Stack justifyContent="center" alignItems="center">
+                <CircularProgress color="primary" />
+              </Stack>
+            )}
           </Stack>
         </Stack>
       </Stack>

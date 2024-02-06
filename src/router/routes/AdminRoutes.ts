@@ -18,6 +18,9 @@ const create_Actividades: LazyExoticComponent<React.FC> = lazy(
 const agregarAtletas: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/agregar-atletas")
 );
+const agregarEvento: LazyExoticComponent<React.FC> = lazy(
+  () => import("../../pages/agregar-eventos")
+);
 const configEntrenador: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/configuracion-entrenador")
 );
@@ -65,5 +68,10 @@ export const adminRoutes = [
     route: "/create-activities",
     component: create_Actividades,
     title: "Crear Actividad",
+  },
+  {
+    route: "/add-event",
+    component: agregarEvento,
+    title: "Agregar evento",
   },
 ];

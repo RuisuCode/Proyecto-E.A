@@ -57,27 +57,40 @@ export default function Activities() {
               Actividades
             </Typography>
           </Badge>
-          <Badge
-            overlap="circular"
-            sx={{
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: "50%",
-              background: "#E84730",
-            }}
-          >
-            <HelpIcon
-              fontSize="large"
+          <Stack direction={"row"} gap={3} alignItems={"center"}>
+            <Stack alignItems={"flex-end"}>
+              <Button
+                className="learn-more2"
+                style={{ width: "230px", height: "45px", borderRadius: "2em" }}
+                endIcon={<PostAddIcon />}
+                onClick={() => navigate("/create-activities")}
+              >
+                Crear Actividad
+              </Button>
+            </Stack>
+            <Badge
+              overlap="circular"
               sx={{
-                color: "#f5f5f5",
-                boxShadow: 4,
+                alignItems: "center",
+                justifyContent: "center",
                 borderRadius: "50%",
-                padding: 0,
-                width: 40,
-                height: 40,
+                background: "#E84730",
+                height: "40px",
               }}
-            />
-          </Badge>
+            >
+              <HelpIcon
+                fontSize="large"
+                sx={{
+                  color: "#f5f5f5",
+                  boxShadow: 4,
+                  borderRadius: "50%",
+                  padding: 0,
+                  width: 40,
+                  height: 40,
+                }}
+              />
+            </Badge>
+          </Stack>
         </Stack>
         {/*  <Stack width={"80%"} alignItems={"center"} height={"100%"}>
           <WarningIcon color="warning" sx={{ fontSize: "20em" }} />
@@ -85,16 +98,7 @@ export default function Activities() {
             Work in progress
           </Typography>
         </Stack> */}
-        <Stack mb={4} width={"80%"} alignItems={"flex-end"}>
-          <Button
-            className="learn-more"
-            sx={{ width: "230px", height: "50px" }}
-            endIcon={<PostAddIcon />}
-            onClick={() => navigate("/create-activities")}
-          >
-            Crear Actividad
-          </Button>
-        </Stack>
+
         <Stack>
           <Grid
             container
@@ -136,7 +140,6 @@ export default function Activities() {
                       boxShadow: 10,
                     }}
                     image={img}
-                    title="green iguana"
                   />
                   <Box
                     sx={{
@@ -150,6 +153,7 @@ export default function Activities() {
                       borderBottomRightRadius: "1em",
                       borderBottomLeftRadius: "1em",
                       boxShadow: 5,
+                      pt: 2,
                       bgcolor: "#fff",
                       // border: "solid",
                     }}
@@ -161,7 +165,7 @@ export default function Activities() {
                       component="div"
                       align="center"
                     >
-                      Lizard
+                      Actividad 1
                     </Typography>
                     <Typography
                       variant="body2"
@@ -172,9 +176,9 @@ export default function Activities() {
                       color="text.secondary"
                       height={"70%"}
                     >
-                      Lizards are a widespread group of squamate reptiles, with
-                      over 6,000 species, ranging across all continents except
-                      Antarctica
+                      Actividad 1s are a widespread group of squamate reptiles,
+                      with over 6,000 species, ranging across all continents
+                      except Antarctica
                     </Typography>
                   </Box>
                 </motion.div>
@@ -214,7 +218,6 @@ export default function Activities() {
                       boxShadow: 10,
                     }}
                     image={img}
-                    title="green iguana"
                   />
                   <Box
                     sx={{
@@ -227,6 +230,7 @@ export default function Activities() {
                       borderTopLeftRadius: "5em",
                       borderBottomRightRadius: "1em",
                       borderBottomLeftRadius: "1em",
+                      pt: 2,
                       boxShadow: 5,
                       bgcolor: "#fff",
                       // border: "solid",
@@ -239,7 +243,7 @@ export default function Activities() {
                       component="div"
                       align="center"
                     >
-                      Lizard
+                      Actividad 2
                     </Typography>
                     <Typography
                       variant="body2"
@@ -250,9 +254,9 @@ export default function Activities() {
                       color="text.secondary"
                       height={"70%"}
                     >
-                      Lizards are a widespread group of squamate reptiles, with
-                      over 6,000 species, ranging across all continents except
-                      Antarctica
+                      Actividad 1s are a widespread group of squamate reptiles,
+                      with over 6,000 species, ranging across all continents
+                      except Antarctica
                     </Typography>
                   </Box>
                 </motion.div>
@@ -292,7 +296,6 @@ export default function Activities() {
                       boxShadow: 10,
                     }}
                     image={img}
-                    title="green iguana"
                   />
                   <Box
                     sx={{
@@ -306,6 +309,7 @@ export default function Activities() {
                       borderBottomRightRadius: "1em",
                       borderBottomLeftRadius: "1em",
                       boxShadow: 5,
+                      pt: 2,
                       bgcolor: "#fff",
                       // border: "solid",
                     }}
@@ -317,7 +321,7 @@ export default function Activities() {
                       component="div"
                       align="center"
                     >
-                      Lizard
+                      Actividad 3
                     </Typography>
                     <Typography
                       variant="body2"
@@ -328,9 +332,9 @@ export default function Activities() {
                       color="text.secondary"
                       height={"70%"}
                     >
-                      Lizards are a widespread group of squamate reptiles, with
-                      over 6,000 species, ranging across all continents except
-                      Antarctica
+                      Actividad 1s are a widespread group of squamate reptiles,
+                      with over 6,000 species, ranging across all continents
+                      except Antarctica
                     </Typography>
                   </Box>
                 </motion.div>

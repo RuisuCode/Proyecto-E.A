@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Head from "../shared/components/Head";
 import { map } from "lodash";
 
-import { ProtectedRoutes } from "./protected-routes";
+// import { ProtectedRoutes } from "./protected-routes";
 // import { useUserInfoStore } from "../shared/store/UserStore";
 import LayoutDashboard from "./templates/LayoutDashboard";
 import { adminRoutes } from "./routes/AdminRoutes";
