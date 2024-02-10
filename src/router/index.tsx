@@ -1,32 +1,44 @@
 import { lazy, LazyExoticComponent, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import Head from "../shared/components/Head";
-import { map } from "lodash";
+// import { map } from "lodash";
 
-import { ProtectedRoutes } from "./protected-routes";
+// import { ProtectedRoutes } from "./protected-routes";
 // import { useUserInfoStore } from "../shared/store/UserStore";
-import LayoutDashboard from "./templates/LayoutDashboard";
-import { adminRoutes } from "./routes/AdminRoutes";
-import { IRoutes } from "../shared/interfaces/IRoutes";
+// import LayoutDashboard from "./templates/LayoutDashboard";
+// import { adminRoutes } from "./routes/AdminRoutes";
+// import { IRoutes } from "../shared/interfaces/IRoutes";
 
 const NotFound: LazyExoticComponent<React.FC> = lazy(
   () => import("../pages/not-found")
 );
-const Login: LazyExoticComponent<React.FC> = lazy(
+/* const Login: LazyExoticComponent<React.FC> = lazy(
   () => import("../pages/login")
+); */
+const Maintenance: LazyExoticComponent<React.FC> = lazy(
+  () => import("../pages/maintenance")
 );
 export default function RouterApp(): JSX.Element {
   // Valor para mapear las rutas del sistema
-  const entity: number = 999;
+  // const entity: number = 999;
 
   return (
     <Routes>
-      <Route
+      {/* <Route
         path="/"
         element={
           <Suspense>
             <Head title="Login" />
             <Login />
+          </Suspense>
+        }
+      /> */}
+      <Route
+        path="/"
+        element={
+          <Suspense>
+            <Head title="Mantenimiento" />
+            <Maintenance />
           </Suspense>
         }
       />
@@ -39,7 +51,7 @@ export default function RouterApp(): JSX.Element {
           </Suspense>
         }
       />
-      {entity === 999 && (
+      {/*  {entity === 999 && (
         <Route element={<ProtectedRoutes />}>
           <Route element={<LayoutDashboard />}>
             {map(adminRoutes, (route: IRoutes, index: number) => (
@@ -56,7 +68,7 @@ export default function RouterApp(): JSX.Element {
             ))}
           </Route>
         </Route>
-      )}
+      )} */}
     </Routes>
   );
 }
