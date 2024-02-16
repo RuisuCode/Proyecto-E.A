@@ -1,6 +1,5 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-
 /* local */
 
 /* icons */
@@ -14,7 +13,7 @@ export default function maintenance() {
         height={"100vh"}
         justifyContent={"center"}
         alignItems={"center"}
-        // sx={{ height: "100vh" }}
+        sx={{ background: "#f8e6d9" }}
       >
         <HandymanIcon
           color="primary"
