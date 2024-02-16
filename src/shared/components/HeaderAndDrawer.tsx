@@ -648,12 +648,8 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
         sx={{
           flexGrow: 1,
           width: { sm: `calc(100% - ${DRAWER_WIDTH}px )`, lg: "100vw" },
-          height: "100dvh",
+          height: "100vh",
           background: "#f8e6d9",
-          overflowX: "hidden",
-          display: "block",
-          flexDirection: "column",
-          justifyContent: "space-between",
         }}
       >
         <Toolbar sx={{ display: { xs: "initial", lg: "none" } }} />

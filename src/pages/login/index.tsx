@@ -13,8 +13,20 @@ import backgroundImg2 from "../../shared/assets/atleta-login.jpg";
 import backgroundImg3 from "../../shared/assets/backgroundImg4.jpg";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
+import { UseAuthStore } from "../../shared/store/UserStore";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { apiService } from "../../shared/consts/API_SERVICES";
 
 export default function Login() {
+  const token = UseAuthStore((state: any) => state.token);
+
+  const { mutateAsync } = useMutation({
+    mutationFn: () => apiService.get("verify_token"),
+  });
+
+  const navigate = useNavigate();
+
   const Variants = {
     offscreen: {
       x: 1300,
@@ -33,6 +45,13 @@ export default function Login() {
   useEffect(() => {
     setIsVisible(window.innerWidth >= 768);
   }, [window.innerWidth]);
+
+  useEffect(() => {
+    if (token) {
+      mutateAsync().then(() => navigate("/inicio"));
+    }
+  }, []);
+
   return (
     <>
       <Box
