@@ -31,12 +31,9 @@ export default function agregarAtletas() {
   const Theme = theme;
   const StyledDatePicker = styled(DatePicker)({
     ".MuiPickersToolbar-root": {
-      color: "#bbdefb",
       borderRadius: 19,
       borderWidth: 1,
-      borderColor: "#2196f3",
       border: "1px solid",
-      backgroundColor: "#0d47a1",
     },
   });
 

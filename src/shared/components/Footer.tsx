@@ -10,9 +10,8 @@ export default function Footer() {
         alignItems="center"
         justifyContent="space-between"
         width={"100%"}
-        mt={1}
         sx={{
-          backgroundColor: "transparent",
+          backgroundColor: "#f8e6d9",
           paddingY: 1,
           paddingX: 2,
           position: "relative",
