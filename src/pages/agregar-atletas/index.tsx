@@ -21,9 +21,9 @@ import FormControl from "@mui/material/FormControl/FormControl";
 import FormHelperText from "@mui/material/FormHelperText/FormHelperText";
 import { theme } from "../../shared/style-components/theme/theme";
 import SendIcon from "@mui/icons-material/Send";
-import Select, { SelectChangeEvent } from "@mui/material/Select/Select";
+import Select from "@mui/material/Select/Select";
 import MenuItem from "@mui/material/MenuItem/MenuItem";
-import { useState } from "react";
+// import { useState } from "react";
 import Button from "@mui/material/Button/Button";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import "dayjs/locale/es";
@@ -38,7 +38,7 @@ export default function agregarAtletas() {
     },
   });
 
-  const [gen, setGen] = useState("");
+  // const [setGen] = useState("");
   const { mutate, isPending } = useAggAtlets();
 
   const {
@@ -47,9 +47,9 @@ export default function agregarAtletas() {
     formState: { errors },
   } = useForm<IAtlets>({ mode: "onSubmit" });
   const onSubmit: SubmitHandler<IAtlets> = (data) => mutate(data);
-  const handleChange = (event: SelectChangeEvent) => {
-    setGen(event.target.value as string);
-  };
+  // const handleChange = (event: SelectChangeEvent) => {
+  //   setGen(event.target.value as string);
+  // };
 
   return (
     <>
@@ -348,7 +348,7 @@ export default function agregarAtletas() {
                       </FormLabel>
                       <Select
                         id="demo-simple-select"
-                        onChange={handleChange}
+                        // onChange={handleChange}
                         sx={{
                           borderRadius: "1em",
                           height: "45px",
