@@ -10,7 +10,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
   GridToolbarQuickFilter,
   GridToolbar,
 } from "@mui/x-data-grid"; */
-import MUIDataTable  from "mui-datatables";
+import MUIDataTable from "mui-datatables";
 
 /* local */
 
@@ -20,6 +20,12 @@ import RecentActorsIcon from "@mui/icons-material/RecentActors";
 
 import HelpIcon from "@mui/icons-material/Help";
 import React from "react";
+
+declare module "@mui/material/styles" {
+  interface Components {
+    [key: string]: any;
+  }
+}
 
 class BodyCellExample extends React.Component {
   getMuiTheme = () =>
@@ -32,9 +38,9 @@ class BodyCellExample extends React.Component {
               width: "80%",
               borderRadius: "13px",
             },
-            paper: {
+            /* paper: {
               boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-            },
+            }, */
           },
         },
         MuiToolbar: {

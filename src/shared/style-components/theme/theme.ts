@@ -3,7 +3,6 @@ import "@fontsource/nunito/400.css";
 import "@fontsource/nunito/900.css";
 import "@fontsource/nunito/500-italic.css";
 import { esES } from "@mui/x-date-pickers/locales";
-import { esES as dataGridesEs } from "@mui/x-data-grid";
 const theme = createTheme(
   {
     palette: {
@@ -77,8 +76,7 @@ const theme = createTheme(
       },
     },
   },
-  esES,
-  dataGridesEs
+  esES
 );
 
 export { theme };
