@@ -32,12 +32,9 @@ export default function agregarAtletas() {
   const Theme = theme;
   const StyledDatePicker = styled(DatePicker)({
     ".MuiPickersToolbar-root": {
-      color: "#bbdefb",
       borderRadius: 19,
       borderWidth: 1,
-      borderColor: "#2196f3",
       border: "1px solid",
-      backgroundColor: "#0d47a1",
     },
   });
 
@@ -190,8 +187,8 @@ export default function agregarAtletas() {
                         }}
                         type="text"
                         placeholder="Ingrese su primer nombre"
-                        error={errors.prinomb && true}
-                        {...register("prinomb", {
+                        error={errors.primer_nombre && true}
+                        {...register("primer_nombre", {
                           required: {
                             value: true,
                             message: "Este campo es requerido.",
@@ -199,7 +196,8 @@ export default function agregarAtletas() {
                         })}
                       />
                       <FormHelperText sx={{ color: "#000" }}>
-                        {errors.prinomb?.message && errors.prinomb.message}{" "}
+                        {errors.primer_nombre?.message &&
+                          errors.primer_nombre.message}{" "}
                       </FormHelperText>
                     </FormControl>
                     <FormControl
@@ -221,8 +219,8 @@ export default function agregarAtletas() {
                         }}
                         type="text"
                         placeholder="Ingrese su segundo nombre"
-                        error={errors.secnomb && true}
-                        {...register("secnomb", {
+                        error={errors.segundo_nombre && true}
+                        {...register("segundo_nombre", {
                           required: {
                             value: true,
                             message: "Este campo es requerido.",
@@ -231,7 +229,8 @@ export default function agregarAtletas() {
                       />
                       <FormHelperText sx={{ color: "#000" }}>
                         {" "}
-                        {errors.secnomb?.message && errors.secnomb.message}
+                        {errors.segundo_nombre?.message &&
+                          errors.segundo_nombre.message}
                       </FormHelperText>
                     </FormControl>
                   </Stack>
@@ -258,8 +257,8 @@ export default function agregarAtletas() {
                         }}
                         type="text"
                         placeholder="Ingrese su primer apellido"
-                        error={errors.priape && true}
-                        {...register("priape", {
+                        error={errors.primer_apellido && true}
+                        {...register("primer_apellido", {
                           required: {
                             value: true,
                             message: "Este campo es requerido.",
@@ -267,7 +266,8 @@ export default function agregarAtletas() {
                         })}
                       />
                       <FormHelperText sx={{ color: "#000" }}>
-                        {errors.priape?.message && errors.priape.message}
+                        {errors.primer_apellido?.message &&
+                          errors.primer_apellido.message}
                       </FormHelperText>
                     </FormControl>
                     <FormControl
@@ -289,8 +289,8 @@ export default function agregarAtletas() {
                         }}
                         type="text"
                         placeholder="Ingrese su segundo appelido"
-                        error={errors.secape && true}
-                        {...register("secape", {
+                        error={errors.segundo_apellido && true}
+                        {...register("segundo_apellido", {
                           required: {
                             value: true,
                             message: "Este campo es requerido.",
@@ -298,7 +298,8 @@ export default function agregarAtletas() {
                         })}
                       />
                       <FormHelperText sx={{ color: "#000" }}>
-                        {errors.secape?.message && errors.secape.message}
+                        {errors.segundo_apellido?.message &&
+                          errors.segundo_apellido.message}
                       </FormHelperText>
                     </FormControl>
                   </Stack>
@@ -347,7 +348,6 @@ export default function agregarAtletas() {
                       </FormLabel>
                       <Select
                         id="demo-simple-select"
-                        value={gen}
                         onChange={handleChange}
                         sx={{
                           borderRadius: "1em",
@@ -357,8 +357,8 @@ export default function agregarAtletas() {
                         {/*     <MenuItem disabled value="1">
                           <em>Placeholder</em>
                         </MenuItem> */}
-                        <MenuItem value={1}>Masculino</MenuItem>
-                        <MenuItem value={2}>Femenino</MenuItem>
+                        <MenuItem value={"m"}>Masculino</MenuItem>
+                        <MenuItem value={"f"}>Femenino</MenuItem>
                       </Select>
                       {/* ! colocar el registro */}
                       <FormHelperText sx={{ color: "#000" }}></FormHelperText>
@@ -486,7 +486,7 @@ export default function agregarAtletas() {
                           boxShadow: 1,
                           borderRadius: "1em",
                         }}
-                        type="text"
+                        type="number"
                         placeholder="Ingrese su estatura"
                         error={errors.estatura && true}
                         {...register("estatura", {
@@ -517,7 +517,7 @@ export default function agregarAtletas() {
                           boxShadow: 1,
                           borderRadius: "1em",
                         }}
-                        type="text"
+                        type="number"
                         placeholder="Ingrese su peso"
                         error={errors.peso && true}
                         {...register("peso", {
@@ -550,7 +550,7 @@ export default function agregarAtletas() {
                           boxShadow: 1,
                           borderRadius: "1em",
                         }}
-                        type="text"
+                        type="number"
                         placeholder="Ingrese su envergadura"
                         error={errors.envergadura && true}
                         {...register("envergadura", {

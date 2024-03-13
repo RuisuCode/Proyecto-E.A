@@ -57,6 +57,7 @@ export default function Login() {
   useEffect(() => {
     setIsVisible(window.innerWidth >= 768);
   }, [window.innerWidth]);
+
   return (
     <>
       <Box
