@@ -24,9 +24,7 @@ export function useAggAtlets() {
   return useMutation({
     mutationFn: (data: any) => apiService.post(data, "/atleta"),
     onSuccess: () => {
-      /*  queryClient.invalidateQueries([QUERY_KEY]) */ toast.success(
-        "Éxito al agregar atleta"
-      );
+      toast.success("Éxito al agregar atleta");
     },
     onError: (error: any) => {
       toast.error(error.response.data.message);

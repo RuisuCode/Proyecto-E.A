@@ -12,7 +12,7 @@ import HelpIcon from "@mui/icons-material/Help";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useNavigate } from "react-router-dom";
 
-export default function crearActividad() {
+export default function actividadId() {
   const navigate = useNavigate();
 
   return (
@@ -70,7 +70,7 @@ export default function crearActividad() {
               letterSpacing={1.5}
               color="#fff"
             >
-              Crear
+              ID Nombre
             </Typography>
           </Badge>
           <Badge

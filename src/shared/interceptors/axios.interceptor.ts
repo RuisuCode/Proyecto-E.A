@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { ACCESS_TOKEN } from '../consts/ACCESS_TOKEN';
-import { IToken } from '../interfaces/IToken';
+import axios from "axios";
+import { ACCESS_TOKEN } from "../consts/ACCESS_TOKEN";
+import { IToken } from "../interfaces/IToken";
 
 const URL: string = import.meta.env.VITE_BACKEND;
 const modifiedAxios = axios.create({ baseURL: URL, timeout: 10000 });
@@ -11,7 +11,7 @@ modifiedAxios.interceptors.request.use((request: any) => {
 
     if (data !== null) {
       const dataParse: IToken = JSON.parse(data);
-      const access = dataParse.data.token;
+      const access = dataParse.state.token;
       request.headers.Authorization = `Bearer ${access}`;
     }
   }

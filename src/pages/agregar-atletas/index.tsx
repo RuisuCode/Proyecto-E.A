@@ -6,7 +6,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { styled } from "@mui/material/styles";
-import { esES } from "@mui/x-date-pickers/locales";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 /* local */
@@ -27,6 +26,8 @@ import MenuItem from "@mui/material/MenuItem/MenuItem";
 import { useState } from "react";
 import Button from "@mui/material/Button/Button";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
+import "dayjs/locale/es";
+
 export default function agregarAtletas() {
   const Theme = theme;
   const StyledDatePicker = styled(DatePicker)({
@@ -367,10 +368,7 @@ export default function agregarAtletas() {
                     <FormControl sx={{ my: 1, px: 1, height: "10vh" }}>
                       <LocalizationProvider
                         dateAdapter={AdapterDayjs}
-                        localeText={
-                          esES.components.MuiLocalizationProvider.defaultProps
-                            .localeText
-                        }
+                        adapterLocale="es"
                       >
                         <StyledDatePicker
                           label={"Fecha de nacimiento"}

@@ -4,21 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 // Local
-import { ACCESS_TOKEN } from "../../../shared/consts/ACCESS_TOKEN";
 import { ILogin } from "../interfaces/iLogin";
 import { apiService } from "../../../shared/consts/API_SERVICES";
-import { UseAuthStore } from "../../../shared/store/UserStore";
+import { UseAuthStore } from "../../../store/UserStore";
 
 export function useLogin() {
   const navigate = useNavigate();
   const { setToken } = UseAuthStore();
+  const { setRolId } = UseAuthStore();
 
   return useMutation({
     mutationFn: (data: ILogin) => apiService.post(data, "/login"),
     onSuccess: (data: any) => {
-      sessionStorage.setItem(ACCESS_TOKEN, JSON.stringify(data));
-      const token: any = data.data.token;
-      setToken(token);
+      setToken(data.data.token);
+      setRolId(data.data.rolId);
       navigate("/inicio");
       toast.success("Éxito al iniciar session");
     },
@@ -57,11 +56,13 @@ export function useLogin() {
 export function useLogout() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const token = UseAuthStore((state: any) => state.token);
+  const data: any = [{ token }];
 
   return useMutation({
-    mutationFn: () => apiService.post(ACCESS_TOKEN, "/logout"),
+    mutationFn: () => apiService.post(data, "/logout"),
     onSuccess: () => {
-      sessionStorage.removeItem(ACCESS_TOKEN);
+      sessionStorage.removeItem("auth");
       navigate("/", { replace: true });
       queryClient.clear();
       toast.success("Éxito al cerrar sesión");

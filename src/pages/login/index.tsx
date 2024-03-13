@@ -11,8 +11,14 @@ import { Carousel } from "react-responsive-carousel";
 import backgroundImg from "../../shared/assets/background3.jpg";
 import backgroundImg2 from "../../shared/assets/atleta-login.jpg";
 import backgroundImg3 from "../../shared/assets/backgroundImg4.jpg";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiService } from "../../shared/consts/API_SERVICES";
+
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
+import { UseAuthStore } from "../../store/UserStore";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const Variants = {
@@ -27,8 +33,26 @@ export default function Login() {
       scale: 1,
     },
   };
-
+  const queryClient = useQueryClient();
+  const token = UseAuthStore((state: any) => state.token);
+  const dataToken: any = [{ token }];
+  const { mutateAsync } = useMutation({
+    mutationFn: () => apiService.post(dataToken, "/verify_token"),
+    onSuccess: () => {
+      queryClient.clear();
+      toast.success("sesión restaurada");
+    },
+    onError: () => {
+      sessionStorage.removeItem("auth");
+    },
+  });
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (sessionStorage) {
+      mutateAsync().then(() => navigate("/inicio"));
+    }
+  }, []);
 
   useEffect(() => {
     setIsVisible(window.innerWidth >= 768);
@@ -144,7 +168,7 @@ export default function Login() {
                     boxShadow={5}
                     sx={{
                       height: { xs: "100%", md: "100%" },
-                      justifyContent: "space-evenly",
+                      justifyContent: "center",
                       display: "flex",
                       flexDirection: "column",
                     }}
@@ -152,6 +176,12 @@ export default function Login() {
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                        gap: 8,
+                      }}
                       transition={{
                         ease: [0, 0.71, 0.2, 1.01],
                         duration: 1,
@@ -222,6 +252,7 @@ export default function Login() {
                               color: "#E84730",
                               fontWeight: "bold",
                               fontSize: { md: "1.3vw" },
+                              transform: "rotateY(180deg)",
                             }}
                           />
                           Universidad Bolivariana de Venezuela <br />

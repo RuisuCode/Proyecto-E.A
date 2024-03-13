@@ -1,11 +1,12 @@
 export interface IToken {
-  data: {
+  state: {
     token: string;
+    rolId?: number;
   };
   error: boolean;
   message: string;
 }
-
+// del de arriba que no esta decodificado
 export interface IDecodifiedToken {
   exp: number;
   iat: number;
@@ -13,4 +14,8 @@ export interface IDecodifiedToken {
   token_type: string;
   typeEntity: number;
   user_id: string;
+}
+
+export interface IRolId {
+  rolId?: number;
 }

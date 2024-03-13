@@ -1,17 +1,17 @@
 import Badge from "@mui/material/Badge/Badge";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Portal } from "@mui/base/Portal";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import { GridColDef } from "@mui/x-data-grid";
-import {
+// import { Portal } from "@mui/base/Portal";
+// import Box from "@mui/material/Box";
+// import Grid from "@mui/material/Grid";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+/* import {
   DataGrid,
   GridToolbarQuickFilter,
   GridToolbar,
-} from "@mui/x-data-grid";
+} from "@mui/x-data-grid"; */
+import MUIDataTable  from "mui-datatables";
 
-// import { useDemoData } from '@mui/x-data-grid-generator';
 /* local */
 
 /* icons */
@@ -20,41 +20,101 @@ import RecentActorsIcon from "@mui/icons-material/RecentActors";
 
 import HelpIcon from "@mui/icons-material/Help";
 import React from "react";
+
+class BodyCellExample extends React.Component {
+  getMuiTheme = () =>
+    createTheme({
+      components: {
+        MUIDataTable: {
+          styleOverrides: {
+            root: {
+              backgroundColor: "#red",
+              width: "80%",
+              borderRadius: "13px",
+            },
+            paper: {
+              boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+            },
+          },
+        },
+        MuiToolbar: {
+          styleOverrides: {
+            root: {
+              backgroundColor: "#f5f5f5",
+              borderRadius: "13px",
+              borderBottomLeftRadius: "0",
+              borderBottomRightRadius: "0",
+            },
+          },
+        },
+        MuiTableCell: {
+          styleOverrides: {
+            head: {
+              backgroundColor: "purple",
+            },
+          },
+        },
+        MUIDataTableSelectCell: {
+          styleOverrides: {
+            headerCell: {
+              backgroundColor: "white",
+            },
+          },
+        },
+        MuiTableFooter: {
+          styleOverrides: {
+            root: {
+              "& .MuiToolbar-root": {
+                backgroundColor: "white",
+              },
+            },
+          },
+        },
+      },
+    });
+
+  render() {
+    const todos = [
+      [1, "Juan Perez", 9182792, "2022-03-01T14:48:00.000Z", "Por definir"],
+    ];
+    const columns = [
+      "ID",
+      "Nombre",
+      "Cedula",
+      "Fecha de Nacimiento",
+      "Acciones",
+    ];
+    const options = {
+      filter: true,
+      fixedHeader: true,
+      FilterType: "dropdown",
+      textLabels: {
+        body: {
+          noMatch: "Lo sentimos, no pudimos encontrar ningún registro!",
+        },
+        pagination: {
+          next: "Siguiente pagina",
+          previous: "Pagina Anterior",
+          rowsPerPage: "Filas por Pagina",
+        },
+      },
+    };
+    return (
+      <ThemeProvider theme={this.getMuiTheme()}>
+        <MUIDataTable
+          title={"Atletas registrados"}
+          data={todos}
+          columns={columns}
+          options={options}
+        />
+      </ThemeProvider>
+    );
+  }
+}
+
 export default function Atletas() {
-  const todos = [
-    {
-      id: 1,
-      name: "Juan Perez",
-      ci: 9182792,
-
-      fnac: "2022-03-01T14:48:00.000Z",
-      catg: "Por definir",
-    },
-    {
-      id: 2,
-      name: "Benito Paez",
-      ci: 9182792,
-      fnac: "2022-03-01T14:48:00.000Z",
-      catg: "Por definir",
-    },
-    {
-      id: 3,
-      name: "Simon Rodriguez",
-      ci: 9182792,
-      fnac: "2022-03-01T14:48:00.000Z",
-      catg: "Por definir",
-    },
-    {
-      id: 4,
-      name: "Pedro Valdomero",
-      ci: 9182792,
-      fnac: "2022-03-01T14:48:00.000Z",
-      catg: "Por definir",
-    },
-  ];
-
   // Otherwise filter will be applied on fields such as the hidden column id
-  const columns: GridColDef[] = [
+  /* const columns= [
     { field: "id", headerName: "ID", width: 90, flex: 0.1 },
     {
       field: "name",
@@ -87,9 +147,9 @@ export default function Atletas() {
       editable: true,
       flex: 0.1,
     },
-  ];
+  ]; */
 
-  function MyCustomToolbar(props: any) {
+  /*   function MyCustomToolbar(props: any) {
     return (
       <React.Fragment>
         <Portal container={() => document.getElementById("filter-panel")!}>
@@ -98,7 +158,7 @@ export default function Atletas() {
         <GridToolbar {...props} />
       </React.Fragment>
     );
-  }
+  } */
   /*   const VISIBLE_FIELDS = [
     "name",
     "rating",
@@ -163,43 +223,8 @@ export default function Atletas() {
             />
           </Badge>
         </Stack>
-        <Stack
-          my={3}
-          bgcolor={"#fff"}
-          p={2}
-          borderRadius={"1em"}
-          maxWidth={{ md: "70vw", xs: "auto" }}
-          boxShadow={6}
-        >
-          <Grid container spacing={2}>
-            <Grid item>
-              <Box id="filter-panel" />
-            </Grid>
-            <Grid item style={{ height: 400, width: "100%" }}>
-              <DataGrid
-                style={{
-                  borderRadius: "1em",
-                  width: "auto",
-                }}
-                rows={todos}
-                columns={columns}
-                columnBuffer={2}
-                columnThreshold={2}
-                slots={{
-                  toolbar: MyCustomToolbar,
-                }}
-                initialState={{
-                  filter: {
-                    filterModel: {
-                      items: [],
-                      quickFilterExcludeHiddenColumns: true,
-                    },
-                  },
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Stack>
+
+        {<BodyCellExample />}
       </Stack>
     </>
   );

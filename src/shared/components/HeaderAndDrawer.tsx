@@ -28,7 +28,7 @@ import useScreenSize from "../hooks/useScreenSize";
 import { AppBar } from "../style-components/StyledHeader";
 import Image from "../../shared/style-components/Image";
 
-import { useDrawerStore } from "../../shared/store/DrawerStore";
+import { useDrawerStore } from "../../store/DrawerStore";
 import { theme } from "../style-components/theme/theme";
 // import { useUserInfoStore } from "../../shared/store/UserStore";
 import { ROUTES_ADMIN } from "../consts/ROUTES_NAVBAR";

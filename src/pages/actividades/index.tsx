@@ -11,7 +11,7 @@ import PostAddIcon from "@mui/icons-material/PostAdd";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import HelpIcon from "@mui/icons-material/Help";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -59,14 +59,25 @@ export default function Activities() {
           </Badge>
           <Stack direction={"row"} gap={3} alignItems={"center"}>
             <Stack alignItems={"flex-end"}>
-              <Button
-                className="learn-more2"
-                style={{ width: "230px", height: "45px", borderRadius: "2em" }}
-                endIcon={<PostAddIcon />}
+              <Badge
+                sx={{
+                  borderRadius: "10px",
+                  background: "#E84730",
+
+                  boxShadow: 4,
+                  height: 40,
+                  width: "auto",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 2,
+                  paddingInline: 2,
+                  cursor: "pointer",
+                }}
                 onClick={() => navigate("/create-activities")}
               >
-                Crear Actividad
-              </Button>
+                <PostAddIcon sx={{ color: "#fff" }} />
+                <Typography color={"#fff"}>Crear Actividad </Typography>
+              </Badge>
             </Stack>
             <Badge
               overlap="circular"
@@ -127,7 +138,9 @@ export default function Activities() {
                     borderTopLeftRadius: "1em",
                     borderBottomRightRadius: "1em",
                     borderBottomLeftRadius: "1em",
+                    cursor: "pointer",
                   }}
+                  onClick={() => navigate("/actividad:id")}
                 >
                   <CardMedia
                     sx={{
@@ -174,7 +187,9 @@ export default function Activities() {
                       // justifyContent={"center"}
                       align="center"
                       color="text.secondary"
-                      height={"70%"}
+                      px={2}
+                      textAlign={"justify"}
+                      height={"50%"}
                     >
                       Actividad 1s are a widespread group of squamate reptiles,
                       with over 6,000 species, ranging across all continents
@@ -205,6 +220,7 @@ export default function Activities() {
                     borderTopLeftRadius: "1em",
                     borderBottomRightRadius: "1em",
                     borderBottomLeftRadius: "1em",
+                    cursor: "pointer",
                   }}
                 >
                   <CardMedia
@@ -240,7 +256,7 @@ export default function Activities() {
                       gutterBottom
                       variant="h5"
                       // borderRadius={"50%"}
-                      component="div"
+
                       align="center"
                     >
                       Actividad 2
@@ -251,8 +267,10 @@ export default function Activities() {
                       alignItems={"center"}
                       // justifyContent={"center"}
                       align="center"
+                      px={2}
+                      textAlign={"justify"}
                       color="text.secondary"
-                      height={"70%"}
+                      height={"50%"}
                     >
                       Actividad 1s are a widespread group of squamate reptiles,
                       with over 6,000 species, ranging across all continents
@@ -327,10 +345,12 @@ export default function Activities() {
                       variant="body2"
                       display={"flex"}
                       alignItems={"center"}
-                      // justifyContent={"center"}
+                      // justifyContent={"center"}s
                       align="center"
                       color="text.secondary"
-                      height={"70%"}
+                      px={2}
+                      textAlign={"justify"}
+                      height={"50%"}
                     >
                       Actividad 1s are a widespread group of squamate reptiles,
                       with over 6,000 species, ranging across all continents

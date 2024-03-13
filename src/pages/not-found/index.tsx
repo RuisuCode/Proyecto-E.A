@@ -7,6 +7,7 @@ import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 
 export default function notFound() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
+
   const navigate = useNavigate();
   return (
     <>

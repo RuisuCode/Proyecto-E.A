@@ -42,13 +42,16 @@ export default function LoginForm() {
           </FormLabel>
           <OutlinedInput
             sx={{
-              height: "45px",
+              minHeight: "45px",
               boxShadow: 1,
               borderRadius: "5em",
             }}
             type="number"
+            autoComplete="on"
             error={errors.cedula && true}
-            endAdornment={<BadgeIcon color="secondary" sx={{ ml: 1, mr: 1 }} />}
+            startAdornment={
+              <BadgeIcon color="secondary" sx={{ ml: 1, mr: 1 }} />
+            }
             placeholder="Ingrese su cédula"
             {...register("cedula", {
               required: {
@@ -78,9 +81,11 @@ export default function LoginForm() {
             type={showPassword ? "text" : "password"}
             error={errors.password && true}
             placeholder="Ingrese su contraseña"
-            sx={{ height: "45px", boxShadow: 1, borderRadius: "5em" }}
-            endAdornment={<LockIcon color="secondary" sx={{ ml: 1, mr: 1 }} />}
+            sx={{ minHeight: "45px", boxShadow: 1, borderRadius: "5em" }}
             startAdornment={
+              <LockIcon color="secondary" sx={{ ml: 1, mr: 1 }} />
+            }
+            endAdornment={
               <IconButton
                 sx={{ mr: 1 }}
                 onClick={() => setShowPassword(!showPassword)}
@@ -118,13 +123,12 @@ export default function LoginForm() {
       </Stack>
       <Stack
         textAlign={"right"}
-        my={{ xs: 2, md: 0, lg: 2 }}
+        my={{ xs: 2, md: 2, lg: 2 }}
         width={"100%"}
         flexDirection={"row"}
-        justifyContent={"space-between"}
+        justifyContent={"end"}
         alignItems={"center"}
       >
-        <Stack flexDirection={"row"}></Stack>
         <Stack mt={{ xs: "6vh", md: 0, lg: "5vh" }}>
           <RecoveryPassword />
         </Stack>

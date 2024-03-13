@@ -14,15 +14,22 @@ export function ProtectedRoutes() {
   queryFn: () =>  apiService.get("verify_token"),
 }) */
 
+  /* const { isLoading, isError } = useQuery({
+    queryKey: [QUERY_KEY],
+    queryFn: () => apiService.post(data, "/verify_token"),
+  }); */
   const { isLoading, isError } = useQuery({
     queryKey: [QUERY_KEY],
-    queryFn: () => apiService.get("verify_token"),
+    queryFn: () => apiService.get("/verify_token"),
   });
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isError) navigate("/");
+    if (isError) {
+      sessionStorage.removeItem("auth");
+      navigate("/");
+    }
   }, [isError, navigate]);
 
   if (isLoading) return <Loader />;
