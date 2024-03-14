@@ -35,7 +35,7 @@ class BodyCellExample extends React.Component {
           styleOverrides: {
             root: {
               backgroundColor: "#red",
-              width: "80%",
+              width: "100%",
               borderRadius: "13px",
             },
             /* paper: {
@@ -43,6 +43,7 @@ class BodyCellExample extends React.Component {
             }, */
           },
         },
+
         MuiToolbar: {
           styleOverrides: {
             root: {
@@ -57,6 +58,9 @@ class BodyCellExample extends React.Component {
           styleOverrides: {
             head: {
               backgroundColor: "purple",
+            },
+            root: {
+              //   textAlign: "center",
             },
           },
         },
@@ -81,7 +85,7 @@ class BodyCellExample extends React.Component {
 
   render() {
     const todos = [
-      [1, "Juan Perez", 9182792, "2022-03-01T14:48:00.000Z", "Por definir"],
+      [1, "Juan Sanchez", 3182792, "2022-03-01T14", "Por definir"],
     ];
     const columns = [
       "ID",
@@ -94,6 +98,7 @@ class BodyCellExample extends React.Component {
       filter: true,
       fixedHeader: true,
       FilterType: "dropdown",
+      Responsive: "standard",
       textLabels: {
         body: {
           noMatch: "Lo sentimos, no pudimos encontrar ningún registro!",
@@ -108,7 +113,7 @@ class BodyCellExample extends React.Component {
     return (
       <ThemeProvider theme={this.getMuiTheme()}>
         <MUIDataTable
-          title={"Atletas registrados"}
+          title={"Atletas Por Categoría"}
           data={todos}
           columns={columns}
           options={options}
@@ -118,7 +123,7 @@ class BodyCellExample extends React.Component {
   }
 }
 
-export default function Atletas() {
+export default function AtletasCatg() {
   // Otherwise filter will be applied on fields such as the hidden column id
   /* const columns= [
     { field: "id", headerName: "ID", width: 90, flex: 0.1 },
@@ -175,7 +180,11 @@ export default function Atletas() {
 
   return (
     <>
-      <Stack justifyContent={"center"} alignItems={"center"}>
+      <Stack
+        justifyContent={"center"}
+        alignItems={"center"}
+        width={{ xs: "100vw", lg: "100%" }}
+      >
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
@@ -229,8 +238,7 @@ export default function Atletas() {
             />
           </Badge>
         </Stack>
-
-        {<BodyCellExample />}
+        <Stack width={{ xs: "95%", lg: "80%" }}>{<BodyCellExample />}</Stack>
       </Stack>
     </>
   );

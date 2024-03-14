@@ -19,11 +19,16 @@ export default function Activities() {
   const navigate = useNavigate();
   return (
     <>
-      <Stack justifyContent={"center"} alignItems={"center"}>
+      <Stack
+        justifyContent={"center"}
+        alignItems={"center"}
+        width={{ xs: "100vw", lg: "100%" }}
+      >
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
           my={5}
+          gap={1}
           sx={{ width: { md: "80vw", xs: "95vw" } }}
         >
           <Badge
@@ -82,6 +87,7 @@ export default function Activities() {
             <Badge
               overlap="circular"
               sx={{
+                display: { xs: "none", md: "initial" },
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: "50%",

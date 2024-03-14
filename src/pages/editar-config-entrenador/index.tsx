@@ -13,7 +13,11 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 export default function editarConfigurarUser() {
   return (
     <>
-      <Stack justifyContent={"center"} alignItems={"center"}>
+      <Stack
+        justifyContent={"center"}
+        alignItems={"center"}
+        width={{ xs: "100vw", lg: "100%" }}
+      >
         <Stack
           direction={"row"}
           justifyContent={"space-between"}

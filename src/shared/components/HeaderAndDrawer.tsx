@@ -77,7 +77,7 @@ const openedMixin = (theme: Theme): CSSObject => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
-  marginRight: "10px",
+  marginRight: "5px",
   overflowX: "hidden",
 });
 
@@ -94,6 +94,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
 });
 
 export function HeaderAndDrawer(props: Props): JSX.Element {
+  const { window } = props;
   const { children } = props;
   const { width } = useScreenSize();
   const navigate = useNavigate();
@@ -102,6 +103,10 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
   const logoutMutation = useLogout();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   //   const entity = useUserInfoStore((state) => state.entity);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -110,7 +115,6 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const [showComponent, setShowComponent] = useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -119,20 +123,17 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
     // logoutMutation();
     await logoutMutation.mutateAsync();
   };
-  const handleShowdrawer = () => {
-    setShowComponent(!showComponent);
-  };
   const handleDrawerClose = () => {
     setOpen(false);
   };
 
   // const { data } = useGetProfileData();
-  const entity: number = 999;
+  const entity: number = 1;
   const { handleDrawerState } = useDrawerStore();
 
   let routes: any[];
 
-  if (entity === 999) {
+  if (entity === 1) {
     routes = ROUTES_ADMIN;
   } else {
     routes = [];
@@ -191,7 +192,9 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
               return (
                 <ListItem
                   key={item.title}
-                  onClick={() => (navigate(item.url), handleDrawer())}
+                  onClick={() => (
+                    navigate(item.url), handleDrawer(), handleDrawerToggle()
+                  )}
                   sx={{
                     background:
                       location.pathname === item.url ? "#E84730" : "#fff",
@@ -260,7 +263,11 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                         return (
                           <ListItem
                             key={item.title}
-                            onClick={() => (navigate(item.url), handleDrawer())}
+                            onClick={() => (
+                              navigate(item.url),
+                              handleDrawer(),
+                              handleDrawerToggle()
+                            )}
                             sx={{
                               background:
                                 location.pathname === item.url
@@ -305,19 +312,22 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
     </div>
   );
 
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
         position="fixed"
-        open={open}
+        // open={open}
         sx={{ display: { lg: "none", xs: "initial", md: "none", sm: "none" } }}
       >
         <StyledToolbarHeader>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleShowdrawer}
+            onClick={handleDrawerToggle}
             sx={{
               ...(open && { display: "none" }),
             }}
@@ -397,20 +407,35 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
       </AppBar>
 
       {/* drawer de mobil */}
-      {showComponent && (
-        <Box
-          component="nav"
-          sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
-          aria-label="mailbox folders"
+      <Box
+        component="nav"
+        sx={{
+          display: { xs: "initial", sm: "none", lg: "none" },
+          width: { xs: DRAWER_WIDTH, md: 0 },
+
+          flexShrink: { sm: 0, md: "initial" },
+        }}
+        aria-label="mailbox folders"
+      >
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true,
+          }}
+          sx={{
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: { xs: 250, md: 0 },
+            },
+          }}
         >
-          <Drawer
-            variant="permanent"
-            sx={{ display: { sm: "none", xs: "block" } }}
-          >
-            {drawer}
-          </Drawer>
-        </Box>
-      )}
+          {drawer}
+        </Drawer>
+      </Box>
       <Box
         component="nav"
         sx={{
@@ -484,7 +509,11 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                       placement="right"
                     >
                       <ListItem
-                        onClick={() => (navigate(item.url), handleDrawer())}
+                        onClick={() => (
+                          navigate(item.url),
+                          handleDrawer(),
+                          handleDrawerClose()
+                        )}
                         sx={{
                           background:
                             location.pathname === item.url ? "#E84730" : "#fff",
@@ -575,7 +604,9 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                                 <ListItem
                                   key={item.title}
                                   onClick={() => (
-                                    navigate(item.url), handleDrawer()
+                                    navigate(item.url),
+                                    handleDrawer(),
+                                    handleDrawerClose()
                                   )}
                                   sx={{
                                     background:
@@ -647,8 +678,9 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
         component="main"
         sx={{
           flexGrow: 1,
-          width: { sm: `calc(100% - ${DRAWER_WIDTH}px )`, lg: "100vw" },
-          height: "100vh",
+          width: { sm: `calc(100% - ${DRAWER_WIDTH}px )` },
+
+          minHeight: "100vh",
           background: "#f8e6d9",
         }}
       >

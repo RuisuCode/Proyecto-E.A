@@ -14,7 +14,7 @@ import EventIcon from "@mui/icons-material/Event";
 export default function agregarEvento() {
   return (
     <>
-      <Stack justifyContent={"center"} alignItems={"center"}>
+      <Stack justifyContent={"center"} alignItems={"center"}   width={{ xs: "100vw", lg: "100%" }}>
         <Stack
           direction={"row"}
           justifyContent={"space-between"}

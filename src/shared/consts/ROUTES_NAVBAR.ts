@@ -5,9 +5,9 @@ import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import AssignmentIcon from "@mui/icons-material/Assignment";
+// import AssignmentIcon from "@mui/icons-material/Assignment";
 import EventIcon from "@mui/icons-material/Event";
-
+import LanIcon from "@mui/icons-material/Lan";
 /* export const ROUTES_SUPERADMIN = [
   {
     type: 'button',
@@ -59,7 +59,16 @@ export const ROUTES_ADMIN = [
     titleButton: "Atletas",
     icon: DirectionsRunIcon,
     buttonMenu: [
-      { icon: RecentActorsIcon, title: "Listado de atletas", url: "/atletas" },
+      {
+        icon: RecentActorsIcon,
+        title: "Atletas Por Nivel",
+        url: "/atletas_nivel",
+      },
+      {
+        icon: LanIcon,
+        title: "Atletas Por Categoría",
+        url: "/atletas_ctg",
+      },
       {
         icon: PersonAddAlt1Icon,
         title: "Agregar Atletas",
@@ -67,12 +76,12 @@ export const ROUTES_ADMIN = [
       },
     ],
   },
-  {
+  /* {
     type: "button",
     title: "Actividades",
     url: "/activities",
     icon: AssignmentIcon,
-  },
+  }, */
   {
     type: "collapse" /* va a ser un collapse */,
     titleButton: "Eventos",

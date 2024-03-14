@@ -10,7 +10,7 @@ export default function LayoutDashboard() {
         <Box
           sx={{
             backgroundColor: "#f8e6d9",
-            minHeight: "calc(100vh - 100px)",
+            minHeight: { xs: "calc(100vh - 110px)", lg: "calc(100vh - 110px)" },
 
             // paddingY: 1,
           }}

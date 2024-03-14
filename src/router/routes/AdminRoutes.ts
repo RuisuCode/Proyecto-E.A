@@ -3,18 +3,21 @@ import { LazyExoticComponent, lazy } from "react";
 const Inicio: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/inicio-admin")
 );
-const Atletas: LazyExoticComponent<React.FC> = lazy(
-  () => import("../../pages/atletas")
+const AtletasNivel: LazyExoticComponent<React.FC> = lazy(
+  () => import("../../pages/atletas-nivel")
+);
+const AtletasCtg: LazyExoticComponent<React.FC> = lazy(
+  () => import("../../pages/atletas-categoria")
 );
 const Eventos: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/eventos")
 );
-const Actividades: LazyExoticComponent<React.FC> = lazy(
+/* const Actividades: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/actividades")
 );
 const create_Actividades: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/crear-actividad")
-);
+); */
 const agregarAtletas: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/agregar-atletas")
 );
@@ -38,9 +41,14 @@ export const adminRoutes = [
     title: "Inicio",
   },
   {
-    route: "/atletas",
-    component: Atletas,
-    title: "Atletas",
+    route: "/atletas_nivel",
+    component: AtletasNivel,
+    title: "Atletas Por Nivel",
+  },
+  {
+    route: "/atletas_ctg",
+    component: AtletasCtg,
+    title: "Atletas Por Categoría",
   },
   {
     route: "/eventos",
@@ -62,7 +70,7 @@ export const adminRoutes = [
     component: editConfigEntrenador,
     title: "Editar Entrenador",
   },
-  {
+  /* {
     route: "/activities",
     component: Actividades,
     title: "Actividades",
@@ -71,7 +79,7 @@ export const adminRoutes = [
     route: "/create-activities",
     component: create_Actividades,
     title: "Crear Actividad",
-  },
+  }, */
   {
     route: "/add-event",
     component: agregarEvento,

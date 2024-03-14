@@ -56,8 +56,6 @@ const validateToken = () => {
 
 const testToken = validateToken();
 
-console.log(testToken);
-
 export const useUserInfoStore = create<IUserInfo>((set) => ({
   entity: data !== null ? testToken.state.rolId : 0,
   setEntity: (tokenId: IToken) => {

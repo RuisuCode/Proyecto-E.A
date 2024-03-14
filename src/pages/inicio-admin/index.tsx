@@ -49,7 +49,12 @@ export default function InicioAdmin() {
 
   return (
     <>
-      <Stack justifyContent={"center"} alignItems={"center"}>
+      <Stack
+        justifyContent={"center"}
+        alignItems={"center"}
+        width={{ xs: "100vw", lg: "100%" }}
+        height={"auto"}
+      >
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
@@ -340,6 +345,7 @@ export default function InicioAdmin() {
                 sx={{
                   maxWidth: 545,
                   width: 400,
+                  height: "auto",
                   borderRadius: "1em",
                   position: "relative",
                   bottom: 50,

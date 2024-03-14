@@ -22,11 +22,19 @@ export default function Eventos() {
 
   return (
     <>
-      <Stack justifyContent={"center"} alignItems={"center"}>
+      <Stack
+        justifyContent={"center"}
+        alignItems={"center"}
+        width={{ xs: "100vw", lg: "100%" }}
+        height={"auto"}
+        gap={{ xs: 0, lg: 3 }}
+      >
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
-          my={5}
+          mt={{ xs: 6, lg: 5 }}
+          mb={{ xs: 3, lg: 5 }}
+          gap={1}
           sx={{ width: { md: "80vw", xs: "95vw" } }}
         >
           <Badge
@@ -35,7 +43,7 @@ export default function Eventos() {
               borderRadius: "10px",
               boxShadow: 4,
               height: 40,
-              width: "auto",
+              width: { xs: "50%", md: "auto" },
               alignItems: "center",
               justifyContent: "center",
               gap: 2,
@@ -47,29 +55,55 @@ export default function Eventos() {
               <NavigateNextIcon />
             </Typography>
             <Typography
-              fontSize={"0.9em"}
-              fontWeight={"bold"}
-              letterSpacing={1.5}
+              fontSize={"medium"}
+              letterSpacing={{ xs: 0, lg: 1.5 }}
               color="#fff"
             >
               {/* {location.pathname.split("/")[1]} */}
               Listado de Eventos
             </Typography>
           </Badge>
-          <Stack direction={"row"} gap={3} alignItems={"center"}>
+          <Stack
+            direction={{ xs: "column", lg: "row" }}
+            gap={3}
+            alignItems={"center"}
+          >
             <Stack alignItems={"flex-end"}>
-              <Button
+              {/* <Button
                 className="learn-more2"
-                style={{ width: "230px", height: "45px", borderRadius: "2em" }}
+                style={{ width: "auto", height: "45px", borderRadius: "2em" }}
                 endIcon={<EventIcon />}
                 onClick={() => navigate("/create-activities")}
               >
                 Agregar evento
-              </Button>
+              </Button> */}
+              <Badge
+                sx={{
+                  borderRadius: "10px",
+                  background: "#E84730",
+
+                  boxShadow: 4,
+                  height: 40,
+                  width: "auto",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 2,
+                  paddingInline: 2,
+                  cursor: "pointer",
+                }}
+                onClick={() => navigate("/create-activities")}
+              >
+                <EventIcon sx={{ color: "#fff" }} />
+                <Typography color={"#fff"} fontSize={"medium"}>
+                  {" "}
+                  Agregar evento
+                </Typography>
+              </Badge>
             </Stack>
             <Badge
               overlap="circular"
               sx={{
+                display: { xs: "none", md: "initial" },
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: "50%",
@@ -91,20 +125,22 @@ export default function Eventos() {
             </Badge>
           </Stack>
         </Stack>
-        <Stack>
+        <Stack width={{ xs: "95%", lg: "90%" }} alignItems={"center"}>
           <Grid
             container
-            direction={{ md: "row", xs: "column" }}
-            spacing={4}
+            direction={{ md: "column", lg: "row", xs: "column" }}
             mt={2}
-            gap={4}
+            width={"100%"}
+            gap={{ xs: 2, lg: 10 }}
           >
-            <Grid>
+            <Grid width={{ xs: "100%", lg: "45%" }}>
               <Stack
                 bgcolor={"transparent"}
                 borderRadius={"4px"}
                 // boxShadow={2}
-                sx={{ maxWidth: 600, height: "300px" }}
+                // mx={{xs:1}}
+                sx={{ minWidth: { xs: "100%", lg: 600 }, height: "300px" }}
+                alignItems={"center"}
                 // overflow={"hidden"}
               >
                 <motion.div
@@ -114,6 +150,7 @@ export default function Eventos() {
                   }}
                   style={{
                     overflowY: "hidden",
+                    width: "95%",
                     height: 430,
                     boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
                     borderTopRightRadius: "1em",
@@ -130,7 +167,7 @@ export default function Eventos() {
                         // borderRadius: "1em",
                         height: 300,
                         width: "55%",
-                        zIndex: 3000,
+                        zIndex: 30,
                         pt: 2,
                         // position: "relative",
                         // transform: "translateY(-70px)",
@@ -140,6 +177,9 @@ export default function Eventos() {
                         boxShadow: 5,
                         bgcolor: "#fff",
                         // border: "solid",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignContent: "space-around",
                       }}
                     >
                       <Typography
@@ -159,6 +199,7 @@ export default function Eventos() {
                         align="center"
                         color="text.secondary"
                         height={"70%"}
+                        px={2}
                       >
                         Lizards are a widespread group of squamate reptiles,
                         with over 6,000 species, ranging across all continents
@@ -168,25 +209,45 @@ export default function Eventos() {
                         direction={"row"}
                         width={"100%"}
                         justifyContent={"space-around"}
+                        gap={1}
+                        pb={2}
                       >
                         <Button
                           variant="contained"
-                          sx={{ borderRadius: "2em", boxShadow: 5 }}
+                          sx={{
+                            py: { xs: 3, md: 0 },
+                            borderRadius: "1em",
+                            boxShadow: 5,
+                            width: "45%",
+                            height: "40px",
+                          }}
                         >
-                          Eliminar evento
+                          <Typography textTransform={"capitalize"}>
+                            {" "}
+                            Eliminar evento
+                          </Typography>
                         </Button>
                         <Button
                           variant="contained"
-                          sx={{ borderRadius: "2em", boxShadow: 5 }}
+                          sx={{
+                            py: { xs: 3, md: 0 },
+                            borderRadius: "1em",
+                            boxShadow: 5,
+                            width: "40%",
+                            height: "40px",
+                          }}
                         >
-                          Ir al evento
+                          <Typography textTransform={"capitalize"}>
+                            {" "}
+                            Ir al evento
+                          </Typography>
                         </Button>
                       </Stack>
                     </Box>
                     <CardMedia
                       sx={{
                         height: 400,
-                        zIndex: 100,
+                        zIndex: 10,
                         width: "45%",
                         // position: "relative",
                         /*        borderTopRightRadius: "1em", */
@@ -201,12 +262,13 @@ export default function Eventos() {
                 </motion.div>
               </Stack>
             </Grid>
-            <Grid>
+            <Grid width={{ xs: "100%", lg: "45%" }}>
               <Stack
                 bgcolor={"transparent"}
                 borderRadius={"4px"}
                 // boxShadow={2}
-                sx={{ maxWidth: 600, height: "300px" }}
+                sx={{ minWidth: { xs: "100%", lg: 600 }, height: "300px" }}
+                alignItems={"center"}
                 // overflow={"hidden"}
               >
                 <motion.div
@@ -216,6 +278,7 @@ export default function Eventos() {
                   }}
                   style={{
                     overflowY: "hidden",
+                    width: "95%",
                     height: 430,
                     boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
                     borderTopRightRadius: "1em",
@@ -232,7 +295,7 @@ export default function Eventos() {
                         // borderRadius: "1em",
                         height: 300,
                         width: "55%",
-                        zIndex: 3000,
+                        zIndex: 30,
                         pt: 2,
                         // position: "relative",
                         // transform: "translateY(-70px)",
@@ -241,6 +304,9 @@ export default function Eventos() {
                         /*      borderBottomLeftRadius: "1em", */
                         boxShadow: 5,
                         bgcolor: "#fff",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignContent: "space-around",
                         // border: "solid",
                       }}
                     >
@@ -261,6 +327,7 @@ export default function Eventos() {
                         align="center"
                         color="text.secondary"
                         height={"70%"}
+                        px={2}
                       >
                         Lizards are a widespread group of squamate reptiles,
                         with over 6,000 species, ranging across all continents
@@ -270,25 +337,45 @@ export default function Eventos() {
                         direction={"row"}
                         width={"100%"}
                         justifyContent={"space-around"}
+                        gap={1}
+                        pb={2}
                       >
                         <Button
                           variant="contained"
-                          sx={{ borderRadius: "2em", boxShadow: 5 }}
+                          sx={{
+                            borderRadius: "1em",
+                            py: { xs: 3, md: 0 },
+                            boxShadow: 5,
+                            width: "45%",
+                            height: "40px",
+                          }}
                         >
-                          Eliminar evento
+                          <Typography textTransform={"capitalize"}>
+                            {" "}
+                            Eliminar evento
+                          </Typography>
                         </Button>
                         <Button
                           variant="contained"
-                          sx={{ borderRadius: "2em", boxShadow: 5 }}
+                          sx={{
+                            py: { xs: 3, md: 0 },
+                            borderRadius: "1em",
+                            boxShadow: 5,
+                            width: "40%",
+                            height: "40px",
+                          }}
                         >
-                          Ir al evento
+                          <Typography textTransform={"capitalize"}>
+                            {" "}
+                            Ir al evento
+                          </Typography>
                         </Button>
                       </Stack>
                     </Box>
                     <CardMedia
                       sx={{
                         height: 400,
-                        zIndex: 100,
+                        zIndex: 10,
                         width: "45%",
                         // position: "relative",
                         /*        borderTopRightRadius: "1em", */

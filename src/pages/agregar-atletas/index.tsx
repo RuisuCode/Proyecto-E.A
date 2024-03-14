@@ -53,7 +53,12 @@ export default function agregarAtletas() {
 
   return (
     <>
-      <Stack justifyContent={"center"} alignItems={"center"}>
+      <Stack
+        justifyContent={"center"}
+        alignItems={"center"}
+        width={{ xs: "100vw", lg: "100%" }}
+        height={"100%"}
+      >
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
