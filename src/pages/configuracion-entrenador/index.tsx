@@ -40,7 +40,7 @@ export default function configurarUser() {
       <Stack
         justifyContent={"center"}
         alignItems={"center"}
-        width={{ xs: "100vw", lg: "100%" }}
+        width={{ xs: "100vw", md: "100%" }}
       >
         <Stack
           direction={"row"}
@@ -62,7 +62,13 @@ export default function configurarUser() {
             }}
           >
             <ManageAccountsIcon sx={{ color: "#fff" }} fontSize="medium" />
-            <Typography fontSize={"0.9em"} fontWeight={"bold"} color="#fff">
+            <Typography
+              display={"flex"}
+              justifyContent={"center"}
+              fontSize={"0.9em"}
+              fontWeight={"bold"}
+              color="#fff"
+            >
               <NavigateNextIcon />
             </Typography>
             <Typography

@@ -1,0 +1,8 @@
+.my-menu {
+  margin-left: 20px;
+  background: transparent;
+}
+.my-menuitem {
+  display: flex;
+  justify-content: space-evenly;
+}

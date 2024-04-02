@@ -1,10 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Outlet, useNavigate } from "react-router-dom";
 import { apiService } from "../shared/consts/API_SERVICES";
 import { useEffect } from "react";
 
 //Local
 import Loader from "../shared/components/Loader";
+import { toast } from "react-toastify";
 
 const QUERY_KEY = "verifyToken";
 
@@ -22,8 +23,22 @@ export function ProtectedRoutes() {
     queryKey: [QUERY_KEY],
     queryFn: () => apiService.get("/verify_token"),
   });
+  const { mutateAsync } = useMutation({
+    mutationFn: () => apiService.get("/verify_token"),
+    onError: () => {
+      toast.warning("Sesión Caducada");
+      sessionStorage.removeItem("auth");
+      navigate("/");
+    },
+  });
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const intervalo = setInterval(mutateAsync, 600000); // Ejecutar cada 500000ms (5 minutos)
+
+    return () => clearInterval(intervalo);
+  }, []);
 
   useEffect(() => {
     if (isError) {

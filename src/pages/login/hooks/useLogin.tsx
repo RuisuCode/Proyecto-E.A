@@ -27,7 +27,7 @@ export function useLogin() {
       const statusResponse = error.response?.status;
 
       if (statusRequest === 0) {
-        toast.error("Verifique su conexión a internet y vuelva a intentarlo.", {
+        toast.error("Servidor Apagado", {
           position: "top-left",
         });
         return;
@@ -67,8 +67,14 @@ export function useLogout() {
       queryClient.clear();
       toast.success("Éxito al cerrar sesión");
     },
-    onError: () => {
+    onError: (error: any) => {
+      const statusResponse = error.response?.status;
       toast.error("Error al intentar cerrar sesión");
+      if (statusResponse === 401) {
+        sessionStorage.removeItem("auth");
+        navigate("/", { replace: true });
+        return;
+      }
     },
   });
 }

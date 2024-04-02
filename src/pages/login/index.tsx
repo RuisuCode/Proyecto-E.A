@@ -35,9 +35,8 @@ export default function Login() {
   };
   const queryClient = useQueryClient();
   const token = UseAuthStore((state: any) => state.token);
-  const dataToken: any = [{ token }];
   const { mutateAsync } = useMutation({
-    mutationFn: () => apiService.post(dataToken, "/verify_token"),
+    mutationFn: () => apiService.get("/verify_token"),
     onSuccess: () => {
       queryClient.clear();
       toast.success("sesión restaurada");
@@ -49,7 +48,7 @@ export default function Login() {
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    if (sessionStorage) {
+    if (token) {
       mutateAsync().then(() => navigate("/inicio"));
     }
   }, []);
@@ -371,6 +370,7 @@ export default function Login() {
                             color: "#E84730",
                             fontWeight: "bold",
                             fontSize: { md: "1.3vw" },
+                            transform: "rotateY(180deg)",
                           }}
                         />
                         Universidad Bolivariana de Venezuela <br /> del Estado

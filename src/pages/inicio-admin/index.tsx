@@ -52,7 +52,7 @@ export default function InicioAdmin() {
       <Stack
         justifyContent={"center"}
         alignItems={"center"}
-        width={{ xs: "100vw", lg: "100%" }}
+        width={{ xs: "100vw", md: "100%" }}
         height={"auto"}
       >
         <Stack
@@ -75,7 +75,13 @@ export default function InicioAdmin() {
             }}
           >
             <HomeRoundedIcon sx={{ color: "#fff" }} fontSize="medium" />
-            <Typography fontSize={"0.9em"} fontWeight={"bold"} color="#fff">
+            <Typography
+              display={"flex"}
+              justifyContent={"center"}
+              fontSize={"0.9em"}
+              fontWeight={"bold"}
+              color="#fff"
+            >
               <NavigateNextIcon />
             </Typography>
             <Typography

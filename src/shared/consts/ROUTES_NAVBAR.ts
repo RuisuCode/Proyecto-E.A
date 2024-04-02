@@ -1,13 +1,14 @@
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 // import AssignmentIcon from "@mui/icons-material/Assignment";
 import EventIcon from "@mui/icons-material/Event";
 import LanIcon from "@mui/icons-material/Lan";
+import AlignVerticalBottomOutlinedIcon from "@mui/icons-material/AlignVerticalBottomOutlined";
+
 /* export const ROUTES_SUPERADMIN = [
   {
     type: 'button',
@@ -47,7 +48,7 @@ import LanIcon from "@mui/icons-material/Lan";
   },
 ]; */
 
-export const ROUTES_ADMIN = [
+export const ROUTES_ENTRE = [
   {
     type: "button",
     title: "Inicio",
@@ -60,7 +61,7 @@ export const ROUTES_ADMIN = [
     icon: DirectionsRunIcon,
     buttonMenu: [
       {
-        icon: RecentActorsIcon,
+        icon: AlignVerticalBottomOutlinedIcon,
         title: "Atletas Por Nivel",
         url: "/atletas_nivel",
       },
@@ -106,4 +107,12 @@ export const ROUTES_ADMIN = [
       { title: 'Tipos de Salas', url: '/tipos-salas' },
     ],
   }, */
+];
+export const ROUTES_ATLETA = [
+  {
+    type: "button",
+    title: "Inicio",
+    url: "/inicio",
+    icon: HomeRoundedIcon,
+  },
 ];

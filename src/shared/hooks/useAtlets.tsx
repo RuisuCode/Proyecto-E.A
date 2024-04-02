@@ -1,9 +1,11 @@
 import {
   useMutation /* useQuery, useQueryClient */,
+  useQuery,
 } from "@tanstack/react-query";
 import { apiService } from "../consts/API_SERVICES";
 import { toast } from "react-toastify";
 // import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
 // import modifiedAxios from '../interceptors/axios.interceptor';
 
 // const QUERY_KEY = 'atletas';
@@ -21,15 +23,20 @@ export function useAggAtlets() {
       toast.error(error.response.data.message);
     },
   }); */
+  const navigate = useNavigate();
   return useMutation({
     mutationFn: (data: any) => apiService.post(data, "/atleta"),
     onSuccess: () => {
       toast.success("Éxito al agregar atleta");
+      navigate("/atletas_nivel");
     },
     onError: (error: any) => {
-      toast.error(error.response.data.message);
       const statusResponse = error.response?.status;
-
+      {
+        error.response.data?.message.map((item: any) => {
+          toast.error(item.message);
+        });
+      }
       if (statusResponse === 404) {
         toast.error(`A ocurrido un error inesperado ${statusResponse} `);
         return;
@@ -37,9 +44,32 @@ export function useAggAtlets() {
     },
   });
 }
-/* export function useGetEventos() {
-  return useQuery([QUERY_KEY], () => apiService.get('/eventos/activos'));
+export function useGetAtletas() {
+  const QUERY_KEY = "Atletas";
+  const Atletas = useQuery({
+    queryKey: [QUERY_KEY],
+    queryFn: async () => {
+      const data = await apiService.get("/atletas");
+      return data.data;
+    },
+  });
+  return Atletas;
 }
+export function useGetAtletaId() {
+  const { id } = useParams();
+  const QUERY_KEY = ["Atletas", id];
+  const atletaId = useQuery({
+    queryKey: [QUERY_KEY],
+    queryFn: async () => {
+      const data = await apiService.get(`/atleta/${id}`);
+      return data.data;
+    },
+  });
+  return atletaId;
+}
+
+// [QUERY_KEY], () => apiService.get('/eventos/activos'));
+/*
 
 export function useGetEventsById() {
   const { id } = useParams();

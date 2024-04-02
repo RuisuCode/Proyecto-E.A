@@ -25,7 +25,7 @@ export default function Eventos() {
       <Stack
         justifyContent={"center"}
         alignItems={"center"}
-        width={{ xs: "100vw", lg: "100%" }}
+        width={{ xs: "100vw", md: "100%" }}
         height={"auto"}
         gap={{ xs: 0, lg: 3 }}
       >
@@ -51,11 +51,18 @@ export default function Eventos() {
             }}
           >
             <CalendarMonthIcon sx={{ color: "#fff" }} fontSize="medium" />
-            <Typography fontSize={"0.9em"} fontWeight={"bold"} color="#fff">
+            <Typography
+              display={"flex"}
+              justifyContent={"center"}
+              fontSize={"0.9em"}
+              fontWeight={"bold"}
+              color="#fff"
+            >
               <NavigateNextIcon />
             </Typography>
             <Typography
               fontSize={"medium"}
+              fontWeight={"bold"}
               letterSpacing={{ xs: 0, lg: 1.5 }}
               color="#fff"
             >
@@ -69,14 +76,6 @@ export default function Eventos() {
             alignItems={"center"}
           >
             <Stack alignItems={"flex-end"}>
-              {/* <Button
-                className="learn-more2"
-                style={{ width: "auto", height: "45px", borderRadius: "2em" }}
-                endIcon={<EventIcon />}
-                onClick={() => navigate("/create-activities")}
-              >
-                Agregar evento
-              </Button> */}
               <Badge
                 sx={{
                   borderRadius: "10px",
@@ -157,8 +156,7 @@ export default function Eventos() {
                     borderTopLeftRadius: "1em",
                     borderBottomLeftRadius: "1em",
                     borderBottomRightRadius: "1em",
-                    /*       borderBottomRightRadius: "1em",
-                    borderBottomLeftRadius: "1em", */
+
                   }}
                 >
                   <Stack flexDirection={"row"}>
@@ -169,6 +167,7 @@ export default function Eventos() {
                         width: "55%",
                         zIndex: 30,
                         pt: 2,
+
                         // position: "relative",
                         // transform: "translateY(-70px)",
 

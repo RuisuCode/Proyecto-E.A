@@ -14,12 +14,16 @@ import EventIcon from "@mui/icons-material/Event";
 export default function agregarEvento() {
   return (
     <>
-      <Stack justifyContent={"center"} alignItems={"center"}   width={{ xs: "100vw", lg: "100%" }}>
+      <Stack
+        justifyContent={"center"}
+        alignItems={"center"}
+        width={{ xs: "100vw", lg: "100%" }}
+      >
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
           my={5}
-          sx={{ width: { md: "80vw", xs: "95vw" } }}
+          sx={{ width: { md: "80%", xs: "95vw" } }}
         >
           <Badge
             sx={{
@@ -37,6 +41,8 @@ export default function agregarEvento() {
             <EventIcon sx={{ color: "#fff" }} fontSize="medium" />
             <Typography
               fontSize={{ lg: "0.9em", xs: "0.7em" }}
+              display={"flex"}
+              justifyContent={"center"}
               fontWeight={"bold"}
               color="#fff"
             >
@@ -48,11 +54,12 @@ export default function agregarEvento() {
               letterSpacing={1.5}
               color="#fff"
             >
-              {/* {location.pathname.split("/")[1]} */}
               Eventos
             </Typography>
             <Typography
               fontSize={{ lg: "0.9em", xs: "0.7em" }}
+              display={"flex"}
+              justifyContent={"center"}
               fontWeight={"bold"}
               color="#fff"
             >

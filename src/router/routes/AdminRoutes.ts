@@ -30,8 +30,11 @@ const configEntrenador: LazyExoticComponent<React.FC> = lazy(
 const editConfigEntrenador: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/editar-config-entrenador")
 );
-const actividadId: LazyExoticComponent<React.FC> = lazy(
+/* const actividadId: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/actividades/components/index")
+); */
+const altletaId: LazyExoticComponent<React.FC> = lazy(
+  () => import("../../pages/atletaId/index")
 );
 
 export const adminRoutes = [
@@ -86,8 +89,8 @@ export const adminRoutes = [
     title: "Agregar evento",
   },
   {
-    route: "/actividad:id",
-    component: actividadId,
-    title: "Actividad",
+    route: "/atleta/:id",
+    component: altletaId,
+    title: "Estadísticas del Atleta",
   },
 ];

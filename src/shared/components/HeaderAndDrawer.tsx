@@ -31,7 +31,7 @@ import Image from "../../shared/style-components/Image";
 import { useDrawerStore } from "../../store/DrawerStore";
 import { theme } from "../style-components/theme/theme";
 // import { useUserInfoStore } from "../../shared/store/UserStore";
-import { ROUTES_ADMIN } from "../consts/ROUTES_NAVBAR";
+import { ROUTES_ATLETA, ROUTES_ENTRE } from "../consts/ROUTES_NAVBAR";
 import { useState } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 // import { useGetProfileData } from "../hooks/useProfile";
@@ -134,8 +134,10 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
   let routes: any[];
 
   if (entity === 1) {
-    routes = ROUTES_ADMIN;
-  } else {
+    routes = ROUTES_ENTRE;
+  }else if(entity === 2) {
+    routes = ROUTES_ATLETA;
+  }else {
     routes = [];
   }
 
@@ -321,7 +323,10 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
       <AppBar
         position="fixed"
         // open={open}
-        sx={{ display: { lg: "none", xs: "initial", md: "none", sm: "none" } }}
+        sx={{
+          display: { lg: "none", xs: "initial", md: "none", sm: "none" },
+          bgcolor: "#E84730",
+        }}
       >
         <StyledToolbarHeader>
           <IconButton
@@ -411,7 +416,6 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
         component="nav"
         sx={{
           display: { xs: "initial", sm: "none", lg: "none" },
-          width: { xs: DRAWER_WIDTH, md: 0 },
 
           flexShrink: { sm: 0, md: "initial" },
         }}

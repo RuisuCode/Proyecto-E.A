@@ -1,22 +1,20 @@
 import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
+import Typography from "@mui/material/Typography";
 
-/* local */
-
-/* icons */
-import WarningIcon from "@mui/icons-material/Warning";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import HelpIcon from "@mui/icons-material/Help";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
-export default function editarConfigurarUser() {
+import HelpIcon from "@mui/icons-material/Help";
+
+export default function InicioAtleta() {
   return (
     <>
       <Stack
         justifyContent={"center"}
         alignItems={"center"}
         width={{ xs: "100vw", md: "100%" }}
+        height={"auto"}
       >
         <Stack
           direction={"row"}
@@ -37,41 +35,23 @@ export default function editarConfigurarUser() {
               paddingInline: 2,
             }}
           >
-            <ManageAccountsIcon sx={{ color: "#fff" }} fontSize="medium" />
+            <HomeRoundedIcon sx={{ color: "#fff" }} fontSize="medium" />
             <Typography
-              fontSize={{ lg: "0.9em", xs: "0.7em" }}
               display={"flex"}
               justifyContent={"center"}
+              fontSize={"0.9em"}
               fontWeight={"bold"}
               color="#fff"
             >
               <NavigateNextIcon />
             </Typography>
             <Typography
-              fontSize={{ lg: "0.9em", xs: "0.7em" }}
+              fontSize={"0.9em"}
               fontWeight={"bold"}
               letterSpacing={1.5}
               color="#fff"
             >
-              {/* {location.pathname.split("/")[1]} */}
-              Datos del Entrenador
-            </Typography>
-            <Typography
-              fontSize={{ lg: "0.9em", xs: "0.7em" }}
-              display={"flex"}
-              justifyContent={"center"}
-              fontWeight={"bold"}
-              color="#fff"
-            >
-              <NavigateNextIcon />
-            </Typography>
-            <Typography
-              fontSize={{ lg: "0.9em", xs: "0.7em" }}
-              fontWeight={"bold"}
-              letterSpacing={1.5}
-              color="#fff"
-            >
-              Editar
+              {location.pathname.split("/")[1]}
             </Typography>
           </Badge>
           <Badge
@@ -96,12 +76,7 @@ export default function editarConfigurarUser() {
             />
           </Badge>
         </Stack>
-        <Stack width={"80%"} alignItems={"center"} height={"100%"}>
-          <WarningIcon color="warning" sx={{ fontSize: "20em" }} />
-          <Typography letterSpacing={4} fontWeight={"bold"}>
-            Work in progress
-          </Typography>
-        </Stack>
+        <Typography>Bienvenido Atleta</Typography>
       </Stack>
     </>
   );
