@@ -180,7 +180,6 @@ export default function AtletaId() {
                 bgcolor={"#E84730"}
                 borderRadius={"1em"}
                 boxShadow={5}
-                // mt={4}
                 p={3}
                 alignItems={"center"}
                 display={"flex"}
@@ -190,7 +189,13 @@ export default function AtletaId() {
                   width={"100%"}
                   direction={"row"}
                 >
-                  <Stack gap={1} mx={1} my={1} direction={"column"}>
+                  <Stack
+                    gap={1}
+                    mx={1}
+                    width={"100%"}
+                    my={1}
+                    direction={"column"}
+                  >
                     <ListItem sx={{ paddingInline: "0" }}>
                       <ListItemAvatar>
                         <Avatar sx={{ bgcolor: "#E84730", mb: "1px" }}>
@@ -237,8 +242,8 @@ export default function AtletaId() {
                         </Stack>
                       </Stack>
                     </ListItem>
-                    <Stack gap={1} direction={"row"}>
-                      <ListItem sx={{ paddingInline: "0" }}>
+                    <Stack gap={1} width={"100%"} direction={"row"}>
+                      <ListItem sx={{ paddingInline: "0", width: "23.33%" }}>
                         <ListItemAvatar>
                           <Avatar sx={{ bgcolor: "#E84730", mb: "1px" }}>
                             <BadgeIcon sx={{ fontSize: "1.5em" }} />
@@ -247,6 +252,7 @@ export default function AtletaId() {
                         <Typography
                           width={"100%"}
                           color={"#fff"}
+                          zIndex={99}
                           fontSize={{ lg: "1.5em", xs: "1.2em" }}
                           fontWeight={"bold"}
                         >
@@ -257,6 +263,8 @@ export default function AtletaId() {
                         sx={{
                           display: { xs: "none", md: "flex" },
                           paddingInline: "0",
+                          width: "43.33%",
+                          justifyContent: "center",
                         }}
                       >
                         <ListItemAvatar>
@@ -265,7 +273,6 @@ export default function AtletaId() {
                           </Avatar>
                         </ListItemAvatar>
                         <Typography
-                          width={"100%"}
                           color={"#fff"}
                           fontSize={{ lg: "1.5em", xs: "1.2em" }}
                           fontWeight={"bold"}
@@ -277,6 +284,7 @@ export default function AtletaId() {
                         sx={{
                           display: { xs: "none", md: "flex" },
                           paddingInline: "0",
+                          width: "23.33%",
                         }}
                       >
                         <ListItemAvatar>
@@ -385,14 +393,7 @@ export default function AtletaId() {
                         width={"100%"}
                         mb={2}
                       >
-                        <Grid
-                          px={1}
-                          width={"100%"}
-                          columnGap={10}
-                          xs={2}
-                          sm={4}
-                          md={6}
-                        >
+                        <Grid px={1} width={"100%"} xs={2} sm={4} md={6}>
                           <Stack width={"100%"} gap={1}>
                             <Stack gap={2} flexDirection={"row"}>
                               <Stack flexDirection={"row"}>
@@ -443,26 +444,22 @@ export default function AtletaId() {
                                 </Typography>
                                 <Typography> {dataAtleta[4]}</Typography>
                               </Stack>
-                              <Stack flexDirection={"row"}>
-                                <Typography
-                                  textAlign={"start"}
-                                  fontWeight={"bold"}
-                                  mr={1}
-                                >
-                                  Genero:
-                                </Typography>
-                                <Typography>
-                                  {dataAtleta[0]?.genero === "m"
-                                    ? "Masculino"
-                                    : "Femenino"}
-                                </Typography>
-                              </Stack>
                             </Stack>
-                            <Stack                          
-                              width={"100%"}
-                              gap={2}
-                              flexDirection={"row"}
-                            >
+                            <Stack flexDirection={"row"}>
+                              <Typography
+                                textAlign={"start"}
+                                fontWeight={"bold"}
+                                mr={1}
+                              >
+                                Genero:
+                              </Typography>
+                              <Typography>
+                                {dataAtleta[0]?.genero === "m"
+                                  ? "Masculino"
+                                  : "Femenino"}
+                              </Typography>
+                            </Stack>
+                            <Stack width={"100%"} gap={2} flexDirection={"row"}>
                               <Stack flexDirection={"row"}>
                                 <Typography
                                   textAlign={"start"}
@@ -477,23 +474,21 @@ export default function AtletaId() {
                                     : dataAtleta[0]?.telefono}
                                 </Typography>
                               </Stack>
-                             
-                             
                             </Stack>
-                             <Stack flexDirection={"row"}>
-                                <Typography
-                                  textAlign={"start"}
-                                  fontWeight={"bold"}
-                                  mr={1}
-                                >
-                                  Correo:
-                                </Typography>
-                                <Typography>
-                                  {dataAtleta[0]?.email === null
-                                    ? "No registrado"
-                                    : dataAtleta[0]?.email}
-                                </Typography>
-                              </Stack>
+                            <Stack flexDirection={"row"}>
+                              <Typography
+                                textAlign={"start"}
+                                fontWeight={"bold"}
+                                mr={1}
+                              >
+                                Correo:
+                              </Typography>
+                              <Typography>
+                                {dataAtleta[0]?.email === null
+                                  ? "No registrado"
+                                  : dataAtleta[0]?.email}
+                              </Typography>
+                            </Stack>
                             <Divider
                               orientation="horizontal"
                               flexItem
@@ -575,7 +570,14 @@ export default function AtletaId() {
                           />
                         </Grid>
 
-                        <Grid px={1} width={"100%"} xs={2} sm={4} md={6}>
+                        <Grid
+                          px={1}
+                          width={"100%"}
+                          xs={2}
+                          sm={4}
+                          md={dataAtleta[3] === null ? 12 : 6}
+                          alignContent={"center"}
+                        >
                           <Stack
                             height={"100%"}
                             flexDirection={"column"}
@@ -637,104 +639,106 @@ export default function AtletaId() {
                             }}
                           />
                         </Grid>
-                        <Grid px={1} width={"100%"} xs={2} sm={4} md={6}>
-                          <Stack
-                            height={"100%"}
-                            flexDirection={"column"}
-                            gap={1}
-                            justifyContent={"space-between"}
-                          >
-                            <Stack gap={2} flexDirection={"row"}>
-                              <Stack flexDirection={"row"}>
-                                <Typography
-                                  textAlign={"start"}
-                                  fontWeight={"bold"}
-                                  mr={1}
-                                >
-                                  Representante:
-                                </Typography>
-                                <Typography>
-                                  {" "}
-                                  {dataAtleta[3]?.nombre_repre}
-                                </Typography>
-                              </Stack>
-
-                              <Typography>
-                                {dataAtleta[3]?.apellido_repre}
-                              </Typography>
-                            </Stack>
-                            <Stack gap={2} flexDirection={"row"}>
-                              <Stack flexDirection={"row"}>
-                                <Typography
-                                  textAlign={"start"}
-                                  fontWeight={"bold"}
-                                  mr={1}
-                                >
-                                  Cédula del representante:
-                                </Typography>
-                                <Typography>
-                                  {" "}
-                                  {dataAtleta[3]?.cedula_repre}
-                                </Typography>
-                              </Stack>
-                            </Stack>
-                            <Stack gap={2} flexDirection={"row"}>
-                              <Stack flexDirection={"row"}>
-                                <Typography
-                                  textAlign={"start"}
-                                  fontWeight={"bold"}
-                                  mr={1}
-                                >
-                                  Correo del Representante:
-                                </Typography>
-                                <Typography>
-                                  {dataAtleta[3]?.email_repre === null
-                                    ? "No registrado"
-                                    : dataAtleta[3]?.email_repre}
-                                </Typography>
-                              </Stack>
-                            </Stack>
+                        {dataAtleta[3] !== null && (
+                          <Grid px={1} width={"100%"} xs={2} sm={4} md={6}>
                             <Stack
+                              height={"100%"}
+                              flexDirection={"column"}
+                              gap={1}
                               justifyContent={"space-between"}
-                              gap={2}
-                              flexDirection={"row"}
                             >
-                              <Stack flexDirection={"row"}>
-                                <Typography
-                                  textAlign={"start"}
-                                  fontWeight={"bold"}
-                                  mr={1}
-                                >
-                                  Parentesco:
-                                </Typography>
+                              <Stack gap={2} flexDirection={"row"}>
+                                <Stack flexDirection={"row"}>
+                                  <Typography
+                                    textAlign={"start"}
+                                    fontWeight={"bold"}
+                                    mr={1}
+                                  >
+                                    Representante:
+                                  </Typography>
+                                  <Typography>
+                                    {" "}
+                                    {dataAtleta[3]?.nombre_repre}
+                                  </Typography>
+                                </Stack>
+
                                 <Typography>
-                                  {dataAtleta[3]?.parentesco}
+                                  {dataAtleta[3]?.apellido_repre}
                                 </Typography>
                               </Stack>
-                              <Stack flexDirection={"row"}>
-                                <Typography
-                                  textAlign={"start"}
-                                  fontWeight={"bold"}
-                                  mr={1}
-                                >
-                                  Teléfono:
-                                </Typography>
-                                <Typography>
-                                  {dataAtleta[3]?.telefono_repre}
-                                </Typography>
+                              <Stack gap={2} flexDirection={"row"}>
+                                <Stack flexDirection={"row"}>
+                                  <Typography
+                                    textAlign={"start"}
+                                    fontWeight={"bold"}
+                                    mr={1}
+                                  >
+                                    Cédula del representante:
+                                  </Typography>
+                                  <Typography>
+                                    {" "}
+                                    {dataAtleta[3]?.cedula_repre}
+                                  </Typography>
+                                </Stack>
+                              </Stack>
+                              <Stack gap={2} flexDirection={"row"}>
+                                <Stack flexDirection={"row"}>
+                                  <Typography
+                                    textAlign={"start"}
+                                    fontWeight={"bold"}
+                                    mr={1}
+                                  >
+                                    Correo del Representante:
+                                  </Typography>
+                                  <Typography>
+                                    {dataAtleta[3]?.email_repre === null
+                                      ? "No registrado"
+                                      : dataAtleta[3]?.email_repre}
+                                  </Typography>
+                                </Stack>
+                              </Stack>
+                              <Stack
+                                justifyContent={"space-between"}
+                                gap={2}
+                                flexDirection={"row"}
+                              >
+                                <Stack flexDirection={"row"}>
+                                  <Typography
+                                    textAlign={"start"}
+                                    fontWeight={"bold"}
+                                    mr={1}
+                                  >
+                                    Parentesco:
+                                  </Typography>
+                                  <Typography>
+                                    {dataAtleta[3]?.parentesco}
+                                  </Typography>
+                                </Stack>
+                                <Stack flexDirection={"row"}>
+                                  <Typography
+                                    textAlign={"start"}
+                                    fontWeight={"bold"}
+                                    mr={1}
+                                  >
+                                    Teléfono:
+                                  </Typography>
+                                  <Typography>
+                                    {dataAtleta[3]?.telefono_repre}
+                                  </Typography>
+                                </Stack>
                               </Stack>
                             </Stack>
-                          </Stack>
-                          <Divider
-                            orientation="horizontal"
-                            flexItem
-                            sx={{
-                              width: "100%",
-                              borderColor: "#5E6973",
-                              display: { md: "none", xs: "flex" },
-                            }}
-                          />
-                        </Grid>
+                            <Divider
+                              orientation="horizontal"
+                              flexItem
+                              sx={{
+                                width: "100%",
+                                borderColor: "#5E6973",
+                                display: { md: "none", xs: "flex" },
+                              }}
+                            />
+                          </Grid>
+                        )}
                       </Grid>
                       <Stack
                         width={"100%"}

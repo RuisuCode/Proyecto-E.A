@@ -11,7 +11,7 @@ export interface IAtlets {
   envergadura: number;
   tiposangre: string;
   categoria: string;
-  telefono: number;
+  telefono: string;
   email: string;
   nombre_repre: string;
   apellido_repre: string;

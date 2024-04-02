@@ -723,12 +723,7 @@ export default function agregarAtletas() {
                           type="string"
                           placeholder="Ingrese su correo electrónico"
                           error={errors.email && true}
-                          {...register("email", {
-                            required: {
-                              value: true,
-                              message: "Este campo es requerido.",
-                            },
-                          })}
+                          {...register("email")}
                         />
                         <FormHelperText sx={{ color: "#000" }}>
                           {errors.email?.message && errors.email.message}
