@@ -642,107 +642,103 @@ export default function agregarAtletas() {
                 </Stack>
               </Stack>
             </Grid>
-            {edad > 18 ||
-              (edad === 18 && (
-                <Grid my={2} minWidth={"100%"}>
-                  <Stack
+            {edad >= 18 && (
+              <Grid my={2} minWidth={"100%"}>
+                <Stack
+                  width={"100%"}
+                  bgcolor={"#fff"}
+                  borderRadius={"1em"}
+                  my={1}
+                  boxShadow={3}
+                  height={"auto"}
+                >
+                  <Typography
                     width={"100%"}
-                    bgcolor={"#fff"}
-                    borderRadius={"1em"}
-                    my={1}
-                    boxShadow={3}
-                    height={"auto"}
+                    bgcolor={"#f5f5f5"}
+                    letterSpacing={1}
+                    sx={{
+                      borderTopLeftRadius: "1em",
+                      borderTopRightRadius: "1em",
+                    }}
+                    align="center"
                   >
-                    <Typography
-                      width={"100%"}
-                      bgcolor={"#f5f5f5"}
-                      letterSpacing={1}
-                      sx={{
-                        borderTopLeftRadius: "1em",
-                        borderTopRightRadius: "1em",
-                      }}
-                      align="center"
-                    >
-                      Datos de Comunicación
-                    </Typography>
-                    <Stack justifyContent={"space-between"} height={"100%"}>
-                      <Stack direction={{ md: "row", xs: "column" }}>
-                        <FormControl
-                          sx={{
-                            my: 1,
-                            px: 1,
-                            width: "100%",
-                            height: "10vh",
-                          }}
+                    Datos de Comunicación
+                  </Typography>
+                  <Stack justifyContent={"space-between"} height={"100%"}>
+                    <Stack direction={{ md: "row", xs: "column" }}>
+                      <FormControl
+                        sx={{
+                          my: 1,
+                          px: 1,
+                          width: "100%",
+                          height: "10vh",
+                        }}
+                      >
+                        <FormLabel
+                          required
+                          sx={{ fontSize: "16px", textAlign: "left" }}
                         >
-                          <FormLabel
-                            required
-                            sx={{ fontSize: "16px", textAlign: "left" }}
-                          >
-                            Teléfono
-                          </FormLabel>
-                          <OutlinedInput
-                            sx={{
-                              minHeight: "35px",
-                              boxShadow: 1,
-                              borderRadius: "1em",
-                            }}
-                            type="number"
-                            placeholder="Ingrese su Numero Telefonico"
-                            error={errors.telefono && true}
-                            {...register("telefono", {
-                              required: {
-                                value: true,
-                                message: "Este campo es requerido.",
-                              },
-                              pattern: /^\d{11}$/,
-                            })}
-                          />
-                          <FormHelperText sx={{ color: "#000" }}>
-                            {errors.telefono?.message &&
-                              errors.telefono.message}
-                          </FormHelperText>
-                        </FormControl>
-                      </Stack>
-                      <Stack direction={{ md: "row", xs: "column" }}>
-                        <FormControl
+                          Teléfono
+                        </FormLabel>
+                        <OutlinedInput
                           sx={{
-                            my: 1,
-                            px: 1,
-                            width: "100%",
-                            height: "10vh",
+                            minHeight: "35px",
+                            boxShadow: 1,
+                            borderRadius: "1em",
                           }}
-                        >
-                          <FormLabel
-                            sx={{ fontSize: "16px", textAlign: "left" }}
-                          >
-                            Correo Electrónico
-                          </FormLabel>
-                          <OutlinedInput
-                            sx={{
-                              minHeight: "35px",
-                              boxShadow: 1,
-                              borderRadius: "1em",
-                            }}
-                            type="string"
-                            placeholder="Ingrese su correo electrónico"
-                            error={errors.email && true}
-                            {...register("email", {
-                              required: {
-                                value: true,
-                                message: "Este campo es requerido.",
-                              },
-                            })}
-                          />
-                          <FormHelperText sx={{ color: "#000" }}>
-                            {errors.email?.message && errors.email.message}
-                          </FormHelperText>
-                        </FormControl>
-                      </Stack>
+                          type="number"
+                          placeholder="Ingrese su Numero Telefonico"
+                          error={errors.telefono && true}
+                          {...register("telefono", {
+                            required: {
+                              value: true,
+                              message: "Este campo es requerido.",
+                            },
+                            pattern: /^\d{11}$/,
+                          })}
+                        />
+                        <FormHelperText sx={{ color: "#000" }}>
+                          {errors.telefono?.message && errors.telefono.message}
+                        </FormHelperText>
+                      </FormControl>
+                    </Stack>
+                    <Stack direction={{ md: "row", xs: "column" }}>
+                      <FormControl
+                        sx={{
+                          my: 1,
+                          px: 1,
+                          width: "100%",
+                          height: "10vh",
+                        }}
+                      >
+                        <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
+                          Correo Electrónico
+                        </FormLabel>
+                        <OutlinedInput
+                          sx={{
+                            minHeight: "35px",
+                            boxShadow: 1,
+                            borderRadius: "1em",
+                          }}
+                          type="string"
+                          placeholder="Ingrese su correo electrónico"
+                          error={errors.email && true}
+                          {...register("email", {
+                            required: {
+                              value: true,
+                              message: "Este campo es requerido.",
+                            },
+                          })}
+                        />
+                        <FormHelperText sx={{ color: "#000" }}>
+                          {errors.email?.message && errors.email.message}
+                        </FormHelperText>
+                      </FormControl>
                     </Stack>
                   </Stack>
-                </Grid>
-              ))}
+                </Stack>
+              </Grid>
+            )}
             {edad < 18 && (
               <Grid minWidth={"100%"}>
                 <Stack
