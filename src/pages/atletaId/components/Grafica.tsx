@@ -59,7 +59,7 @@ export function Grafica() {
     <Stack display={{ md: "none", xs: "flex" }} minWidth={"100%"}>
       <LineChart
         width={350}
-        height={250}
+        height={270}
         data={data}
         margin={{ top: 5, right: 30, bottom: 5 }}
       >
@@ -128,7 +128,7 @@ export function GraficaMd() {
     >
       <LineChart
         width={600}
-        height={250}
+        height={270}
         data={data}
         margin={{ top: 5, right: 30, bottom: 5 }}
       >

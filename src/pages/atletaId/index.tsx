@@ -31,6 +31,9 @@ import { Button, Divider } from "@mui/material";
 import Marcas from "./components/Marcas";
 import { Grafica, GraficaMd } from "./components/Grafica";
 import Loader from "../../shared/components/Loader";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
+import PersonIcon from "@mui/icons-material/Person";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 
 export default function AtletaId() {
   const { data: dataAtleta, isLoading } = useGetAtletaId();
@@ -326,8 +329,11 @@ export default function AtletaId() {
                         label={
                           <Typography
                             fontWeight={"bold"}
+                            display={"flex"}
+                            justifyContent={"center"}
                             textTransform={"capitalize"}
                           >
+                            <AnalyticsIcon />
                             Estadísticas
                           </Typography>
                         }
@@ -338,8 +344,11 @@ export default function AtletaId() {
                         label={
                           <Typography
                             fontWeight={"bold"}
+                            display={"flex"}
+                            justifyContent={"center"}
                             textTransform={"capitalize"}
                           >
+                            <PersonIcon sx={{ mt: { xs: 1, md: 0 } }} />
                             Datos Personales
                           </Typography>
                         }
@@ -351,7 +360,10 @@ export default function AtletaId() {
                           <Typography
                             fontWeight={"bold"}
                             textTransform={"capitalize"}
+                            display={"flex"}
+                            justifyContent={"center"}
                           >
+                            <ReceiptLongIcon sx={{ mt: { xs: 1, md: 0 } }} />
                             Marcas Personales
                           </Typography>
                         }
