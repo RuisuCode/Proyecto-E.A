@@ -458,8 +458,7 @@ export default function AtletaId() {
                                 </Typography>
                               </Stack>
                             </Stack>
-                            <Stack
-                              justifyContent={"space-around"}
+                            <Stack                          
                               width={"100%"}
                               gap={2}
                               flexDirection={"row"}
