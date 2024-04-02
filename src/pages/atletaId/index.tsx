@@ -478,7 +478,10 @@ export default function AtletaId() {
                                     : dataAtleta[0]?.telefono}
                                 </Typography>
                               </Stack>
-                              <Stack flexDirection={"row"}>
+                             
+                             
+                            </Stack>
+                             <Stack flexDirection={"row"}>
                                 <Typography
                                   textAlign={"start"}
                                   fontWeight={"bold"}
@@ -492,7 +495,6 @@ export default function AtletaId() {
                                     : dataAtleta[0]?.email}
                                 </Typography>
                               </Stack>
-                            </Stack>
                             <Divider
                               orientation="horizontal"
                               flexItem
