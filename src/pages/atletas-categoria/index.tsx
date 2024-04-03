@@ -29,7 +29,7 @@ import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDiss
 import Loader from "../../shared/components/Loader";
 import { Variants, motion } from "framer-motion";
 import dayjs from "dayjs";
-import getAge from "../agregar-atletas/hooks/getAge";
+import getAge2 from "./hooks/getAge2";
 
 declare module "@mui/material/styles" {
   interface Components {
@@ -109,11 +109,11 @@ export default function AtletasCatg() {
     } = item;
     const { cedula, id } = item.User_id;
     const { categoria } = item.datosDeportivos;
-    const day = Number(dayjs(fecha_nacimiento).format("D"));
-    const month = Number(dayjs(fecha_nacimiento).format("M"));
-    const year = Number(dayjs(fecha_nacimiento).format("YYYY"));
+    const Day = Number(dayjs(fecha_nacimiento).format("D"));
+    const Month = Number(dayjs(fecha_nacimiento).format("M"));
+    const Year = Number(dayjs(fecha_nacimiento).format("YYYY"));
 
-    const edad = getAge(day, month, year);
+    const edad = getAge2(Day, Month, Year);
     const fechaCtg = dayjs(fecha_nacimiento).format("DD/MM/YYYY");
     return {
       id,

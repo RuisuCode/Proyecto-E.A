@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 
 export default function getAge(day: number, month: number, year: number) {
-  const [edadActual, setEdadActual] = useState(Number);
+  const [edadActual, setEdadActual] = useState(0);
 
   useEffect(() => {
     const dayActual = dayjs().date();

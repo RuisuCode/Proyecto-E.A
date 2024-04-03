@@ -30,18 +30,16 @@ import Image from "../../shared/style-components/Image";
 
 import { useDrawerStore } from "../../store/DrawerStore";
 import { theme } from "../style-components/theme/theme";
-// import { useUserInfoStore } from "../../shared/store/UserStore";
+
 import { ROUTES_ATLETA, ROUTES_ENTRE } from "../consts/ROUTES_NAVBAR";
 import { useState } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
-// import { useGetProfileData } from "../hooks/useProfile";
-
+import { UseAuthStore } from "../../store/UserStore";
+import { useStore } from "zustand";
 ///Header//
-
 import { StyledToolbarHeader } from "../style-components/StyledHeader";
 import { Menu } from "@mui/material";
 import logo from "../assets/logo-recortada.png";
-
 // ICONS
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonIcon from "@mui/icons-material/Person";
@@ -102,7 +100,12 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
   const [open, setOpen] = useState(false);
   const logoutMutation = useLogout();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  //   const entity = useUserInfoStore((state) => state.entity);
+
+  const authStore = useStore(UseAuthStore);
+  const rol: any = authStore.rolId;
+
+  const entity: number = rol;
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -128,16 +131,15 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
   };
 
   // const { data } = useGetProfileData();
-  const entity: number = 1;
   const { handleDrawerState } = useDrawerStore();
 
   let routes: any[];
 
   if (entity === 1) {
     routes = ROUTES_ENTRE;
-  }else if(entity === 2) {
+  } else if (entity === 2) {
     routes = ROUTES_ATLETA;
-  }else {
+  } else {
     routes = [];
   }
 

@@ -76,7 +76,9 @@ export default function InicioAtleta() {
             />
           </Badge>
         </Stack>
-        <Typography>Bienvenido Atleta</Typography>
+        <Typography fontSize={"50%"} fontWeight={"bold"}>
+          Bienvenido Atleta
+        </Typography>
       </Stack>
     </>
   );
