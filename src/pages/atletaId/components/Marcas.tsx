@@ -15,7 +15,6 @@ export default function Marcas() {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
 
-
   useEffect(() => {
     refetch();
   }, []);
@@ -66,7 +65,7 @@ export default function Marcas() {
           </Stack>
         </Stack>
         {isLoading && Loader("40px", 0)}
-        {!isLoading && data && (
+        {!isLoading && data !== null && (
           <Stack width={"100%"} alignItems={"center"}>
             {data?.map((item: any, index: number) => {
               return (
@@ -144,8 +143,11 @@ export default function Marcas() {
             })}
           </Stack>
         )}
+
         {!isLoading && !data && (
-          <Typography>Datos no encontrados...</Typography>
+          <Typography fontWeight={"bold"} color={"#E84730"}>
+            Marcas no registradas
+          </Typography>
         )}
       </Stack>
       <Stack

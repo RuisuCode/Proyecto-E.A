@@ -83,8 +83,9 @@ export default function MarcasAllId() {
     );
   };
   const modifiedData = data?.map((item: any, index: number) => {
+    const id = index + 1;
+
     const {
-      id,
       tipo_prueba_id,
       competencia,
       tipo_prueba,
