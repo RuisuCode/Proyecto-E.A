@@ -13,7 +13,7 @@ import backgroundImg2 from "../../shared/assets/atleta-login.jpg";
 import backgroundImg3 from "../../shared/assets/backgroundImg4.jpg";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiService } from "../../shared/consts/API_SERVICES";
-
+import mobilBanner from "../../shared/assets/bannermobil.png";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { UseAuthStore } from "../../store/UserStore";
@@ -39,7 +39,7 @@ export default function Login() {
     mutationFn: () => apiService.get("/verify_token"),
     onSuccess: () => {
       queryClient.clear();
-      toast.success("sesión restaurada");
+      toast.success("Sesión restaurada");
     },
     onError: () => {
       sessionStorage.removeItem("auth");
@@ -294,6 +294,15 @@ export default function Login() {
                   width={"100%"}
                   boxShadow={5}
                   sx={{
+                    backgroundImage: {
+                      xs: `url(${mobilBanner})`,
+                      md: "initial",
+                    },
+                    backgroundRepeat: "no-repeat",
+                    backgroundAttachment: "fixed",
+                    backgroundSize: "120vh",
+                    backgroundPositionY: "100%",
+                    backgroundPositionX: "-250px",
                     height: { xs: "100%", md: "100%" },
                     justifyContent: "space-evenly",
                     display: "flex",

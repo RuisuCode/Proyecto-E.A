@@ -90,7 +90,7 @@ export default function Eventos() {
                   paddingInline: 2,
                   cursor: "pointer",
                 }}
-                onClick={() => navigate("/create-activities")}
+                onClick={() => navigate("/add-event")}
               >
                 <EventIcon sx={{ color: "#fff" }} />
                 <Typography color={"#fff"} fontSize={"medium"}>
@@ -136,11 +136,8 @@ export default function Eventos() {
               <Stack
                 bgcolor={"transparent"}
                 borderRadius={"4px"}
-                // boxShadow={2}
-                // mx={{xs:1}}
                 sx={{ minWidth: { xs: "100%", lg: 600 }, height: "300px" }}
                 alignItems={"center"}
-                // overflow={"hidden"}
               >
                 <motion.div
                   whileHover={{
@@ -156,7 +153,6 @@ export default function Eventos() {
                     borderTopLeftRadius: "1em",
                     borderBottomLeftRadius: "1em",
                     borderBottomRightRadius: "1em",
-
                   }}
                 >
                   <Stack flexDirection={"row"}>

@@ -6,7 +6,6 @@ import { apiService } from "../consts/API_SERVICES";
 import { toast } from "react-toastify";
 // import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useNavigate, useParams } from "react-router-dom";
-// import modifiedAxios from '../interceptors/axios.interceptor';
 
 // const QUERY_KEY = 'atletas';
 
@@ -54,6 +53,18 @@ export function useGetAtletas() {
     },
   });
   return Atletas;
+}
+export function useGetAtletaIdM() {
+  const QUERY_KEY = "Atleta Marcas";
+  const { id } = useParams();
+  const Atleta = useQuery({
+    queryKey: [QUERY_KEY],
+    queryFn: async () => {
+      const data = await apiService.get(`/marcasAll/${id}/M`);
+      return data;
+    },
+  });
+  return Atleta;
 }
 export function useGetAtletaId() {
   const { id } = useParams();

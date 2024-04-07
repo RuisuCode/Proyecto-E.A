@@ -75,20 +75,19 @@ export default function AtletasNivel() {
         >
           <Button
             startIcon={<AccountCircleIcon sx={{ fontSize: "28px" }} />}
-            variant="contained"
+            variant="text"
+            sx={{ mb: 1 }}
             fullWidth
           >
             <Typography textTransform={"capitalize"}> Perfil</Typography>
           </Button>
-          {/*  /> Perfil */}
         </MenuItem>
         <MenuItem
           className={"my-menuitem"}
-          // onClick={''}
         >
           <Button
             startIcon={<DeleteOutlineRoundedIcon sx={{ fontSize: "28px" }} />}
-            variant="contained"
+            variant="text"
             color="error"
             fullWidth
           >
@@ -98,7 +97,6 @@ export default function AtletasNivel() {
       </Menu>
     );
   };
-  // const DataVacia: any = []
   const modifiedData = data?.map((item: any, index: number) => {
     const { primer_nombre, segundo_nombre, primer_apellido, segundo_apellido } =
       item;

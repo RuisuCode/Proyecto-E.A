@@ -4,7 +4,6 @@ import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import Box from "@mui/material/Box";
 import { AnimatePresence, motion } from "framer-motion";
-// import { useNavigate } from "react-router-dom";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
@@ -37,7 +36,6 @@ import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 
 export default function AtletaId() {
   const { data: dataAtleta, isLoading } = useGetAtletaId();
-  // const navigate = useNavigate();
 
   const [value, setValue] = useState(0);
 
@@ -57,7 +55,6 @@ export default function AtletaId() {
   }
   function CustomTabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
-    console.log(`simple-tabpanel-${index}`);
 
     return (
       <AnimatePresence mode="wait">

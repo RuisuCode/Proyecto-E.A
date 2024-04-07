@@ -12,12 +12,7 @@ const AtletasCtg: LazyExoticComponent<React.FC> = lazy(
 const Eventos: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/eventos")
 );
-/* const Actividades: LazyExoticComponent<React.FC> = lazy(
-  () => import("../../pages/actividades")
-);
-const create_Actividades: LazyExoticComponent<React.FC> = lazy(
-  () => import("../../pages/crear-actividad")
-); */
+
 const agregarAtletas: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/agregar-atletas")
 );
@@ -30,11 +25,12 @@ const configEntrenador: LazyExoticComponent<React.FC> = lazy(
 const editConfigEntrenador: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/editar-config-entrenador")
 );
-/* const actividadId: LazyExoticComponent<React.FC> = lazy(
-  () => import("../../pages/actividades/components/index")
-); */
+
 const altletaId: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/atletaId/index")
+);
+const marcasAllId: LazyExoticComponent<React.FC> = lazy(
+  () => import("../../pages/marcasAllId/index")
 );
 
 export const adminRoutes = [
@@ -73,16 +69,11 @@ export const adminRoutes = [
     component: editConfigEntrenador,
     title: "Editar Entrenador",
   },
-  /* {
-    route: "/activities",
-    component: Actividades,
-    title: "Actividades",
-  },
   {
-    route: "/create-activities",
-    component: create_Actividades,
-    title: "Crear Actividad",
-  }, */
+    route: "/marcas/:id/marcas_all",
+    component: marcasAllId,
+    title: "Listado de Marcas del Atleta",
+  },
   {
     route: "/add-event",
     component: agregarEvento,

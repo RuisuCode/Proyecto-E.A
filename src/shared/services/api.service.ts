@@ -31,10 +31,11 @@ export class ApiService {
     return response;
   }
 
-  public async delete(id: number | string, url: string) {
+  public async delete(data: any, url: string) {
     const { data: response } = await modifiedAxios({
       method: "DELETE",
-      url: `${url}/${id}`,
+      url: `${url}`,
+      data,
     });
 
     return response;

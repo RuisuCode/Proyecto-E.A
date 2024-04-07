@@ -62,12 +62,12 @@ export const ROUTES_ENTRE = [
     buttonMenu: [
       {
         icon: AlignVerticalBottomOutlinedIcon,
-        title: "Atletas Por Nivel",
+        title: "Por Nivel",
         url: "/atletas_nivel",
       },
       {
         icon: LanIcon,
-        title: "Atletas Por Categoría",
+        title: "Por Categoría",
         url: "/atletas_ctg",
       },
       {

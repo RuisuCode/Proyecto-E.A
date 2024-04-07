@@ -2,42 +2,40 @@ import Badge from "@mui/material/Badge/Badge";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
+/* icons */
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import HelpIcon from "@mui/icons-material/Help";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Menu, MenuItem, MenuButton } from "@szhsin/react-menu";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import { FaListUl } from "react-icons/fa6";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
+import Loader from "../../shared/components/Loader";
+import { Variants, motion } from "framer-motion";
+import { useGetMarcasAll } from "../../shared/hooks/useMarcas";
 import MUIDataTable from "mui-datatables";
 /* local */
 import { columns } from "./const/tableColumns";
 import { theme } from "../../shared/style-components/theme/themeTable";
 import { options } from "../../shared/consts/TABLE_OPTIONS";
-/* icons */
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-
-import LanIcon from "@mui/icons-material/Lan";
-import { useGetAtletas } from "../../shared/hooks/useAtlets";
-
-import HelpIcon from "@mui/icons-material/Help";
-import { useEffect } from "react";
-import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
-import { Menu, MenuItem, MenuButton } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
-import "../../shared/styles/menuStyles.css";
-import { FaListUl } from "react-icons/fa6";
-
-import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
-import Loader from "../../shared/components/Loader";
-import { Variants, motion } from "framer-motion";
 import dayjs from "dayjs";
-import getAge2 from "./hooks/getAge2";
+import { useGetAtletaIdM } from "../../shared/hooks/useAtlets";
+import ModalDelete from "./components/ModalDelete";
+import "../../shared/styles/menuStyles.css";
+import ModalEdit from "./components/ModalEdit";
 
 declare module "@mui/material/styles" {
   interface Components {
     [key: string]: any;
   }
 }
-export default function AtletasCatg() {
-  const { data, isLoading, refetch } = useGetAtletas();
+export default function MarcasAllId() {
+  const { data, isLoading, refetch } = useGetMarcasAll();
+  const { data: data_user } = useGetAtletaIdM();
+
   const navigate = useNavigate();
   const cardVariants: Variants = {
     offscreen: {
@@ -54,8 +52,10 @@ export default function AtletasCatg() {
       },
     },
   };
-
-  const renderOptions = (id: string, index: number) => {
+  useEffect(() => {
+    refetch();
+  }, []);
+  const renderOptions = (index: number, Data: any) => {
     return (
       <Menu
         key={index}
@@ -69,69 +69,47 @@ export default function AtletasCatg() {
         }
         transition
       >
-        <MenuItem
-          className={"my-menuitem"}
-          onClick={() => navigate(`/atleta/${id}`)}
-        >
-          <Button
-            startIcon={<AccountCircleIcon sx={{ fontSize: "28px" }} />}
-            variant="text"
-            sx={{ mb: 1 }}
-            fullWidth
-          >
-            <Typography textTransform={"capitalize"}> Perfil</Typography>
-          </Button>
-          {/*  /> Perfil */}
+        <MenuItem className={"my-menuitem"}>
+          <Stack width={"100%"}>
+            <ModalEdit dataO={Data} />
+          </Stack>
         </MenuItem>
-        <MenuItem
-          className={"my-menuitem"}
-          // onClick={''}
-        >
-          <Button
-            startIcon={<DeleteOutlineRoundedIcon sx={{ fontSize: "28px" }} />}
-            variant="text"
-            color="error"
-            fullWidth
-          >
-            <Typography textTransform={"capitalize"}>Eliminar</Typography>
-          </Button>
+        <MenuItem className={"my-menuitem"}>
+          <Stack width={"100%"}>
+            <ModalDelete data={Data} />
+          </Stack>
         </MenuItem>
       </Menu>
     );
   };
-  // const DataVacia: any = []
   const modifiedData = data?.map((item: any, index: number) => {
     const {
-      primer_nombre,
-      segundo_nombre,
-      primer_apellido,
-      segundo_apellido,
-      fecha_nacimiento,
+      id,
+      tipo_prueba_id,
+      competencia,
+      tipo_prueba,
+      prueba,
+      posicion,
+      resultado,
+      ubicacion,
+      fecha,
     } = item;
-    const { cedula, id } = item.User_id;
-    const { categoria } = item.datosDeportivos;
-    const Day = Number(dayjs(fecha_nacimiento).format("D"));
-    const Month = Number(dayjs(fecha_nacimiento).format("M"));
-    const Year = Number(dayjs(fecha_nacimiento).format("YYYY"));
-
-    const edad = getAge2(Day, Month, Year);
-    const fechaCtg = dayjs(fecha_nacimiento).format("DD/MM/YYYY");
+    const Data = item;
+    const Resultado = tipo_prueba_id === 1 ? `${resultado} M` : `${resultado} `;
+    const Fecha = dayjs(fecha).format("DD/MM/YYYY");
     return {
       id,
-      primer_nombre,
-      segundo_nombre,
-      primer_apellido,
-      segundo_apellido,
-      cedula,
-      categoria,
-      fechaCtg,
-      edad,
-      options: renderOptions(id, index),
+      competencia,
+      tipo_prueba,
+      prueba,
+      posicion,
+      Resultado,
+      ubicacion,
+      Fecha,
+      options: renderOptions(index, Data),
     };
   });
-  useEffect(() => {
-    refetch();
-  }, []);
+
   return (
     <>
       <Stack
@@ -150,9 +128,9 @@ export default function AtletasCatg() {
               background: "#E84730",
               borderRadius: "10px",
               boxShadow: 4,
-              height: 40,
-              width: "auto",
+              height: "auto",
               px: 1,
+              width: "auto",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -160,24 +138,48 @@ export default function AtletasCatg() {
               gap: 2,
             }}
           >
-            <LanIcon sx={{ color: "#fff" }} fontSize="medium" />
-            <Typography
-              display={"flex"}
-              justifyContent={"center"}
-              fontSize={"0.9em"}
-              fontWeight={"bold"}
-              color="#fff"
-            >
-              <NavigateNextIcon />
-            </Typography>
-            <Typography
-              fontSize={"0.9em"}
-              fontWeight={"bold"}
-              letterSpacing={1.5}
-              color="#fff"
-            >
-              Listado de Atletas por Categoría
-            </Typography>
+            <ReceiptLongIcon sx={{ color: "#fff" }} fontSize="medium" />
+            <Stack direction={{ xs: "column", md: "row" }}>
+              <Stack direction={"row"} alignItems={"center"}>
+                <Typography
+                  display={"flex"}
+                  justifyContent={"center"}
+                  fontSize={"0.9em"}
+                  fontWeight={"bold"}
+                  color="#fff"
+                >
+                  <NavigateNextIcon />
+                </Typography>
+                <Typography
+                  fontSize={"0.9em"}
+                  fontWeight={"bold"}
+                  letterSpacing={1.5}
+                  color="#fff"
+                  onClick={() => navigate(-1)}
+                >
+                  Atleta
+                </Typography>
+              </Stack>
+              <Stack direction={"row"} alignItems={"center"}>
+                <Typography
+                  display={"flex"}
+                  justifyContent={"center"}
+                  fontSize={"0.9em"}
+                  fontWeight={"bold"}
+                  color="#fff"
+                >
+                  <NavigateNextIcon />
+                </Typography>
+                <Typography
+                  fontSize={"0.9em"}
+                  fontWeight={"bold"}
+                  letterSpacing={1.5}
+                  color="#fff"
+                >
+                  Listado de Marcas del Atleta
+                </Typography>
+              </Stack>
+            </Stack>
           </Badge>
           <Badge
             overlap="circular"
@@ -213,7 +215,7 @@ export default function AtletasCatg() {
               >
                 <ThemeProvider theme={theme}>
                   <MUIDataTable
-                    title={"Atletas Por Categoría"}
+                    title={`Marcas de ${data_user?.data[0]} ${data_user?.data[1]}`}
                     data={modifiedData}
                     columns={columns}
                     options={options}
