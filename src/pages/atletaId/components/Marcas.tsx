@@ -90,7 +90,7 @@ export default function Marcas() {
                     borderRadius={"5px"}
                     width={"20%"}
                   >
-                    <Typography fontWeight={"bold"}>{item?.id}</Typography>
+                    <Typography fontWeight={"bold"}>{index + 1}</Typography>
                   </Stack>
                   <Stack
                     alignItems={"center"}
