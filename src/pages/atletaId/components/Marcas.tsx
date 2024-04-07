@@ -90,7 +90,9 @@ export default function Marcas() {
                     borderRadius={"5px"}
                     width={"20%"}
                   >
-                    <Typography fontWeight={"bold"}>{index + 1}</Typography>
+                    <Typography fontWeight={"bold"}>
+                      {item?.prueba ? index + 1 : ""}
+                    </Typography>
                   </Stack>
                   <Stack
                     alignItems={"center"}
@@ -114,15 +116,17 @@ export default function Marcas() {
                     >
                       <Stack width={"50%"} direction={"column"}>
                         <Typography textAlign={"center"} fontWeight={"bold"}>
-                          Fecha
+                          {item?.fecha ? "Fecha" : ""}
                         </Typography>
                         <Typography textAlign={"center"} fontWeight={"bold"}>
-                          {dayjs(item?.fecha).format("DD/MM/YYYY")}
+                          {item?.fecha
+                            ? dayjs(item?.fecha).format("DD/MM/YYYY")
+                            : ""}
                         </Typography>
                       </Stack>
                       <Stack width={"50%"} direction={"column"}>
                         <Typography textAlign={"center"} fontWeight={"bold"}>
-                          Posición
+                          {item?.posicion ? "Posición" : ""}
                         </Typography>
                         <Typography textAlign={"center"} fontWeight={"bold"}>
                           {item?.posicion}
@@ -131,7 +135,11 @@ export default function Marcas() {
                     </Stack>
                     <Stack width={"23.33%"} direction={"column"}>
                       <Typography textAlign={"center"} fontWeight={"bold"}>
-                        {item?.tipo_prueba_id === 1 ? "Distancia" : "Tiempo"}
+                        {item?.resultado
+                          ? item?.tipo_prueba_id === 1
+                            ? "Distancia"
+                            : "Tiempo"
+                          : ""}
                       </Typography>
                       <Typography textAlign={"center"} fontWeight={"bold"}>
                         {item?.resultado}
