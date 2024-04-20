@@ -1,201 +1,3 @@
-/* boton 1*/
-
-/* @font-face {
-  font-family: "Geist";
-  font-weight: 400;
-  font-style: normal;
-  src: url("https://assets.codepen.io/165585/Geist-Medium.woff2")
-    format("woff2");
-  font-display: swap;
-  font-feature-settings: "cv11" on;
-}
-
-.button-62 {
-  background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
-  border: 0;
-  border-radius: 12px;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Geist, -apple-system, system-ui, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 2.5;
-  outline: transparent;
-  padding: 0 1rem;
-  text-align: center;
-  text-decoration: none;
-  transition: box-shadow 0.2s ease-in-out;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-}
-button span {
-  display: block;
-  padding: 5px 24px;
-  position: relative;
-  z-index: 1;
-  color: #fff;
-  --button-glow-1-scale: 0.8;
-  --button-glow-1-opacity: 0;
-  --button-glow-1-blur: 0px;
-  --button-glow-2-scale: 0.8;
-  --button-glow-2-opacity: 0;
-  --button-glow-2-blur: 0px;
-}
-button span:before,
-button span:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  z-index: -1;
-}
-button span:before {
-  box-shadow: 0 0 0 3px #bc96ee;
-  transform: scale(var(--button-glow-1-scale)) translateZ(0);
-  opacity: var(--button-glow-1-opacity);
-  filter: blur(var(--button-glow-1-blur));
-}
-button span:after {
-  box-shadow: 0 0 0 3px #80b9f5;
-  transform: scale(var(--button-glow-2-scale)) translateZ(0);
-  opacity: var(--button-glow-2-opacity);
-  filter: blur(var(--button-glow-2-blur));
-}
-.button-62:not([disabled]):focus {
-  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
-    -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
-    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
-}
-
-.button-62:not([disabled]):hover {
-  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
-    -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
-    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
-} */
-
-/* boton 1*/
-
-/* boton 2 */
-
-/* @font-face {
-  font-family: "Geist";
-  font-weight: 400;
-  font-style: normal;
-  src: url("https://assets.codepen.io/165585/Geist-Medium.woff2")
-    format("woff2");
-  font-display: swap;
-  font-feature-settings: "cv11" on;
-}
-
-button {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  background-image: linear-gradient(to bottom right, #6bbffb, #8591ff, #d293f2);
-  font: 16px/24px "Geist";
-  color: white;
-  position: relative;
-  text-shadow: 0px 0.5px 0.75px rgba(9, 24, 85, 0.25);
-  padding: 0;
-  margin: 0;
-  border-radius: 10px;
-  box-shadow: 0px 0px 0.5px 0.5px rgba(0, 0, 0, 0.3) inset,
-    0px 4px 12px -3px rgba(147, 146, 253, 0.95),
-    0px 8px 20px 0 rgba(147, 146, 253, 0.2);
-  --alternative-gradient-opacity: 0;
-}
-button span {
-  display: block;
-  padding: 5px 24px;
-  position: relative;
-  z-index: 1;
-  --button-glow-1-scale: 0.8;
-  --button-glow-1-opacity: 0;
-  --button-glow-1-blur: 0px;
-  --button-glow-2-scale: 0.8;
-  --button-glow-2-opacity: 0;
-  --button-glow-2-blur: 0px;
-}
-button span:before,
-button span:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  z-index: -1;
-}
-button span:before {
-  box-shadow: 0 0 0 3px #bc96ee;
-  transform: scale(var(--button-glow-1-scale)) translateZ(0);
-  opacity: var(--button-glow-1-opacity);
-  filter: blur(var(--button-glow-1-blur));
-}
-button span:after {
-  box-shadow: 0 0 0 3px #80b9f5;
-  transform: scale(var(--button-glow-2-scale)) translateZ(0);
-  opacity: var(--button-glow-2-opacity);
-  filter: blur(var(--button-glow-2-blur));
-}
-
-button:before,
-button:after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-}
-button:before {
-  inset: 1px;
-  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.7) inset;
-  mix-blend-mode: overlay;
-  filter: blur(0.25px);
-  border-radius: 9px;
-  z-index: 1;
-}
-button:after {
-  border-radius: inherit;
-  inset: 0;
-  opacity: var(--alternative-gradient-opacity);
-  background-image: linear-gradient(96deg, #f2cbfe, #57c3f9);
-  box-shadow: 0px 0px 0.5px 0.5px rgba(0, 0, 0, 0.3) inset;
-}
-
-button div {
-  position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  pointer-events: none;
-  overflow: hidden;
-}
-button div:before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("https://assets.codepen.io/165585/noise_1.png");
-  background-size: cover;
-  z-index: 2;
-  opacity: 0.15;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-}
-button div svg {
-  position: absolute;
-  mix-blend-mode: overlay;
-  opacity: 0;
-  filter: blur(3px);
-}
- */
-/* boton 2 */
-
-/* boton 3 alter */
-
 @import url("https://fonts.googleapis.com/css?family=Rubik:700&display=swap");
 
 button.learn-more2 {
@@ -270,7 +72,6 @@ button.learn-more {
   text-transform: uppercase;
   padding: 0.8em 2em;
   background-image: linear-gradient(to bottom right, #e73d23, #eb5d47, #f9cec8);
-  /* background-image: linear-gradient(to bottom right, #f9cec8, #eb5d47, #e73d23); */
   border: 2px solid #f2e6e1;
   border-radius: 0.75em;
   transform-style: preserve-3d;
@@ -296,7 +97,6 @@ button.learn-more::before {
 }
 button.learn-more:hover {
   background-image: linear-gradient(to bottom right, #e73d23, #eb5d47, #f9cec8);
-  /* background-image: linear-gradient(to bottom right, #f9cec8, #eb5d47, #e73d23); */
 
   transform: translate(0, 0.15em);
 }
@@ -306,7 +106,6 @@ button.learn-more:hover::before {
 }
 button.learn-more:active {
   background-image: linear-gradient(to bottom right, #e73d23, #eb5d47, #f9cec8);
-  /* background-image: linear-gradient(to bottom right, #f9cec8, #eb5d47, #e73d23); */
 
   transform: translate(0em, 0.75em);
 }

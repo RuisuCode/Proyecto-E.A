@@ -25,11 +25,16 @@ export const theme = createTheme({
         },
       },
     },
-    MuiTableHead: {
+    MUIDataTableHeadCell: {
       styleOverrides: {
         root: {
           textAlign: "center",
         },
+      },
+    },
+    MuiTableHead: {
+      styleOverrides: {
+        root: {},
       },
     },
     MuiTableCell: {

@@ -8,7 +8,7 @@ interface IProps {
 export default function Head({ title }: IProps): JSX.Element {
   useEffect(() => {
     document.title = `${title}`;
-  }, [location]);
+  }, [title]);
 
   return (
     <Helmet>

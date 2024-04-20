@@ -6,7 +6,6 @@ import { apiService } from "../consts/API_SERVICES";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 
-
 export function useMarcas() {
   const { id } = useParams();
   return useMutation({
@@ -94,15 +93,14 @@ export function useUpdateMarcasAll() {
     },
   });
 }
-//   export function useGetAtletaId() {
-//     const { id } = useParams();
-//     const QUERY_KEY = ["Atletas", id];
-//     const atletaId = useQuery({
-//       queryKey: [QUERY_KEY],
-//       queryFn: async () => {
-//         const data = await apiService.get(`/atleta/${id}`);
-//         return data.data;
-//       },
-//     });
-//     return atletaId;
-//   }
+
+export function useGraficaPost() {
+  const { id } = useParams();
+  return useMutation({
+    mutationFn: (data: any) => apiService.post(data, `/grafica/${id}`),
+    onError: () => {
+      toast.error("Error al obtener los datos");
+    },
+  });
+}
+

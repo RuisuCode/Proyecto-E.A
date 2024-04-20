@@ -15,15 +15,12 @@ import { useGetAtletas } from "../../shared/hooks/useAtlets";
 
 import HelpIcon from "@mui/icons-material/Help";
 import { useEffect } from "react";
-import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
-import { Menu, MenuItem, MenuButton } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
 import "../../shared/styles/menuStyles.css";
-import { FaListUl } from "react-icons/fa6";
 
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import Loader from "../../shared/components/Loader";
@@ -57,49 +54,58 @@ export default function AtletasCatg() {
 
   const renderOptions = (id: string, index: number) => {
     return (
-      <Menu
-        key={index}
-        direction="left"
-        position="auto"
-        arrow={true}
-        menuButton={
-          <MenuButton className={"my-menu"}>
-            <FaListUl />
-          </MenuButton>
-        }
-        transition
+      // <Menu
+      //   key={index}
+      //   direction="left"
+      //   position="auto"
+      //   arrow={true}
+      //   menuButton={
+      //     <MenuButton className={"my-menu"}>
+      //       <FaListUl />
+      //     </MenuButton>
+      //   }
+      //   transition
+      // >
+      //   <MenuItem
+      //     className={"my-menuitem"}
+      //     onClick={() => navigate(`/atleta/${id}`)}
+      //   >
+      //     <Button
+      //       startIcon={<AccountCircleIcon sx={{ fontSize: "28px" }} />}
+      //       variant="text"
+      //       sx={{ mb: 1 }}
+      //       fullWidth
+      //     >
+      //       <Typography textTransform={"capitalize"}> Perfil</Typography>
+      //     </Button>
+      //     {/*  /> Perfil */}
+      //   </MenuItem>
+      //   <MenuItem
+      //     className={"my-menuitem"}
+      //     // onClick={''}
+      //   >
+      //     <Button
+      //       startIcon={<DeleteOutlineRoundedIcon sx={{ fontSize: "28px" }} />}
+      //       variant="text"
+      //       color="error"
+      //       fullWidth
+      //     >
+      //       <Typography textTransform={"capitalize"}>Eliminar</Typography>
+      //     </Button>
+      //   </MenuItem>
+      // </Menu>
+      <Stack key={index}>
+      <Button
+        startIcon={<AccountCircleIcon sx={{ fontSize: "28px" }} />}
+        variant="outlined"
+        sx={{ mb: 1 }}
+        onClick={() => navigate(`/atleta/${id}`)}
       >
-        <MenuItem
-          className={"my-menuitem"}
-          onClick={() => navigate(`/atleta/${id}`)}
-        >
-          <Button
-            startIcon={<AccountCircleIcon sx={{ fontSize: "28px" }} />}
-            variant="text"
-            sx={{ mb: 1 }}
-            fullWidth
-          >
-            <Typography textTransform={"capitalize"}> Perfil</Typography>
-          </Button>
-          {/*  /> Perfil */}
-        </MenuItem>
-        <MenuItem
-          className={"my-menuitem"}
-          // onClick={''}
-        >
-          <Button
-            startIcon={<DeleteOutlineRoundedIcon sx={{ fontSize: "28px" }} />}
-            variant="text"
-            color="error"
-            fullWidth
-          >
-            <Typography textTransform={"capitalize"}>Eliminar</Typography>
-          </Button>
-        </MenuItem>
-      </Menu>
+        <Typography textTransform={"capitalize"}> Perfil</Typography>
+      </Button>
+    </Stack>
     );
   };
-  // const DataVacia: any = []
   const modifiedData = data?.map((item: any, index: number) => {
     const {
       primer_nombre,

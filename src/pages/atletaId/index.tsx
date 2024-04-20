@@ -28,7 +28,7 @@ import Tab from "@mui/material/Tab/Tab";
 import { useState } from "react";
 import { Button, Divider } from "@mui/material";
 import Marcas from "./components/Marcas";
-import { Grafica, GraficaMd } from "./components/Grafica";
+import Grafica from "./components/Grafica";
 import Loader from "../../shared/components/Loader";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import PersonIcon from "@mui/icons-material/Person";
@@ -75,7 +75,7 @@ export default function AtletaId() {
               width={"100%"}
               display={"flex"}
               alignItems={"center"}
-              sx={{ p: 3 }}
+              sx={{ p: 1.5 }}
             >
               {children}
             </Box>
@@ -378,7 +378,6 @@ export default function AtletaId() {
                   </Box>
                   <CustomTabPanel value={value} index={0}>
                     <Grafica />
-                    <GraficaMd />
                   </CustomTabPanel>
                   <CustomTabPanel value={value} index={1}>
                     <Stack minWidth={"100%"} minHeight={"100%"}>

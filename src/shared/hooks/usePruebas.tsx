@@ -1,8 +1,10 @@
 import {
   useMutation /* useQuery, useQueryClient */,
+  useQuery,
 } from "@tanstack/react-query";
 import { apiService } from "../consts/API_SERVICES";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 // const QUERY_KEY = 'atletas';
 
@@ -27,6 +29,13 @@ import { toast } from "react-toastify";
 //       },
 //     });
 //   }
+export function usePruebas() {
+  const { id } = useParams();
+  return useQuery({
+    queryKey: ["Pruebas"],
+    queryFn: () => apiService.get(`/pruebas/${id}`),
+  });
+}
 export function PruebasCampo() {
   const pruebas = useMutation({
     mutationFn: () => apiService.get("/pruebasCampo"),

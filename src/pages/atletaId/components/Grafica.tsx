@@ -1,145 +1,274 @@
-import { Stack } from "@mui/material";
 import {
-  LineChart,
-  Line,
+  Button,
+  IconButton,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  Typography,
+} from "@mui/material";
+import {
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
+  AreaChart,
+  Area,
 } from "recharts";
+import { useGraficaPost } from "../../../shared/hooks/useMarcas";
+import { useEffect, useState } from "react";
+import { usePruebas } from "../../../shared/hooks/usePruebas";
+import CloseIcon from "@mui/icons-material/Close";
+import { motion } from "framer-motion";
+import Loader from "../../../shared/components/Loader";
 
-export function Grafica() {
-  const data = [
-    {
-      name: "#1",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: "#2",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: "#3",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "#3",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: "#4",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: "#5",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: "#6",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
+export default function Grafica() {
+  const { mutate, data: data1, isPending } = useGraficaPost();
+  const { data: pruebas, refetch } = usePruebas();
+  const [pruebaG, setPruebaG] = useState("");
+  const [tipoId, setTipoId] = useState(0);
 
-  return (
-    <Stack display={{ md: "none", xs: "flex" }} minWidth={"100%"}>
-      <LineChart
-        width={350}
-        height={270}
-        data={data}
-        margin={{ top: 5, right: 30, bottom: 5 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="pv" stroke="#8884d8" />
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-      </LineChart>
-    </Stack>
-  );
-}
-export function GraficaMd() {
-  const data = [
-    {
-      name: "#1",
-      tiempo: 4000,
-      distancia: 2400,
-      amt: 2400,
-    },
-    {
-      name: "#2",
-      tiempo: 3000,
-      distancia: 1398,
-      amt: 2210,
-    },
-    {
-      name: "#3",
-      tiempo: 2000,
-      distancia: 9800,
-      amt: 2290,
-    },
-    {
-      name: "#3",
-      tiempo: 2780,
-      distancia: 3908,
-      amt: 2000,
-    },
-    {
-      name: "#4",
-      tiempo: 1890,
-      distancia: 4800,
-      amt: 2181,
-    },
-    {
-      name: "#5",
-      tiempo: 2390,
-      distancia: 3800,
-      amt: 2500,
-    },
-    {
-      name: "#6",
-      tiempo: 3490,
-      distancia: 4300,
-      amt: 2100,
-    },
-  ];
+  const ChangePrueba = (event: SelectChangeEvent) => {
+    setPruebaG(event.target.value as string);
+  };
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <Stack
-      display={{ md: "flex", xs: "none" }}
       alignItems={"center"}
       minWidth={"100%"}
+      sx={{ overflowX: { xs: "scroll", lg: "hidden" }, overflowY: "hidden" }}
     >
-      <LineChart
-        width={600}
-        height={270}
-        data={data}
-        margin={{ top: 5, right: 30, bottom: 5 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="distancia" stroke="#8884d8" />
-        <Line type="monotone" dataKey="tiempo" stroke="#82ca9d" />
-      </LineChart>
+      <Stack alignItems={"center"} minWidth={"100%"}>
+        <Stack
+          direction={tipoId !== 0 ? "row" : "column"}
+          alignItems={"center"}
+          width={"100%"}
+          height={{ md: "2.9em", xs: "2.9em" }}
+          gap={1}
+          my={4}
+        >
+          <Typography
+            color={"primary"}
+            fontWeight={"bold"}
+            fontSize={"1.4em"}
+            display={tipoId !== 0 ? "none" : "flex"}
+          >
+            Seleccione un tipo de prueba
+          </Typography>
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            height={"100%"}
+            width={"100%"}
+            mx={{ md: "10%", xs: "1" }}
+          >
+            <Stack
+              direction={"row"}
+              width={"100%"}
+              height={"100%"}
+              justifyContent={tipoId !== 0 ? "normal" : "space-around"}
+            >
+              <Button
+                variant="outlined"
+                sx={{
+                  display: tipoId === 2 ? "none" : "flex",
+                  borderRadius: "10px",
+                }}
+                onClick={() => setTipoId(1)}
+              >
+                <Typography textTransform={"initial"}>Prueba Campo</Typography>
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{
+                  display: tipoId === 1 ? "none" : "flex",
+                  borderRadius: "10px",
+                }}
+                onClick={() => setTipoId(2)}
+              >
+                <Typography textTransform={"initial"}>Prueba Pista</Typography>
+              </Button>
+            </Stack>
+
+            {tipoId !== 0 && tipoId === 1 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <Stack direction={"row"}>
+                  <Select
+                    value={pruebaG}
+                    displayEmpty
+                    onChange={ChangePrueba}
+                    sx={{
+                      height: "2.9em",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <MenuItem value={""} disabled>
+                      Seleccione una Prueba
+                    </MenuItem>
+                    {pruebas?.data?.map((item: any, index: number) => {
+                      if (item.tipo_prueba_id === 1) {
+                        return (
+                          <MenuItem
+                            key={index}
+                            value={item.prueba}
+                            onClick={() => mutate({ nombre: item.prueba })}
+                          >
+                            {item?.prueba}
+                          </MenuItem>
+                        );
+                      }
+                    })}
+                  </Select>
+                  <IconButton
+                    sx={{ "&:hover": { bgcolor: "transparent" } }}
+                    onClick={() => {
+                      setTipoId(0), setPruebaG("");
+                    }}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                </Stack>
+              </motion.div>
+            )}
+            {tipoId !== 0 && tipoId === 2 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <Stack direction={"row"}>
+                  <Select
+                    value={pruebaG}
+                    displayEmpty
+                    onChange={ChangePrueba}
+                    sx={{
+                      height: "2.9em",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <MenuItem value={""} disabled>
+                      Seleccione una Prueba
+                    </MenuItem>
+                    {pruebas?.data?.map((item: any, index: number) => {
+                      if (item.tipo_prueba_id === 2) {
+                        return (
+                          <MenuItem
+                            key={index}
+                            value={item.prueba}
+                            onClick={() => mutate({ nombre: item.prueba })}
+                          >
+                            {item?.prueba}
+                          </MenuItem>
+                        );
+                      }
+                    })}
+                  </Select>
+                  <IconButton
+                    sx={{ "&:hover": { bgcolor: "transparent" } }}
+                    onClick={() => {
+                      setTipoId(0), setPruebaG("");
+                    }}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                </Stack>
+              </motion.div>
+            )}
+          </Stack>
+        </Stack>
+
+        {pruebaG !== "" && !isPending && (
+          <Stack>
+            <Stack display={{ md: "flex", xs: "none" }}>
+              <AreaChart
+                width={700}
+                height={400}
+                data={data1?.data}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <defs>
+                  <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#ee4328" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="#ee4328" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="nombre" display={"none"} />
+                <YAxis
+                  label={{
+                    value: tipoId === 1 ? "Metro" : "Minutos",
+                    angle: -90,
+                    position: "insideLeft",
+                    offset: 15,
+                  }}
+                />
+                <Tooltip />
+                <Legend iconType="circle" height={36} verticalAlign="top" />
+                <Area
+                  dataKey={"Marcas"}
+                  stroke="#ee4328"
+                  fill="url(#colorUv)"
+                  fillOpacity={1}
+                  activeDot={{ r: 8 }}
+                  dot={{ stroke: "red", strokeWidth: 5, strokeOpacity: 1 }}
+                  type="monotone"
+                />
+              </AreaChart>
+            </Stack>
+            <Stack display={{ md: "none", xs: "flex" }}>
+              <AreaChart
+                width={350}
+                height={400}
+                data={data1?.data}
+                margin={{
+                  top: 5,
+                  right: 0,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <defs>
+                  <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#ee4328" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="#ee4328" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <XAxis
+                  dataKey="nombre"
+                  display={"none"} // para quitarle las key
+                />
+                <YAxis
+                  label={{
+                    value: tipoId === 1 ? "Metro" : "Minutos",
+                    angle: -90,
+                    position: "insideLeft",
+                    offset: 15,
+                  }}
+                />
+                <Tooltip />
+                <Legend iconType="circle" height={36} verticalAlign="top" />
+                <Area
+                  dataKey={"Marcas"}
+                  stroke="#ee4328"
+                  fill="url(#colorUv)"
+                  fillOpacity={1}
+                  activeDot={{ r: 8 }}
+                  dot={{ stroke: "red", strokeWidth: 5, strokeOpacity: 1 }}
+                  type="monotone"
+                />
+              </AreaChart>
+            </Stack>
+          </Stack>
+        )}
+        {isPending && Loader("5vw", 0)}
+      </Stack>
     </Stack>
   );
 }
