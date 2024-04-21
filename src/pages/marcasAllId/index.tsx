@@ -95,6 +95,13 @@ export default function MarcasAllId() {
       ubicacion,
       fecha,
     } = item;
+    const Ubicacion = (
+      <Typography display={"flex"} flexDirection={"column"}>
+        <Typography>{ubicacion.split(",")[0]}</Typography>
+        <Typography>{ubicacion.split(",")[1]}</Typography>
+        <Typography>{ubicacion.split(",")[2]}</Typography>
+      </Typography>
+    );
     const Data = item;
     const Resultado = tipo_prueba_id === 1 ? `${resultado} M` : `${resultado} `;
     const Fecha = dayjs(fecha).format("DD/MM/YYYY");
@@ -105,7 +112,7 @@ export default function MarcasAllId() {
       prueba,
       posicion,
       Resultado,
-      ubicacion,
+      Ubicacion,
       Fecha,
       options: renderOptions(index, Data),
     };

@@ -74,7 +74,7 @@ export default function Grafica() {
               justifyContent={tipoId !== 0 ? "normal" : "space-around"}
             >
               <Button
-                variant="outlined"
+                variant={tipoId !== 0 ? "contained" : "outlined"}
                 sx={{
                   display: tipoId === 2 ? "none" : "flex",
                   borderRadius: "10px",
@@ -84,7 +84,7 @@ export default function Grafica() {
                 <Typography textTransform={"initial"}>Prueba Campo</Typography>
               </Button>
               <Button
-                variant="outlined"
+                variant={tipoId !== 0 ? "contained" : "outlined"}
                 sx={{
                   display: tipoId === 1 ? "none" : "flex",
                   borderRadius: "10px",

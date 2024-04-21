@@ -34,7 +34,7 @@ export const columns: ITableColumn[] = [
     },
   },
   {
-    name: "ubicacion",
+    name: "Ubicacion",
     label: "Ubicación",
     options: {
       filter: true,

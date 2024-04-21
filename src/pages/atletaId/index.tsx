@@ -33,6 +33,8 @@ import Loader from "../../shared/components/Loader";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import PersonIcon from "@mui/icons-material/Person";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import dayjs from "dayjs";
+import getAge2 from "../atletas-categoria/hooks/getAge2";
 
 export default function AtletaId() {
   const { data: dataAtleta, isLoading } = useGetAtletaId();
@@ -531,6 +533,54 @@ export default function AtletaId() {
                             <Stack
                               justifyContent={"space-between"}
                               gap={2}
+                              flexDirection={{ md: "row", xs: "column" }}
+                            >
+                              <Stack flexDirection={"row"}>
+                                <Typography
+                                  textAlign={"start"}
+                                  fontWeight={"bold"}
+                                  mr={1}
+                                >
+                                  Fecha de Nacimiento:
+                                </Typography>
+                                <Typography>
+                                  {dayjs(
+                                    dataAtleta[0]?.fecha_nacimiento
+                                  ).format("DD/MM/YYYY")}
+                                </Typography>
+                              </Stack>
+                              <Stack flexDirection={"row"}>
+                                <Typography
+                                  textAlign={"start"}
+                                  fontWeight={"bold"}
+                                  mr={1}
+                                >
+                                  Edad:
+                                </Typography>
+                                <Typography>
+                                  {getAge2(
+                                    Number(
+                                      dayjs(
+                                        dataAtleta[0]?.fecha_nacimiento
+                                      ).format("DD")
+                                    ),
+                                    Number(
+                                      dayjs(
+                                        dataAtleta[0]?.fecha_nacimiento
+                                      ).format("MM")
+                                    ),
+                                    Number(
+                                      dayjs(
+                                        dataAtleta[0]?.fecha_nacimiento
+                                      ).format("YYYY")
+                                    )
+                                  )}
+                                </Typography>
+                              </Stack>
+                            </Stack>
+                            <Stack
+                              justifyContent={"space-between"}
+                              gap={2}
                               flexDirection={"row"}
                             >
                               <Stack flexDirection={"row"}>
@@ -693,35 +743,30 @@ export default function AtletaId() {
                                   </Typography>
                                 </Stack>
                               </Stack>
-                              <Stack
-                                justifyContent={"space-between"}
-                                gap={2}
-                                flexDirection={"row"}
-                              >
-                                <Stack flexDirection={"row"}>
-                                  <Typography
-                                    textAlign={"start"}
-                                    fontWeight={"bold"}
-                                    mr={1}
-                                  >
-                                    Parentesco:
-                                  </Typography>
-                                  <Typography>
-                                    {dataAtleta[3]?.parentesco}
-                                  </Typography>
-                                </Stack>
-                                <Stack flexDirection={"row"}>
-                                  <Typography
-                                    textAlign={"start"}
-                                    fontWeight={"bold"}
-                                    mr={1}
-                                  >
-                                    Teléfono:
-                                  </Typography>
-                                  <Typography>
-                                    {dataAtleta[3]?.telefono_repre}
-                                  </Typography>
-                                </Stack>
+    
+                              <Stack flexDirection={"row"}>
+                                <Typography
+                                  textAlign={"start"}
+                                  fontWeight={"bold"}
+                                  mr={1}
+                                >
+                                  Parentesco:
+                                </Typography>
+                                <Typography>
+                                  {dataAtleta[3]?.parentesco}
+                                </Typography>
+                              </Stack>
+                              <Stack flexDirection={"row"}>
+                                <Typography
+                                  textAlign={"start"}
+                                  fontWeight={"bold"}
+                                  mr={1}
+                                >
+                                  Teléfono:
+                                </Typography>
+                                <Typography>
+                                  {dataAtleta[3]?.telefono_repre}
+                                </Typography>
                               </Stack>
                             </Stack>
                             <Divider

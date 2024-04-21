@@ -42,6 +42,7 @@ export default function agregarAtletas() {
   });
 
   const [gen, setGen] = useState("");
+  const [tSangre, setTSangre] = useState("");
   const { mutate, isPending } = useAggAtlets();
   const { control } = useForm();
   const [fechaNac, setFechaNac] = useState(null);
@@ -108,10 +109,10 @@ export default function agregarAtletas() {
       peso: data?.peso,
       categoria: categoria,
       envergadura: data?.envergadura,
-      tipo_sangre: data?.tiposangre,
+      tipo_sangre: tSangre,
       telefono: data?.telefono,
       email: data?.email,
-      repre: repre, // que indica que tiene representante
+      repre: repre,
       nombre_repre: data?.nombre_repre,
       cedula_repre: data?.cedula_repre,
       apellido_repre: data?.apellido_repre,
@@ -225,7 +226,7 @@ export default function agregarAtletas() {
             width={"100%"}
             justifyContent={"space-between"}
           >
-            <Grid md={5.9}>
+            <Grid md={5.8}>
               <Stack
                 width={"100%"}
                 bgcolor={"#fff"}
@@ -382,7 +383,10 @@ export default function agregarAtletas() {
                       </FormHelperText>
                     </FormControl>
                   </Stack>
-                  <Stack direction={{ md: "row", xs: "column" }}>
+                  <Stack
+                    direction={{ md: "row", xs: "column" }}
+                    justifyContent={"center"}
+                  >
                     <FormControl
                       sx={{
                         my: 1,
@@ -435,13 +439,17 @@ export default function agregarAtletas() {
                         id="Genero"
                         required
                         defaultValue={""}
+                        displayEmpty
                         onChange={(e) => setGen(e.target.value)}
                         sx={{
                           borderRadius: "1em",
-                          minHeight: "45px",
+                          minHeight: "35px",
                           boxShadow: 1,
                         }}
                       >
+                        <MenuItem value={""} disabled>
+                          Seleccione un genero
+                        </MenuItem>
                         <MenuItem value={"m"}>Masculino</MenuItem>
                         <MenuItem value={"f"}>Femenino</MenuItem>
                       </Select>
@@ -468,6 +476,7 @@ export default function agregarAtletas() {
                               }}
                               sx={{
                                 ".MuiOutlinedInput-root": {
+                                  height: {md:"3.2em",xs:'initial'},
                                   borderRadius: "1em",
                                   boxShadow: 1,
                                 },
@@ -488,12 +497,13 @@ export default function agregarAtletas() {
                 </Stack>
               </Stack>
             </Grid>
-            <Grid md={5.9}>
+            <Grid md={5.8}>
               <Stack
                 width={"100%"}
                 bgcolor={"#fff"}
                 borderRadius={"1em"}
                 my={1.5}
+                pb={1}
                 boxShadow={3}
                 height={"100%"}
               >
@@ -616,28 +626,37 @@ export default function agregarAtletas() {
                       height: "10vh",
                     }}
                   >
-                    <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
+                    <FormLabel
+                      required
+                      sx={{ fontSize: "16px", textAlign: "left" }}
+                    >
                       Tipo de Sangre
                     </FormLabel>
-                    <OutlinedInput
+
+                    <Select
+                      id="TipoSandre"
+                      required
+                      displayEmpty
+                      defaultValue={""}
+                      onChange={(e) => setTSangre(e.target.value)}
                       sx={{
+                        borderRadius: "1em",
                         minHeight: "35px",
                         boxShadow: 1,
-                        borderRadius: "1em",
                       }}
-                      type="text"
-                      placeholder="Ingrese su tipo de sangre"
-                      error={errors.tiposangre && true}
-                      {...register("tiposangre", {
-                        required: {
-                          value: true,
-                          message: "Este campo es requerido.",
-                        },
-                      })}
-                    />
-                    <FormHelperText sx={{ color: "#000" }}>
-                      {errors.tiposangre?.message && errors.tiposangre.message}
-                    </FormHelperText>
+                    >
+                      <MenuItem value={""} disabled>
+                        Seleccione un tipo de sangre
+                      </MenuItem>
+                      <MenuItem value={"A+"}>A+</MenuItem>
+                      <MenuItem value={"A-"}>A-</MenuItem>
+                      <MenuItem value={"B+"}>B+</MenuItem>
+                      <MenuItem value={"B-"}>B-</MenuItem>
+                      <MenuItem value={"O+"}>O+</MenuItem>
+                      <MenuItem value={"O-"}>O-</MenuItem>
+                      <MenuItem value={"AB+"}>AB+</MenuItem>
+                      <MenuItem value={"AB-"}>AB-</MenuItem>
+                    </Select>
                   </FormControl>
                 </Stack>
               </Stack>

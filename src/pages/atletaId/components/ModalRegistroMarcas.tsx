@@ -3,28 +3,20 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
-import AddchartIcon from "@mui/icons-material/Addchart";
 import { motion } from "framer-motion";
 import Stack from "@mui/material/Stack";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
-import { GiPathDistance } from "react-icons/gi";
 import { IMarcas } from "../interface/IMarcas";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useGetMarcas2, useMarcas } from "../../../shared/hooks/useMarcas";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormLabel from "@mui/material/FormLabel";
-import SendIcon from "@mui/icons-material/Send";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { PruebasCampo, PruebasPista } from "../../../shared/hooks/usePruebas";
-import { FaClipboardList } from "react-icons/fa6";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import PublicIcon from "@mui/icons-material/Public";
-import { GiSportMedal } from "react-icons/gi";
-import { ubicacion } from "../const/ubicacion";
+import { Paises } from "../const/ubicacion";
 import { theme } from "../../../shared/style-components/theme/theme";
 import Loader from "../../../shared/components/Loader";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -33,6 +25,20 @@ import styled from "@mui/material/styles/styled";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import "dayjs/locale/es";
+import { IconButton } from "@mui/material";
+import { useCiudades, useUbicacion } from "../../../shared/hooks/useUbicacion";
+
+import SendIcon from "@mui/icons-material/Send";
+import { GiPathDistance } from "react-icons/gi";
+import AddchartIcon from "@mui/icons-material/Addchart";
+import { FaClipboardList } from "react-icons/fa6";
+import { GiSportMedal } from "react-icons/gi";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import PublicIcon from "@mui/icons-material/Public";
+import CloseIcon from "@mui/icons-material/Close";
+import { FaMapLocationDot } from "react-icons/fa6";
+import { FaLocationDot } from "react-icons/fa6";
 
 const style = {
   position: "absolute" as "absolute",
@@ -40,11 +46,12 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  height: 730,
+  height: { xs: "98%", md: "100vh" },
   bgcolor: "background.paper",
   border: "2px solid #EF7E6C",
   borderRadius: "13px",
   boxShadow: 24,
+  overflowY: "scroll",
   pt: 2,
   px: 4,
   pb: 3,
@@ -64,9 +71,18 @@ export default function ModalRegistro() {
     isPending: Ppista,
   } = PruebasPista();
 
+  const { data: Pais, mutate: mutPais, isPending: loadEstado } = useUbicacion();
+  const {
+    data: Ciudad,
+    mutate: mutCiudad,
+    isPending: loadCiudad,
+  } = useCiudades();
+
   const [open, setOpen] = useState(false);
   const [typeTest, setTypeTest] = useState(0);
-  const [ubi, setUbi] = useState("");
+  const [pais, setPais] = useState("");
+  const [estado, setEstado] = useState("");
+  const [ciudad, setCiudad] = useState("");
   const [prueba, setPrueba] = useState("");
   const [fecha, setFecha] = useState(null);
   const { control } = useForm();
@@ -82,7 +98,7 @@ export default function ModalRegistro() {
   const registerMarca = (data: IMarcas) => {
     const Fecha = dayjs(fecha).format("DD/MM/YYYY");
     const sendData = {
-      ubicacion: ubi,
+      ubicacion: `${pais},${estado},${ciudad}`,
       prueba: prueba,
       tipo_prueba_id: typeTest,
       competencia: data?.competencia,
@@ -112,6 +128,9 @@ export default function ModalRegistro() {
   };
   const handleClose = () => {
     setOpen(false);
+    setPais("");
+    setEstado("");
+    setCiudad("");
     reset();
     setTypeTest(0);
   };
@@ -166,16 +185,29 @@ export default function ModalRegistro() {
               justifyContent={"space-between"}
               width={"100%"}
               height={"100%"}
+              gap={0.5}
             >
-              <Typography
-                variant="h5"
-                component={"h2"}
-                fontWeight={"bold"}
-                id="parent-modal-title"
-                color={"#EB5D47"}
-              >
-                Registar Marcas
-              </Typography>
+              <Stack width={"100%"} direction={"row"} alignItems={"center"}>
+                <Stack width={"95%"} alignItems={"center"}>
+                  <Typography
+                    variant="h5"
+                    component={"h2"}
+                    fontWeight={"bold"}
+                    id="parent-modal-title"
+                    color={"#EB5D47"}
+                  >
+                    Registar Marcas
+                  </Typography>
+                </Stack>
+                <Stack width={"5%"}>
+                  <IconButton
+                    onClick={() => handleClose()}
+                    sx={{ "&:hover": { bgcolor: "transparent" } }}
+                  >
+                    <CloseIcon fontSize="large" />
+                  </IconButton>
+                </Stack>
+              </Stack>
               <Typography
                 component={"h3"}
                 color={"#b9b4b1"}
@@ -192,19 +224,22 @@ export default function ModalRegistro() {
               >
                 <FormLabel
                   required
-                  sx={{ fontSize: "16px", textAlign: "left" }}
+                  sx={{
+                    fontSize: "16px",
+                    textAlign: "left",
+                    fontWeight: "bold",
+                  }}
                 >
-                  Ubicación
+                  País
                 </FormLabel>
                 <Select
-                  id="Ubicacion"
                   startAdornment={
                     <InputAdornment position="start">
                       <PublicIcon sx={{ fontSize: "25px" }} />
                     </InputAdornment>
                   }
                   required
-                  onChange={(e) => setUbi(String(e.target.value))}
+                  onChange={(e) => setPais(String(e.target.value))}
                   sx={{
                     bgcolor: "#f5f5f5",
                     border: "none",
@@ -225,15 +260,138 @@ export default function ModalRegistro() {
                     },
                   }}
                 >
-                  {ubicacion.map((item: any) => {
+                  {Paises.map((item: any, index: number) => {
                     return (
-                      <MenuItem key={item.id} value={item.name}>
+                      <MenuItem
+                        key={index}
+                        value={item.name}
+                        onClick={() => mutPais({ pais: item.name })}
+                      >
                         {item.name}
                       </MenuItem>
                     );
                   })}
                 </Select>
               </FormControl>
+              {loadEstado && Loader("35px", 0)}
+              {!loadEstado && pais !== "" && (
+                <FormControl
+                  sx={{
+                    px: 1,
+                    width: { xs: "100%", md: "85%", lg: "80%" },
+                    height: "90px",
+                  }}
+                >
+                  <FormLabel
+                    required
+                    sx={{
+                      fontSize: "16px",
+                      textAlign: "left",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Estado
+                  </FormLabel>
+                  <Select
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <FaMapLocationDot size={"20px"} />
+                      </InputAdornment>
+                    }
+                    required
+                    onChange={(e) => setEstado(String(e.target.value))}
+                    sx={{
+                      bgcolor: "#f5f5f5",
+                      border: "none",
+                      borderRadius: "10px",
+                      minHeight: 50,
+
+                      "& .MuiOutlinedInput": {
+                        backgroundColor: "#f5f5f5",
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "transparent",
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "transparent",
+                        },
+                        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "transparent",
+                        },
+                      },
+                    }}
+                  >
+                    {Pais?.data?.map((item: any, index: number) => {
+                      return (
+                        <MenuItem
+                          key={index}
+                          value={item.estado}
+                          onClick={() =>
+                            mutCiudad({ pais: pais, state: item.estado })
+                          }
+                        >
+                          {item.estado}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
+              )}
+              {loadCiudad && Loader("35px", 0)}
+              {!loadCiudad && pais !== "" && estado !== "" && (
+                <FormControl
+                  sx={{
+                    px: 1,
+                    width: { xs: "100%", md: "85%", lg: "80%" },
+                    height: "90px",
+                  }}
+                >
+                  <FormLabel
+                    required
+                    sx={{
+                      fontSize: "16px",
+                      textAlign: "left",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Localidad
+                  </FormLabel>
+                  <Select
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <FaLocationDot size={"20px"} />
+                      </InputAdornment>
+                    }
+                    onChange={(e) => setCiudad(String(e.target.value))}
+                    sx={{
+                      bgcolor: "#f5f5f5",
+                      border: "none",
+                      borderRadius: "10px",
+                      minHeight: 50,
+
+                      "& .MuiOutlinedInput": {
+                        backgroundColor: "#f5f5f5",
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "transparent",
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "transparent",
+                        },
+                        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "transparent",
+                        },
+                      },
+                    }}
+                  >
+                    {Ciudad?.data?.map((item: any, index: number) => {
+                      return (
+                        <MenuItem key={index} value={item.ciudad}>
+                          {item.ciudad}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
+              )}
               <FormControl
                 sx={{
                   px: 1,
@@ -243,7 +401,11 @@ export default function ModalRegistro() {
               >
                 <FormLabel
                   required
-                  sx={{ fontSize: "16px", textAlign: "left" }}
+                  sx={{
+                    fontSize: "16px",
+                    textAlign: "left",
+                    fontWeight: "bold",
+                  }}
                 >
                   Tipo de Prueba
                 </FormLabel>
@@ -280,7 +442,7 @@ export default function ModalRegistro() {
                   </MenuItem>
                 </Select>
               </FormControl>
-              {Pcampo && Loader("20px", 0)}
+              {Pcampo && Loader("70px", 0)}
               {!Pcampo && (
                 <Stack width={"100%"}>
                   {typeTest === 1 && (
@@ -345,6 +507,7 @@ export default function ModalRegistro() {
                       <FormControl
                         sx={{
                           height: "90px",
+                          px: 1,
                           width: { xs: "95%", md: "85%", lg: "75%" },
                         }}
                         variant="standard"
@@ -402,7 +565,7 @@ export default function ModalRegistro() {
                   )}
                 </Stack>
               )}
-              {Ppista && Loader("25px", 0)}
+              {Ppista && Loader("70px", 0)}
               {!Ppista && (
                 <Stack width={"100%"}>
                   {typeTest === 2 && (
@@ -417,7 +580,11 @@ export default function ModalRegistro() {
                       >
                         <FormLabel
                           required
-                          sx={{ fontSize: "16px", textAlign: "left" }}
+                          sx={{
+                            fontSize: "16px",
+                            textAlign: "left",
+                            fontWeight: "bold",
+                          }}
                         >
                           Prueba
                         </FormLabel>
@@ -467,9 +634,9 @@ export default function ModalRegistro() {
                       </FormControl>
                       <FormControl
                         sx={{
-                          m: 1,
+                          px: 1,
                           height: "90px",
-                          width: { xs: "95%", md: "85%", lg: "75%" },
+                          width: { xs: "100%", md: "85%", lg: "80%" },
                         }}
                         variant="standard"
                       >
@@ -529,8 +696,9 @@ export default function ModalRegistro() {
               )}
               <FormControl
                 sx={{
+                  px: 1,
                   height: "90px",
-                  width: { xs: "95%", md: "85%", lg: "75%" },
+                  width: { xs: "100%", md: "85%", lg: "80%" },
                 }}
                 variant="standard"
               >
@@ -577,7 +745,7 @@ export default function ModalRegistro() {
               </FormControl>
               <FormControl
                 required
-                sx={{ px: 1, width: { md: "80%", xs: "100%" } }}
+                sx={{ px: 1, width: { xs: "100%", md: "85%", lg: "80%" } }}
               >
                 <FormLabel sx={{ fontWeight: "bold" }} required>
                   Fecha
@@ -631,8 +799,9 @@ export default function ModalRegistro() {
               </FormControl>
               <FormControl
                 sx={{
+                  px: 1,
                   height: "90px",
-                  width: { xs: "95%", md: "85%", lg: "75%" },
+                  width: { xs: "100%", md: "85%", lg: "80%" },
                 }}
                 variant="standard"
               >

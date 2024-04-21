@@ -24,6 +24,7 @@ import {
   MenuItem,
   OutlinedInput,
   FormHelperText,
+  IconButton,
 } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -33,9 +34,13 @@ import { FaClipboardList } from "react-icons/fa6";
 import { GiPathDistance, GiSportMedal } from "react-icons/gi";
 import Loader from "../../../shared/components/Loader";
 import { theme } from "../../../shared/style-components/theme/theme";
-import { ubicacion } from "../../atletaId/const/ubicacion";
+import { Paises } from "../../atletaId/const/ubicacion";
+import CloseIcon from "@mui/icons-material/Close";
+import { FaMapLocationDot } from "react-icons/fa6";
+import { FaLocationDot } from "react-icons/fa6";
 import { PruebasCampo, PruebasPista } from "../../../shared/hooks/usePruebas";
 import "dayjs/locale/es";
+import { useCiudades, useUbicacion } from "../../../shared/hooks/useUbicacion";
 
 const style = {
   position: "absolute" as "absolute",
@@ -43,11 +48,12 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  height: 730,
+  height: { xs: "98%", md: "100vh" },
   bgcolor: "background.paper",
   border: "2px solid #0066ff",
   borderRadius: "13px",
   boxShadow: 24,
+  overflowY: "scroll",
   pt: 2,
   px: 4,
   pb: 3,
@@ -67,8 +73,10 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
     isPending: Ppista,
   } = PruebasPista();
   const [typeTest, setTypeTest] = useState(0);
-  const [ubi, setUbi] = useState("");
   const [prueba, setPrueba] = useState("");
+  const [pais, setPais] = useState("");
+  const [estado, setEstado] = useState("");
+  const [ciudad, setCiudad] = useState("");
   const [fecha, setFecha] = useState(null);
   const [id, setId] = useState(Number);
   const { control } = useForm();
@@ -77,7 +85,9 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
   useEffect(() => {
     const tipo = dataO?.tipo_prueba_id;
     const fechaX = dataO?.fecha;
-    const ubiX = dataO?.ubicacion;
+    const paisX = dataO?.ubicacion.split(",")[0];
+    const estadoX = dataO?.ubicacion.split(",")[1];
+    const ciudadX = dataO?.ubicacion.split(",")[2];
     const pruebaX = dataO?.prueba;
     const idX = dataO?.id;
     if (idX) {
@@ -86,8 +96,16 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
     if (pruebaX) {
       setPrueba(pruebaX);
     }
-    if (ubiX) {
-      setUbi(ubiX);
+    if (paisX) {
+      setPais(paisX);
+      mutPais({ pais: paisX });
+    }
+    if (estadoX) {
+      setEstado(estadoX);
+      mutCiudad({ pais: paisX, state: estadoX });
+    }
+    if (ciudadX) {
+      setCiudad(ciudadX);
     }
     if (fechaX) {
       setFecha(fechaX);
@@ -96,12 +114,17 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
     }
     if (tipo === 1) {
       AsycC();
-
     } else if (tipo === 2) {
       AsynP();
-
     }
   }, [dataO]);
+
+  const { data: Pais, mutate: mutPais, isPending: loadEstado } = useUbicacion();
+  const {
+    data: Ciudad,
+    mutate: mutCiudad,
+    isPending: loadCiudad,
+  } = useCiudades();
 
   const {
     register,
@@ -116,7 +139,7 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
     const Fecha = dayjs(fecha).format("DD/MM/YYYY");
     const sendData = {
       id: id,
-      ubicacion: ubi,
+      ubicacion: `${pais},${estado},${ciudad}`,
       prueba: prueba,
       tipo_prueba_id: typeTest || dataO?.tipo_prueba_id,
       competencia: data?.competencia,
@@ -205,15 +228,27 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                 width={"100%"}
                 height={"100%"}
               >
-                <Typography
-                  variant="h5"
-                  component={"h2"}
-                  fontWeight={"bold"}
-                  id="parent-modal-title"
-                  color={"#0066ff"}
-                >
-                  Editar Marca
-                </Typography>
+                <Stack width={"100%"} direction={"row"} alignItems={"center"}>
+                  <Stack width={"95%"} alignItems={"center"}>
+                    <Typography
+                      variant="h5"
+                      component={"h2"}
+                      fontWeight={"bold"}
+                      id="parent-modal-title"
+                      color={"#0066ff"}
+                    >
+                      Editar Marca
+                    </Typography>
+                  </Stack>
+                  <Stack width={"5%"}>
+                    <IconButton
+                      onClick={() => handleClose()}
+                      sx={{ "&:hover": { bgcolor: "transparent" } }}
+                    >
+                      <CloseIcon fontSize="large" />
+                    </IconButton>
+                  </Stack>
+                </Stack>
                 <Typography
                   component={"h3"}
                   color={"#b9b4b1"}
@@ -230,20 +265,23 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                 >
                   <FormLabel
                     required
-                    sx={{ fontSize: "16px", textAlign: "left" }}
+                    sx={{
+                      fontSize: "16px",
+                      textAlign: "left",
+                      fontWeight: "bold",
+                    }}
                   >
-                    Ubicación
+                    País
                   </FormLabel>
                   <Select
-                    id="Ubicacion"
                     startAdornment={
                       <InputAdornment position="start">
                         <PublicIcon sx={{ fontSize: "25px" }} />
                       </InputAdornment>
                     }
                     required
-                    defaultValue={dataO?.ubicacion} //cambiarlo a useeffect
-                    onChange={(e) => setUbi(String(e.target.value))}
+                    defaultValue={dataO?.ubicacion.split(",")[0]}
+                    onChange={(e) => setPais(String(e.target.value))}
                     sx={{
                       bgcolor: "#f5f5f5",
                       border: "none",
@@ -264,15 +302,140 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                       },
                     }}
                   >
-                    {ubicacion.map((item: any) => {
+                    {Paises.map((item: any, index: number) => {
                       return (
-                        <MenuItem key={item.id} value={item.name}>
+                        <MenuItem
+                          key={index}
+                          value={item.name}
+                          onClick={() => mutPais({ pais: item.name })}
+                        >
                           {item.name}
                         </MenuItem>
                       );
                     })}
                   </Select>
                 </FormControl>
+                {loadEstado && Loader("35px", 0)}
+                {!loadEstado && pais !== "" && (
+                  <FormControl
+                    sx={{
+                      px: 1,
+                      width: { xs: "100%", md: "85%", lg: "80%" },
+                      height: "90px",
+                    }}
+                  >
+                    <FormLabel
+                      required
+                      sx={{
+                        fontSize: "16px",
+                        textAlign: "left",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Estado
+                    </FormLabel>
+                    <Select
+                      startAdornment={
+                        <InputAdornment position="start">
+                          <FaMapLocationDot size={"20px"} />
+                        </InputAdornment>
+                      }
+                      required
+                      defaultValue={dataO?.ubicacion.split(",")[1]}
+                      onChange={(e) => setEstado(String(e.target.value))}
+                      sx={{
+                        bgcolor: "#f5f5f5",
+                        border: "none",
+                        borderRadius: "10px",
+                        minHeight: 50,
+
+                        "& .MuiOutlinedInput": {
+                          backgroundColor: "#f5f5f5",
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                          "&:hover .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                        },
+                      }}
+                    >
+                      {Pais?.data?.map((item: any, index: number) => {
+                        return (
+                          <MenuItem
+                            key={index}
+                            value={item.estado}
+                            onClick={() =>
+                              mutCiudad({ pais: pais, state: item.estado })
+                            }
+                          >
+                            {item.estado}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                )}
+                {loadCiudad && Loader("35px", 0)}
+                {!loadCiudad && pais !== "" && estado !== "" && (
+                  <FormControl
+                    sx={{
+                      px: 1,
+                      width: { xs: "100%", md: "85%", lg: "80%" },
+                      height: "90px",
+                    }}
+                  >
+                    <FormLabel
+                      required
+                      sx={{
+                        fontSize: "16px",
+                        textAlign: "left",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Localidad
+                    </FormLabel>
+                    <Select
+                      startAdornment={
+                        <InputAdornment position="start">
+                          <FaLocationDot size={"20px"} />
+                        </InputAdornment>
+                      }
+                      defaultValue={dataO?.ubicacion.split(",")[2]}
+                      onChange={(e) => setCiudad(String(e.target.value))}
+                      sx={{
+                        bgcolor: "#f5f5f5",
+                        border: "none",
+                        borderRadius: "10px",
+                        minHeight: 50,
+
+                        "& .MuiOutlinedInput": {
+                          backgroundColor: "#f5f5f5",
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                          "&:hover .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                        },
+                      }}
+                    >
+                      {Ciudad?.data?.map((item: any, index: number) => {
+                        return (
+                          <MenuItem key={index} value={item.ciudad}>
+                            {item.ciudad}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                )}
                 <FormControl
                   sx={{
                     px: 1,
@@ -282,7 +445,11 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                 >
                   <FormLabel
                     required
-                    sx={{ fontSize: "16px", textAlign: "left" }}
+                    sx={{
+                      fontSize: "16px",
+                      textAlign: "left",
+                      fontWeight: "bold",
+                    }}
                   >
                     Tipo de Prueba
                   </FormLabel>
@@ -334,7 +501,11 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                           >
                             <FormLabel
                               required
-                              sx={{ fontSize: "16px", textAlign: "left" }}
+                              sx={{
+                                fontSize: "16px",
+                                textAlign: "left",
+                                fontWeight: "bold",
+                              }}
                             >
                               Prueba
                             </FormLabel>
@@ -392,7 +563,10 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                             }}
                             variant="standard"
                           >
-                            <FormLabel sx={{ fontWeight: "bold" }} required>
+                            <FormLabel
+                              sx={{ fontSize: "16px", fontWeight: "bold" }}
+                              required
+                            >
                               Distancia(M,mm)
                             </FormLabel>
                             <OutlinedInput
@@ -461,7 +635,11 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                           >
                             <FormLabel
                               required
-                              sx={{ fontSize: "16px", textAlign: "left" }}
+                              sx={{
+                                fontSize: "16px",
+                                textAlign: "left",
+                                fontWeight: "bold",
+                              }}
                             >
                               Prueba
                             </FormLabel>
@@ -519,7 +697,10 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                             }}
                             variant="standard"
                           >
-                            <FormLabel sx={{ fontWeight: "bold" }} required>
+                            <FormLabel
+                              sx={{ fontSize: "16px", fontWeight: "bold" }}
+                              required
+                            >
                               Tiempo(mm:ss,mili)
                             </FormLabel>
                             <OutlinedInput
@@ -581,7 +762,10 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                   }}
                   variant="standard"
                 >
-                  <FormLabel sx={{ fontWeight: "bold" }} required>
+                  <FormLabel
+                    sx={{ fontSize: "16px", fontWeight: "bold" }}
+                    required
+                  >
                     Competencia
                   </FormLabel>
                   <OutlinedInput
@@ -627,7 +811,10 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                   required
                   sx={{ px: 1, width: { md: "80%", xs: "100%" } }}
                 >
-                  <FormLabel sx={{ fontWeight: "bold" }} required>
+                  <FormLabel
+                    sx={{ fontSize: "16px", fontWeight: "bold" }}
+                    required
+                  >
                     Fecha
                   </FormLabel>
                   <Controller
@@ -685,7 +872,10 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                   }}
                   variant="standard"
                 >
-                  <FormLabel sx={{ fontWeight: "bold" }} required>
+                  <FormLabel
+                    sx={{ fontSize: "16px", fontWeight: "bold" }}
+                    required
+                  >
                     Posición
                   </FormLabel>
                   <OutlinedInput

@@ -9,7 +9,6 @@ export interface IAtlets {
   estatura: number;
   peso: number;
   envergadura: number;
-  tiposangre: string;
   categoria: string;
   telefono: string;
   email: string;
