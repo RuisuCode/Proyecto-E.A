@@ -131,6 +131,7 @@ export default function ModalRegistro() {
     setPais("");
     setEstado("");
     setCiudad("");
+    setPrueba("");
     reset();
     setTypeTest(0);
   };
@@ -182,10 +183,11 @@ export default function ModalRegistro() {
               component={"form"}
               onSubmit={handleSubmit(onSubmit)}
               alignItems={"center"}
-              justifyContent={"space-between"}
+              justifyContent={"space-evenly"}
               width={"100%"}
               height={"100%"}
               gap={0.5}
+              py={1}
             >
               <Stack width={"100%"} direction={"row"} alignItems={"center"}>
                 <Stack width={"95%"} alignItems={"center"}>
@@ -397,6 +399,7 @@ export default function ModalRegistro() {
                   px: 1,
                   width: { xs: "100%", md: "85%", lg: "80%" },
                   height: "90px",
+                  display: loadEstado || loadCiudad ? "none" : "flex",
                 }}
               >
                 <FormLabel
@@ -442,7 +445,7 @@ export default function ModalRegistro() {
                   </MenuItem>
                 </Select>
               </FormControl>
-              {Pcampo && Loader("70px", 0)}
+              {Pcampo && Loader("35px", 0)}
               {!Pcampo && (
                 <Stack width={"100%"}>
                   {typeTest === 1 && (
@@ -565,7 +568,7 @@ export default function ModalRegistro() {
                   )}
                 </Stack>
               )}
-              {Ppista && Loader("70px", 0)}
+              {Ppista && Loader("35px", 0)}
               {!Ppista && (
                 <Stack width={"100%"}>
                   {typeTest === 2 && (
@@ -694,158 +697,164 @@ export default function ModalRegistro() {
                   )}
                 </Stack>
               )}
-              <FormControl
-                sx={{
-                  px: 1,
-                  height: "90px",
-                  width: { xs: "100%", md: "85%", lg: "80%" },
-                }}
-                variant="standard"
-              >
-                <FormLabel sx={{ fontWeight: "bold" }} required>
-                  Competencia
-                </FormLabel>
-                <OutlinedInput
-                  type="string"
-                  error={errors.competencia && true}
-                  startAdornment={
-                    <InputAdornment position="start">
-                      <EmojiEventsIcon sx={{ fontSize: "25px" }} />
-                    </InputAdornment>
-                  }
-                  sx={{
-                    bgcolor: "#f5f5f5",
-                    border: "none",
-                    borderRadius: "10px",
-                    minHeight: 50,
+              {prueba !== "" && (
+                <Stack width={"100%"} alignItems={"center"}>
+                  <FormControl
+                    sx={{
+                      px: 1,
+                      height: "90px",
+                      width: { xs: "100%", md: "85%", lg: "80%" },
+                    }}
+                    variant="standard"
+                  >
+                    <FormLabel sx={{ fontWeight: "bold" }} required>
+                      Competencia
+                    </FormLabel>
+                    <OutlinedInput
+                      type="string"
+                      error={errors.competencia && true}
+                      startAdornment={
+                        <InputAdornment position="start">
+                          <EmojiEventsIcon sx={{ fontSize: "25px" }} />
+                        </InputAdornment>
+                      }
+                      sx={{
+                        bgcolor: "#f5f5f5",
+                        border: "none",
+                        borderRadius: "10px",
+                        minHeight: 50,
 
-                    "& .MuiOutlinedInput": {
-                      backgroundColor: "#f5f5f5",
-                      "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "transparent",
-                      },
-                      "&:hover .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "transparent",
-                      },
-                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "transparent",
-                      },
-                    },
-                  }}
-                  {...register("competencia", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                />
-                <FormHelperText sx={{ color: "#000" }}>
-                  {errors.competencia?.message && errors.competencia.message}
-                </FormHelperText>
-              </FormControl>
-              <FormControl
-                required
-                sx={{ px: 1, width: { xs: "100%", md: "85%", lg: "80%" } }}
-              >
-                <FormLabel sx={{ fontWeight: "bold" }} required>
-                  Fecha
-                </FormLabel>
-                <Controller
-                  name="FechaNacimiento"
-                  control={control}
-                  defaultValue={fecha}
-                  render={({ field }) => (
-                    <LocalizationProvider
-                      dateAdapter={AdapterDayjs}
-                      adapterLocale="es"
+                        "& .MuiOutlinedInput": {
+                          backgroundColor: "#f5f5f5",
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                          "&:hover .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                        },
+                      }}
+                      {...register("competencia", {
+                        required: {
+                          value: true,
+                          message: "Este campo es requerido",
+                        },
+                      })}
+                    />
+                    <FormHelperText sx={{ color: "#000" }}>
+                      {errors.competencia?.message &&
+                        errors.competencia.message}
+                    </FormHelperText>
+                  </FormControl>
+                  <FormControl
+                    required
+                    sx={{ px: 1, width: { xs: "100%", md: "85%", lg: "80%" } }}
+                  >
+                    <FormLabel sx={{ fontWeight: "bold" }} required>
+                      Fecha
+                    </FormLabel>
+                    <Controller
+                      name="FechaNacimiento"
+                      control={control}
+                      defaultValue={fecha}
+                      render={({ field }) => (
+                        <LocalizationProvider
+                          dateAdapter={AdapterDayjs}
+                          adapterLocale="es"
+                        >
+                          <StyledDatePicker
+                            theme={Theme}
+                            {...field}
+                            onChange={(newValue: any) => {
+                              field.onChange(newValue);
+                              setFecha(newValue);
+                            }}
+                            sx={{
+                              minWidth: "100%",
+                              ".MuiOutlinedInput-root": {
+                                borderRadius: "10px",
+                                border: "solid 1px #b9b4b1 ",
+                              },
+                              "& .MuiOutlinedInput-root": {
+                                backgroundColor: "#f5f5f5",
+                                "& .MuiOutlinedInput-notchedOutline": {
+                                  borderColor: "transparent",
+                                },
+                                "&:hover .MuiOutlinedInput-notchedOutline": {
+                                  borderColor: "transparent",
+                                },
+                                "&.Mui-focused .MuiOutlinedInput-notchedOutline":
+                                  {
+                                    borderColor: "transparent",
+                                  },
+                              },
+                            }}
+                          />
+                        </LocalizationProvider>
+                      )}
+                    />
+                    <FormHelperText
+                      sx={{
+                        color: "#000",
+                      }}
                     >
-                      <StyledDatePicker
-                        theme={Theme}
-                        {...field}
-                        onChange={(newValue: any) => {
-                          field.onChange(newValue);
-                          setFecha(newValue);
-                        }}
-                        sx={{
-                          minWidth: "100%",
-                          ".MuiOutlinedInput-root": {
-                            borderRadius: "10px",
-                            border: "solid 1px #b9b4b1 ",
-                          },
-                          "& .MuiOutlinedInput-root": {
-                            backgroundColor: "#f5f5f5",
-                            "& .MuiOutlinedInput-notchedOutline": {
-                              borderColor: "transparent",
-                            },
-                            "&:hover .MuiOutlinedInput-notchedOutline": {
-                              borderColor: "transparent",
-                            },
-                            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                              borderColor: "transparent",
-                            },
-                          },
-                        }}
-                      />
-                    </LocalizationProvider>
-                  )}
-                />
-                <FormHelperText
-                  sx={{
-                    color: "#000",
-                  }}
-                >
-                  {errors.fecha?.message && errors.fecha.message}
-                </FormHelperText>
-              </FormControl>
-              <FormControl
-                sx={{
-                  px: 1,
-                  height: "90px",
-                  width: { xs: "100%", md: "85%", lg: "80%" },
-                }}
-                variant="standard"
-              >
-                <FormLabel sx={{ fontWeight: "bold" }} required>
-                  Posición
-                </FormLabel>
-                <OutlinedInput
-                  type="number"
-                  error={errors.posicion && true}
-                  startAdornment={
-                    <InputAdornment position="start">
-                      <GiSportMedal size={"25px"} />
-                    </InputAdornment>
-                  }
-                  sx={{
-                    bgcolor: "#f5f5f5",
-                    border: "none",
-                    borderRadius: "10px",
-                    minHeight: 50,
+                      {errors.fecha?.message && errors.fecha.message}
+                    </FormHelperText>
+                  </FormControl>
+                  <FormControl
+                    sx={{
+                      px: 1,
+                      height: "90px",
+                      width: { xs: "100%", md: "85%", lg: "80%" },
+                    }}
+                    variant="standard"
+                  >
+                    <FormLabel sx={{ fontWeight: "bold" }} required>
+                      Posición
+                    </FormLabel>
+                    <OutlinedInput
+                      type="number"
+                      error={errors.posicion && true}
+                      startAdornment={
+                        <InputAdornment position="start">
+                          <GiSportMedal size={"25px"} />
+                        </InputAdornment>
+                      }
+                      sx={{
+                        bgcolor: "#f5f5f5",
+                        border: "none",
+                        borderRadius: "10px",
+                        minHeight: 50,
 
-                    "& .MuiOutlinedInput": {
-                      backgroundColor: "#f5f5f5",
-                      "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "transparent",
-                      },
-                      "&:hover .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "transparent",
-                      },
-                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "transparent",
-                      },
-                    },
-                  }}
-                  {...register("posicion", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                />
-                <FormHelperText sx={{ color: "#000" }}>
-                  {errors.posicion?.message && errors.posicion.message}
-                </FormHelperText>
-              </FormControl>
+                        "& .MuiOutlinedInput": {
+                          backgroundColor: "#f5f5f5",
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                          "&:hover .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                        },
+                      }}
+                      {...register("posicion", {
+                        required: {
+                          value: true,
+                          message: "Este campo es requerido",
+                        },
+                      })}
+                    />
+                    <FormHelperText sx={{ color: "#000" }}>
+                      {errors.posicion?.message && errors.posicion.message}
+                    </FormHelperText>
+                  </FormControl>
+                </Stack>
+              )}
               <Stack>
                 {!isPending && (
                   <motion.div whileHover={{ scale: typeTest !== 0 ? 1.05 : 1 }}>
