@@ -641,7 +641,7 @@ export default function ModalEditAtleta({ dataB }: { dataB: any }) {
                     }}
                   >
                     <MenuItem value={"Mini"}>Mini</MenuItem>
-                    <MenuItem value={"Semilla"}>Semilla-</MenuItem>
+                    <MenuItem value={"Semilla"}>Semilla</MenuItem>
                     <MenuItem value={"Compota"}>Compota</MenuItem>
                     <MenuItem value={`Pre infantil "A"`}>
                       Pre infantil "A"
