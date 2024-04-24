@@ -10,24 +10,33 @@ import { useNavigate, useParams } from "react-router-dom";
 // const QUERY_KEY = 'atletas';
 
 export function useAggAtlets() {
-  /*   const queryClient = useQueryClient();
-  const navigate = useNavigate(); */
-
-  /* return useMutation(
-    [QUERY_KEY], (data: any) => apiService.post(data, '/eventos'), {
-    onSuccess: () => {
-      queryClient.invalidateQueries([QUERY_KEY]), navigate('/lista'), toast.success('¡Registro completado con exito!');
-    },
-    onError: (error: any) => {
-      toast.error(error.response.data.message);
-    },
-  }); */
   const navigate = useNavigate();
   return useMutation({
     mutationFn: (data: any) => apiService.post(data, "/atleta"),
     onSuccess: () => {
       toast.success("Éxito al agregar atleta");
       navigate("/atletas_nivel");
+    },
+    onError: (error: any) => {
+      const statusResponse = error.response?.status;
+      {
+        error.response.data?.message.map((item: any) => {
+          toast.error(item.message);
+        });
+      }
+      if (statusResponse === 404) {
+        toast.error(`A ocurrido un error inesperado ${statusResponse} `);
+        return;
+      }
+    },
+  });
+}
+export function useEditAtlets() {
+  const { id } = useParams();
+  return useMutation({
+    mutationFn: (data: any) => apiService.put(data, `/atleta/${id}`),
+    onSuccess: () => {
+      toast.success("Éxito al editar el atleta");
     },
     onError: (error: any) => {
       const statusResponse = error.response?.status;

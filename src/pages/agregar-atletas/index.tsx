@@ -221,7 +221,6 @@ export default function agregarAtletas() {
             direction={{ md: "row", xs: "column" }}
             my={1}
             gap={2}
-            // columnGap={2}
             height={"100%"}
             width={"100%"}
             justifyContent={"space-between"}
@@ -476,7 +475,7 @@ export default function agregarAtletas() {
                               }}
                               sx={{
                                 ".MuiOutlinedInput-root": {
-                                  height: {md:"3.2em",xs:'initial'},
+                                  height: { md: "3.2em", xs: "initial" },
                                   borderRadius: "1em",
                                   boxShadow: 1,
                                 },
@@ -522,7 +521,6 @@ export default function agregarAtletas() {
                 <Stack justifyContent={"space-around"} height={"100%"}>
                   <FormControl
                     sx={{
-                      // my: 1,
                       px: 1,
                       width: "100%",
                       height: "10vh",
@@ -556,7 +554,6 @@ export default function agregarAtletas() {
                   </FormControl>
                   <FormControl
                     sx={{
-                      // my: 1,
                       px: 1,
                       width: "100%",
                       height: "10vh",
@@ -709,11 +706,10 @@ export default function agregarAtletas() {
                           placeholder="Ingrese su Numero Telefonico"
                           error={errors.telefono && true}
                           {...register("telefono", {
-                            required: {
-                              value: true,
-                              message: "Este campo es requerido.",
+                            pattern: {
+                              value: /^\d{11}$/,
+                              message: "Tiene que tener 11 caracteres",
                             },
-                            pattern: /^\d{11}$/,
                           })}
                         />
                         <FormHelperText sx={{ color: "#000" }}>

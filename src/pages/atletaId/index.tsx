@@ -21,12 +21,11 @@ import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import { FaPersonWalking } from "react-icons/fa6";
 import AlignVerticalBottomOutlinedIcon from "@mui/icons-material/AlignVerticalBottomOutlined";
 import { useGetAtletaId } from "../../shared/hooks/useAtlets";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Tabs from "@mui/material/Tabs/Tabs";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
 import Tab from "@mui/material/Tab/Tab";
 import { useState } from "react";
-import { Button, Divider } from "@mui/material";
+import { Divider } from "@mui/material";
 import Marcas from "./components/Marcas";
 import Grafica from "./components/Grafica";
 import Loader from "../../shared/components/Loader";
@@ -35,6 +34,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import dayjs from "dayjs";
 import getAge2 from "../atletas-categoria/hooks/getAge2";
+import ModalEditAtleta from "./components/ModalEditAtleta";
 
 export default function AtletaId() {
   const { data: dataAtleta, isLoading } = useGetAtletaId();
@@ -467,7 +467,7 @@ export default function AtletaId() {
                                   Teléfono:
                                 </Typography>
                                 <Typography>
-                                  {dataAtleta[0]?.telefono === 0
+                                  {dataAtleta[0]?.telefono === ""
                                     ? "No registrado"
                                     : dataAtleta[0]?.telefono}
                                 </Typography>
@@ -743,7 +743,7 @@ export default function AtletaId() {
                                   </Typography>
                                 </Stack>
                               </Stack>
-    
+
                               <Stack flexDirection={"row"}>
                                 <Typography
                                   textAlign={"start"}
@@ -781,27 +781,7 @@ export default function AtletaId() {
                           </Grid>
                         )}
                       </Grid>
-                      <Stack
-                        width={"100%"}
-                        alignItems={{ xs: "center", md: "flex-end" }}
-                      >
-                        <motion.div whileHover={{ scale: 1.1 }}>
-                          <Button
-                            startIcon={<EditOutlinedIcon />}
-                            sx={{
-                              width: "100px",
-                              px: 3,
-                              borderRadius: "2rem",
-                              "&:hover": { background: "#E84730" },
-                            }}
-                            variant="contained"
-                          >
-                            <Typography textTransform={"capitalize"}>
-                              Editar
-                            </Typography>
-                          </Button>
-                        </motion.div>
-                      </Stack>
+                      <ModalEditAtleta dataB={dataAtleta} />
                     </Stack>
                   </CustomTabPanel>
                   <CustomTabPanel value={value} index={2}>

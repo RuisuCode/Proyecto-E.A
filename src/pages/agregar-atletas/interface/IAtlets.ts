@@ -19,4 +19,5 @@ export interface IAtlets {
   email_repre: string;
   cedula_repre: string;
   repre: boolean;
+  nivel:string;
 }

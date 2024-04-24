@@ -50,7 +50,7 @@ const style = {
   width: 400,
   height: { xs: "98%", md: "100vh" },
   bgcolor: "background.paper",
-  border: "2px solid #0066ff",
+  border: "2px solid #E84730",
   borderRadius: "13px",
   boxShadow: 24,
   overflowY: "scroll",
@@ -229,18 +229,18 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                 height={"100%"}
               >
                 <Stack width={"100%"} direction={"row"} alignItems={"center"}>
-                  <Stack width={"95%"} alignItems={"center"}>
+                  <Stack width={"98%"} alignItems={"center"}>
                     <Typography
                       variant="h5"
                       component={"h2"}
                       fontWeight={"bold"}
                       id="parent-modal-title"
-                      color={"#0066ff"}
+                      color={"#E84730"}
                     >
                       Editar Marca
                     </Typography>
                   </Stack>
-                  <Stack width={"5%"}>
+                  <Stack width={"2%"}>
                     <IconButton
                       onClick={() => handleClose()}
                       sx={{ "&:hover": { bgcolor: "transparent" } }}

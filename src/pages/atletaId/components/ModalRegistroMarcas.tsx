@@ -190,7 +190,7 @@ export default function ModalRegistro() {
               py={1}
             >
               <Stack width={"100%"} direction={"row"} alignItems={"center"}>
-                <Stack width={"95%"} alignItems={"center"}>
+                <Stack width={"98%"} alignItems={"center"}>
                   <Typography
                     variant="h5"
                     component={"h2"}
@@ -201,7 +201,7 @@ export default function ModalRegistro() {
                     Registar Marcas
                   </Typography>
                 </Stack>
-                <Stack width={"5%"}>
+                <Stack width={"2%"}>
                   <IconButton
                     onClick={() => handleClose()}
                     sx={{ "&:hover": { bgcolor: "transparent" } }}
