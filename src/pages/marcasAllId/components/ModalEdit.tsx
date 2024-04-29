@@ -701,7 +701,7 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                               sx={{ fontSize: "16px", fontWeight: "bold" }}
                               required
                             >
-                              Tiempo(mm:ss,mili)
+                              Tiempo(mm:ss:mili)
                             </FormLabel>
                             <OutlinedInput
                               type="string"
@@ -715,7 +715,7 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                               endAdornment={
                                 <InputAdornment position="end">
                                   <Typography fontWeight={"bold"}>
-                                    00:00,00
+                                    00:00:00
                                   </Typography>
                                 </InputAdornment>
                               }
@@ -741,7 +741,7 @@ export default function ModalEdit({ dataO }: { dataO: any }) {
                               }}
                               {...register("tiempo", {
                                 pattern: {
-                                  value: /[0-9]+:[0-9]{2,2},[0-9]{2,2}/,
+                                  value: /[0-9]+:[0-9]{2,2}:[0-9]{2,2}/,
                                   message:
                                     "El dato ingresado no es un tiempo valido",
                                 },

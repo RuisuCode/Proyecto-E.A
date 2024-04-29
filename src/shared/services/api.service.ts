@@ -11,6 +11,14 @@ export class ApiService {
     return response;
   }
 
+  public async postFile(data: any, url: string) {
+    const { data: response } = await modifiedAxios.post(url, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response;
+  }
   public async put(data: any, url: string) {
     const { data: response } = await modifiedAxios({
       method: "PUT",
@@ -20,6 +28,7 @@ export class ApiService {
 
     return response;
   }
+
 
   public async patch(data: any, url: string) {
     const { data: response } = await modifiedAxios({

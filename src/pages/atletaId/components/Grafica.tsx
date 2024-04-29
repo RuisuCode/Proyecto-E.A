@@ -177,7 +177,6 @@ export default function Grafica() {
             )}
           </Stack>
         </Stack>
-
         {pruebaG !== "" && !isPending && (
           <Stack>
             <Stack display={{ md: "flex", xs: "none" }}>
@@ -202,18 +201,19 @@ export default function Grafica() {
                 <XAxis dataKey="nombre" display={"none"} />
                 <YAxis
                   label={{
-                    value: tipoId === 1 ? "Metro" : "Minutos",
+                    value: tipoId === 1 ? "Metro" : "Segundos",
                     angle: -90,
                     position: "insideLeft",
-                    offset: 15,
+                    offset: 10,
                   }}
+                  reversed={tipoId === 1 ? false : true}
                 />
-                <Tooltip />
+                <Tooltip labelFormatter={(value) => `Prueba: ${value}`} />
                 <Legend iconType="circle" height={36} verticalAlign="top" />
                 <Area
-                  dataKey={"Marcas"}
+                  dataKey={"Marca"}
                   stroke="#ee4328"
-                  fill="url(#colorUv)"
+                  fill={tipoId === 1 ? "url(#colorUv)" : "none"}
                   fillOpacity={1}
                   activeDot={{ r: 8 }}
                   dot={{ stroke: "red", strokeWidth: 5, strokeOpacity: 1 }}

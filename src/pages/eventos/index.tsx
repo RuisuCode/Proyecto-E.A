@@ -7,18 +7,78 @@ import Box from "@mui/material/Box/Box";
 import CardMedia from "@mui/material/CardMedia/CardMedia";
 
 /* local */
-import img from "../../shared/assets/backgroundImg4.jpg";
 
 /* icons */
 import HelpIcon from "@mui/icons-material/Help";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import Button from "@mui/material/Button/Button";
 import EventIcon from "@mui/icons-material/Event";
 import { useNavigate } from "react-router-dom";
+import { useGetEvents } from "../../shared/hooks/useEvents";
+import { useEffect, useState } from "react";
+import Modal from "@mui/material/Modal";
+import CloseIcon from "@mui/icons-material/Close";
+import EventBusyIcon from "@mui/icons-material/EventBusy";
+import IconButton from "@mui/material/IconButton";
+import Avatar from "@mui/material/Avatar";
+import dayjs from "dayjs";
+import Loader from "../../shared/components/Loader";
+import ModalDeleteEvent from "./components/ModalDelete";
+import ModalEditEvent from "./components/ModalEdit";
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  height: { xs: "98%", md: "auto" },
+  bgcolor: "background.paper",
+  border: "2px solid #EF7E6C",
+  borderRadius: "13px",
+  boxShadow: 24,
+  overflowY: "scroll",
+  pt: 2,
+  px: 4,
+  pb: 3,
+};
 
 export default function Eventos() {
   const navigate = useNavigate();
+  const { data: events, refetch, isPending } = useGetEvents();
+  useEffect(() => {
+    refetch();
+  }, []);
+  const URL: string = import.meta.env.VITE_BACKEND;
+  const [open, setOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<any>(null);
+
+  const handleOpen = (data: any) => {
+    setSelectedEvent(data);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const variants = {
+    open: {
+      clipPath: `circle(${1000 * 2 + 200}px at 40px 40px)`,
+      transition: {
+        type: "spring",
+        stiffness: 20,
+        restDelta: 2,
+      },
+    },
+    closed: {
+      clipPath: "circle(30px at 40px 40px)",
+      transition: {
+        delay: 0.5,
+        type: "spring",
+        stiffness: 400,
+        damping: 40,
+      },
+    },
+  };
 
   return (
     <>
@@ -33,7 +93,7 @@ export default function Eventos() {
           direction={"row"}
           justifyContent={"space-between"}
           mt={{ xs: 6, lg: 5 }}
-          mb={{ xs: 3, lg: 5 }}
+          mb={{ xs: 3, lg: 3 }}
           gap={1}
           sx={{ width: { md: "80vw", xs: "95vw" } }}
         >
@@ -48,6 +108,7 @@ export default function Eventos() {
               justifyContent: "center",
               gap: 2,
               paddingInline: 2,
+              py: { xs: 3, md: 0 },
             }}
           >
             <CalendarMonthIcon sx={{ color: "#fff" }} fontSize="medium" />
@@ -66,7 +127,6 @@ export default function Eventos() {
               letterSpacing={{ xs: 0, lg: 1.5 }}
               color="#fff"
             >
-              {/* {location.pathname.split("/")[1]} */}
               Listado de Eventos
             </Typography>
           </Badge>
@@ -89,11 +149,16 @@ export default function Eventos() {
                   gap: 2,
                   paddingInline: 2,
                   cursor: "pointer",
+                  py: { xs: 3, md: 0 },
                 }}
                 onClick={() => navigate("/add-event")}
               >
                 <EventIcon sx={{ color: "#fff" }} />
-                <Typography color={"#fff"} fontSize={"medium"}>
+                <Typography
+                  color={"#fff"}
+                  fontSize={"medium"}
+                  fontWeight={"bold"}
+                >
                   {" "}
                   Agregar evento
                 </Typography>
@@ -124,268 +189,324 @@ export default function Eventos() {
             </Badge>
           </Stack>
         </Stack>
-        <Stack width={{ xs: "95%", lg: "90%" }} alignItems={"center"}>
-          <Grid
-            container
-            direction={{ md: "column", lg: "row", xs: "column" }}
-            mt={2}
-            width={"100%"}
-            gap={{ xs: 2, lg: 10 }}
-          >
-            <Grid width={{ xs: "100%", lg: "45%" }}>
-              <Stack
-                bgcolor={"transparent"}
-                borderRadius={"4px"}
-                sx={{ minWidth: { xs: "100%", lg: 600 }, height: "300px" }}
-                alignItems={"center"}
-              >
-                <motion.div
-                  whileHover={{
-                    transform: "translateY(-15px)",
-                    boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
-                  }}
-                  style={{
-                    overflowY: "hidden",
-                    width: "95%",
-                    height: 430,
-                    boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
-                    borderTopRightRadius: "1em",
-                    borderTopLeftRadius: "1em",
-                    borderBottomLeftRadius: "1em",
-                    borderBottomRightRadius: "1em",
-                  }}
-                >
-                  <Stack flexDirection={"row"}>
-                    <Box
+        <Stack width={{ xs: "98%", lg: "90%" }} alignItems={"center"}>
+          {!isPending && events?.data.length !== 0 && (
+            <Typography
+              color={"#b9b4b1"}
+              fontWeight={"bold"}
+              textAlign={"center"}
+              mb={2}
+              variant="h5"
+            >
+              Seleccione un evento para ver mas información
+            </Typography>
+          )}
+          {!isPending && (
+            <Grid
+              container
+              direction={{ lg: "row", xs: "column" }}
+              justifyContent={"space-between"}
+              width={"100%"}
+              gap={{ xs: 2 }}
+            >
+              {events?.data.map((item: any, index: number, index2: number) => {
+                return (
+                  <Grid key={index} width={{ xs: "100%", lg: "45%" }}>
+                    <Stack
+                      bgcolor={"transparent"}
+                      borderRadius={"4px"}
                       sx={{
-                        // borderRadius: "1em",
-                        height: 300,
-                        width: "55%",
-                        zIndex: 30,
-                        pt: 2,
-
-                        // position: "relative",
-                        // transform: "translateY(-70px)",
-
-                        // borderBottomRightRadius: "1em",
-                        /*      borderBottomLeftRadius: "1em", */
-                        boxShadow: 5,
-                        bgcolor: "#fff",
-                        // border: "solid",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignContent: "space-around",
+                        minWidth: { xs: "100%", lg: "auto" },
+                        height: "350px",
                       }}
+                      alignItems={"center"}
                     >
-                      <Typography
-                        gutterBottom
-                        variant="h5"
-                        // borderRadius={"50%"}
-                        component="div"
-                        align="center"
+                      <motion.div
+                        whileHover={{
+                          transform: "translateY(-15px)",
+                          boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
+                        }}
+                        style={{
+                          overflowY: "hidden",
+                          width: "100%",
+                          height: 430,
+                          boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
+                          borderTopRightRadius: "1em",
+                          borderTopLeftRadius: "1em",
+                          borderBottomLeftRadius: "1em",
+                          borderBottomRightRadius: "1em",
+                        }}
                       >
-                        Evento 1
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        display={"flex"}
-                        alignItems={"center"}
-                        // justifyContent={"center"}
-                        align="center"
-                        color="text.secondary"
-                        height={"70%"}
-                        px={2}
-                      >
-                        Lizards are a widespread group of squamate reptiles,
-                        with over 6,000 species, ranging across all continents
-                        except Antarctica
-                      </Typography>
-                      <Stack
-                        direction={"row"}
-                        width={"100%"}
-                        justifyContent={"space-around"}
-                        gap={1}
-                        pb={2}
-                      >
-                        <Button
-                          variant="contained"
-                          sx={{
-                            py: { xs: 3, md: 0 },
-                            borderRadius: "1em",
-                            boxShadow: 5,
-                            width: "45%",
-                            height: "40px",
-                          }}
+                        <Stack
+                          flexDirection={"row"}
+                          component={"div"}
+                          width={{ xs: "100%", lg: "auto" }}
+                          height={"100%"}
                         >
-                          <Typography textTransform={"capitalize"}>
-                            {" "}
-                            Eliminar evento
-                          </Typography>
-                        </Button>
-                        <Button
-                          variant="contained"
-                          sx={{
-                            py: { xs: 3, md: 0 },
-                            borderRadius: "1em",
-                            boxShadow: 5,
-                            width: "40%",
-                            height: "40px",
-                          }}
-                        >
-                          <Typography textTransform={"capitalize"}>
-                            {" "}
-                            Ir al evento
-                          </Typography>
-                        </Button>
-                      </Stack>
-                    </Box>
-                    <CardMedia
-                      sx={{
-                        height: 400,
-                        zIndex: 10,
-                        width: "45%",
-                        // position: "relative",
-                        /*        borderTopRightRadius: "1em", */
-                        // borderTopLeftRadius: "1em",
-                        // borderBottomRightRadius: "1em",
-                        // transform: "translateY(50px)",
-                        boxShadow: 10,
-                      }}
-                      image={img}
-                    />
-                  </Stack>
-                </motion.div>
-              </Stack>
-            </Grid>
-            <Grid width={{ xs: "100%", lg: "45%" }}>
-              <Stack
-                bgcolor={"transparent"}
-                borderRadius={"4px"}
-                // boxShadow={2}
-                sx={{ minWidth: { xs: "100%", lg: 600 }, height: "300px" }}
-                alignItems={"center"}
-                // overflow={"hidden"}
-              >
-                <motion.div
-                  whileHover={{
-                    transform: "translateY(-15px)",
-                    boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.3)",
-                  }}
-                  style={{
-                    overflowY: "hidden",
-                    width: "95%",
-                    height: 430,
-                    boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.3)",
-                    borderTopRightRadius: "1em",
-                    borderTopLeftRadius: "1em",
-                    borderBottomLeftRadius: "1em",
-                    borderBottomRightRadius: "1em",
-                    /*       borderBottomRightRadius: "1em",
-                    borderBottomLeftRadius: "1em", */
-                  }}
-                >
-                  <Stack flexDirection={"row"}>
-                    <Box
-                      sx={{
-                        // borderRadius: "1em",
-                        height: 300,
-                        width: "55%",
-                        zIndex: 30,
-                        pt: 2,
-                        // position: "relative",
-                        // transform: "translateY(-70px)",
+                          <Stack width={"55%"}>
+                            <Box
+                              sx={{
+                                height: "90%",
+                                width: "100%",
+                                zIndex: 30,
+                                pt: 2,
 
-                        // borderBottomRightRadius: "1em",
-                        /*      borderBottomLeftRadius: "1em", */
-                        boxShadow: 5,
-                        bgcolor: "#fff",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignContent: "space-around",
-                        // border: "solid",
-                      }}
+                                bgcolor: "#fff",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                              }}
+                              onClick={() => handleOpen(item)}
+                            >
+                              <Typography variant="h5" align="center">
+                                {item?.nombre}
+                              </Typography>
+                              <Typography
+                                variant="subtitle1"
+                                display={"flex"}
+                                alignItems={"center"}
+                                textAlign={"justify"}
+                                justifyContent={"center"}
+                                color="text.secondary"
+                                height={"70%"}
+                                px={2}
+                                pt={1}
+                              >
+                                {item?.descripcion}
+                              </Typography>
+                            </Box>
+                            <Stack
+                              direction={"row"}
+                              width={"100%"}
+                              alignItems={"flex-end"}
+                              justifyContent={"space-around"}
+                              overflow={"hidden"}
+                            >
+                              <ModalDeleteEvent data={item} />
+                              <ModalEditEvent dataB={item} />
+                            </Stack>
+                          </Stack>
+                          <CardMedia
+                            sx={{
+                              height: 400,
+                              zIndex: 10,
+                              width: "45%",
+
+                              boxShadow: 10,
+                            }}
+                            component={"div"}
+                            onClick={() => handleOpen(item)}
+                            image={`${URL}/uploads/events/${item?.flyer}`}
+                          />
+                        </Stack>
+                      </motion.div>
+                    </Stack>
+                    <Modal
+                      key={index2}
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="parent-modal-title"
+                      aria-describedby="parent-modal-description"
                     >
-                      <Typography
-                        gutterBottom
-                        variant="h5"
-                        // borderRadius={"50%"}
-                        component="div"
-                        align="center"
+                      <motion.div
+                        animate={open ? "open" : "closed"}
+                        exit={{ opacity: 0 }}
+                        variants={variants}
                       >
-                        Evento 2
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        display={"flex"}
-                        alignItems={"center"}
-                        // justifyContent={"center"}
-                        align="center"
-                        color="text.secondary"
-                        height={"70%"}
-                        px={2}
-                      >
-                        Lizards are a widespread group of squamate reptiles,
-                        with over 6,000 species, ranging across all continents
-                        except Antarctica
-                      </Typography>
-                      <Stack
-                        direction={"row"}
-                        width={"100%"}
-                        justifyContent={"space-around"}
-                        gap={1}
-                        pb={2}
-                      >
-                        <Button
-                          variant="contained"
-                          sx={{
-                            borderRadius: "1em",
-                            py: { xs: 3, md: 0 },
-                            boxShadow: 5,
-                            width: "45%",
-                            height: "40px",
-                          }}
-                        >
-                          <Typography textTransform={"capitalize"}>
-                            {" "}
-                            Eliminar evento
-                          </Typography>
-                        </Button>
-                        <Button
-                          variant="contained"
-                          sx={{
-                            py: { xs: 3, md: 0 },
-                            borderRadius: "1em",
-                            boxShadow: 5,
-                            width: "40%",
-                            height: "40px",
-                          }}
-                        >
-                          <Typography textTransform={"capitalize"}>
-                            {" "}
-                            Ir al evento
-                          </Typography>
-                        </Button>
-                      </Stack>
-                    </Box>
-                    <CardMedia
-                      sx={{
-                        height: 400,
-                        zIndex: 10,
-                        width: "45%",
-                        // position: "relative",
-                        /*        borderTopRightRadius: "1em", */
-                        // borderTopLeftRadius: "1em",
-                        // borderBottomRightRadius: "1em",
-                        // transform: "translateY(50px)",
-                        boxShadow: 10,
-                      }}
-                      image={img}
-                    />
-                  </Stack>
-                </motion.div>
-              </Stack>
+                        <Box sx={{ ...style, width: { md: 700, xs: "100%" } }}>
+                          <Stack
+                            component={"form"}
+                            alignItems={"center"}
+                            justifyContent={"space-evenly"}
+                            width={"100%"}
+                            height={"100%"}
+                            gap={0.5}
+                            py={1}
+                          >
+                            <Stack
+                              width={"100%"}
+                              direction={"row"}
+                              alignItems={"center"}
+                            >
+                              <Stack width={"98%"} alignItems={"center"}>
+                                <Typography
+                                  variant="h5"
+                                  component={"h2"}
+                                  fontWeight={"bold"}
+                                  id="parent-modal-title"
+                                  color={"#EB5D47"}
+                                >
+                                  {`Datos del Evento ${selectedEvent?.nombre}`}
+                                </Typography>
+                              </Stack>
+                              <Stack width={"2%"}>
+                                <IconButton
+                                  onClick={() => handleClose()}
+                                  sx={{ "&:hover": { bgcolor: "transparent" } }}
+                                >
+                                  <CloseIcon fontSize="large" />
+                                </IconButton>
+                              </Stack>
+                            </Stack>
+                            <Stack
+                              direction={{ md: "row", xs: "column" }}
+                              width={"100%"}
+                              height={"80%"}
+                              gap={1}
+                            >
+                              <Stack
+                                direction={"column"}
+                                mt={2}
+                                gap={2}
+                                width={"50%"}
+                              >
+                                <Stack direction={"column"} gap={0.5}>
+                                  <Typography
+                                    component={"h3"}
+                                    fontWeight={"bold"}
+                                    variant="subtitle1"
+                                  >
+                                    Descripción:
+                                  </Typography>
+                                  <Typography
+                                    component={"h3"}
+                                    variant="subtitle1"
+                                    textAlign={"justify"}
+                                  >
+                                    {selectedEvent?.descripcion}
+                                  </Typography>
+                                </Stack>
+                                <Stack direction={"row"} gap={0.5}>
+                                  <Typography
+                                    component={"h3"}
+                                    fontWeight={"bold"}
+                                    variant="subtitle1"
+                                  >
+                                    País:
+                                  </Typography>
+                                  <Typography
+                                    component={"h3"}
+                                    variant="subtitle1"
+                                  >
+                                    {selectedEvent?.pais}
+                                  </Typography>
+                                </Stack>
+                                <Stack direction={"row"} gap={0.5}>
+                                  <Typography
+                                    component={"h3"}
+                                    fontWeight={"bold"}
+                                    variant="subtitle1"
+                                  >
+                                    Estado:
+                                  </Typography>
+                                  <Typography
+                                    component={"h3"}
+                                    variant="subtitle1"
+                                  >
+                                    {selectedEvent?.estado}
+                                  </Typography>
+                                </Stack>
+                                <Stack direction={"row"} gap={0.5}>
+                                  <Typography
+                                    component={"h3"}
+                                    fontWeight={"bold"}
+                                    variant="subtitle1"
+                                  >
+                                    Localidad:
+                                  </Typography>
+                                  <Typography
+                                    component={"h3"}
+                                    variant="subtitle1"
+                                  >
+                                    {selectedEvent?.localidad}
+                                  </Typography>
+                                </Stack>
+                                <Stack direction={"row"} gap={0.5}>
+                                  <Typography
+                                    component={"h3"}
+                                    fontWeight={"bold"}
+                                    variant="subtitle1"
+                                  >
+                                    Fecha de inicio:
+                                  </Typography>
+                                  <Typography
+                                    component={"h3"}
+                                    variant="subtitle1"
+                                  >
+                                    {dayjs(selectedEvent?.fecha_ini).format(
+                                      "DD/MM/YYYY h:mm A"
+                                    )}
+                                  </Typography>
+                                </Stack>
+                                <Stack direction={"row"} gap={0.5}>
+                                  <Typography
+                                    component={"h3"}
+                                    fontWeight={"bold"}
+                                    variant="subtitle1"
+                                  >
+                                    Fecha de Cierre:
+                                  </Typography>
+                                  <Typography
+                                    component={"h3"}
+                                    variant="subtitle1"
+                                  >
+                                    {dayjs(selectedEvent?.fecha_cie).format(
+                                      "DD/MM/YYYY h:mm A"
+                                    )}
+                                  </Typography>
+                                </Stack>
+                              </Stack>
+                              <Stack
+                                width={{ md: "50%", xs: "100%" }}
+                                direction={"column"}
+                              >
+                                <Typography
+                                  component={"h3"}
+                                  fontWeight={"bold"}
+                                  align="center"
+                                  variant="subtitle1"
+                                >
+                                  Flyer:
+                                </Typography>
+                                <Avatar
+                                  sx={{
+                                    bgcolor: "#f5f5f5",
+                                    width: "100%",
+                                    height: "auto",
+                                  }}
+                                  src={`${URL}/uploads/events/${selectedEvent?.flyer}`}
+                                  variant="square"
+                                />
+                              </Stack>
+                            </Stack>
+                          </Stack>
+                        </Box>
+                      </motion.div>
+                    </Modal>
+                  </Grid>
+                );
+              })}
             </Grid>
-          </Grid>
+          )}
+          {isPending && Loader("10vw", 5)}
+          {!isPending && events?.data.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              <Stack alignItems={"center"} justifyContent={"center"} mt={10}>
+                <EventBusyIcon sx={{ fontSize: "11rem", color: "#EF7E6C" }} />
+                <Typography
+                  fontWeight={"bold"}
+                  color={"#EF7E6C"}
+                  fontSize={"2rem"}
+                >
+                  No hay eventos disponibles
+                </Typography>
+              </Stack>
+            </motion.div>
+          )}
         </Stack>
       </Stack>
     </>

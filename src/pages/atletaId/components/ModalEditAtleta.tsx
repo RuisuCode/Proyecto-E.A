@@ -254,6 +254,7 @@ export default function ModalEditAtleta({ dataB }: { dataB: any }) {
                 component={"h3"}
                 color={"#b9b4b1"}
                 variant="subtitle1"
+                textAlign={"center"}
               >
                 Coloque los datos correspondientes que quiera modificar:
               </Typography>

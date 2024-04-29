@@ -1,7 +1,4 @@
-import {
-  useMutation /* useQuery, useQueryClient */,
-  useQuery,
-} from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { apiService } from "../consts/API_SERVICES";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
@@ -56,7 +53,7 @@ export function useDeleteMarcasAll() {
   return useMutation({
     mutationFn: (data: any) => apiService.delete(data, `/marcasAll/${id}/D`),
     onSuccess: () => {
-      toast.success("Éxito al eliminar marca");
+      toast.success("Éxito al eliminar la marca");
     },
     onError: (error: any) => {
       const statusResponse = error.response?.status;
@@ -103,4 +100,3 @@ export function useGraficaPost() {
     },
   });
 }
-

@@ -644,7 +644,7 @@ export default function ModalRegistro() {
                         variant="standard"
                       >
                         <FormLabel sx={{ fontWeight: "bold" }} required>
-                          Tiempo(mm:ss,mili)
+                          Tiempo(mm:ss:mili)
                         </FormLabel>
                         <OutlinedInput
                           type="string"
@@ -657,7 +657,7 @@ export default function ModalRegistro() {
                           endAdornment={
                             <InputAdornment position="end">
                               <Typography fontWeight={"bold"}>
-                                00:00,00
+                                00:00:00
                               </Typography>
                             </InputAdornment>
                           }
@@ -683,7 +683,7 @@ export default function ModalRegistro() {
                           }}
                           {...register("tiempo", {
                             pattern: {
-                              value: /[0-9]+:[0-9]{2,2},[0-9]{2,2}/,
+                              value: /[0-9]+:[0-9]{2,2}:[0-9]{2,2}/,
                               message:
                                 "El dato ingresado no es un tiempo valido",
                             },
