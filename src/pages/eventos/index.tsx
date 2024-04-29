@@ -296,7 +296,7 @@ export default function Eventos() {
                             }}
                             component={"div"}
                             onClick={() => handleOpen(item)}
-                            image={`${URL}/uploads/events/${item?.flyer}`}
+                            image={`${URL}uploads/events/${item?.flyer}`}
                           />
                         </Stack>
                       </motion.div>
