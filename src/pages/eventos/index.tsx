@@ -474,7 +474,7 @@ export default function Eventos() {
                                     width: "100%",
                                     height: "auto",
                                   }}
-                                  src={`${URL}/uploads/events/${selectedEvent?.flyer}`}
+                                  src={`${URL}uploads/events/${selectedEvent?.flyer}`}
                                   variant="square"
                                 />
                               </Stack>
