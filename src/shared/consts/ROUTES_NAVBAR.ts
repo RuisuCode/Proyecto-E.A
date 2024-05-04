@@ -8,6 +8,9 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import EventIcon from "@mui/icons-material/Event";
 import LanIcon from "@mui/icons-material/Lan";
 import AlignVerticalBottomOutlinedIcon from "@mui/icons-material/AlignVerticalBottomOutlined";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import RecentActorsIcon from "@mui/icons-material/RecentActors";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 /* export const ROUTES_SUPERADMIN = [
   {
@@ -48,6 +51,79 @@ import AlignVerticalBottomOutlinedIcon from "@mui/icons-material/AlignVerticalBo
   },
 ]; */
 
+export const ROUTES_ADMIN = [
+  {
+    type: "button",
+    title: "Inicio",
+    url: "/inicio",
+    icon: HomeRoundedIcon,
+  },
+  {
+    type: "collapse",
+    titleButton: "Entrenadores",
+    icon: AssignmentIndIcon,
+    buttonMenu: [
+      {
+        icon: RecentActorsIcon,
+        title: "Listado",
+        url: "/entrenadores",
+      },
+      {
+        icon: PersonAddIcon,
+        title: "Registrar",
+        url: "/register-entrenador",
+      },
+    ],
+  },
+  {
+    type: "collapse",
+    titleButton: "Atletas",
+    icon: DirectionsRunIcon,
+    buttonMenu: [
+      {
+        icon: AlignVerticalBottomOutlinedIcon,
+        title: "Por Nivel",
+        url: "/atletas_nivel",
+      },
+      {
+        icon: LanIcon,
+        title: "Por Categoría",
+        url: "/atletas_ctg",
+      },
+      {
+        icon: PersonAddAlt1Icon,
+        title: "Agregar Atletas",
+        url: "/agregar-atletas",
+      },
+    ],
+  },
+
+  /* {
+    type: "button",
+    title: "Actividades",
+    url: "/activities",
+    icon: AssignmentIcon,
+  }, */
+  {
+    type: "collapse" /* va a ser un collapse */,
+    titleButton: "Eventos",
+    icon: EventNoteIcon,
+    buttonMenu: [
+      { icon: CalendarMonthIcon, title: "Listado de eventos", url: "/eventos" },
+      { icon: EventIcon, title: "Agregar evento", url: "/add-event" },
+    ],
+  },
+
+  /* {
+    type: 'collapse',
+    titleButton: 'Salas',
+    icon: ChairIcon,
+    buttonMenu: [
+      { title: 'Crear Salas', url: '/salas' },
+      { title: 'Tipos de Salas', url: '/tipos-salas' },
+    ],
+  }, */
+];
 export const ROUTES_ENTRE = [
   {
     type: "button",

@@ -207,15 +207,19 @@ export default function ModalEditEvent({ dataB }: { dataB: any }) {
       },
     },
   };
-  const img = `${URL}/uploads/events/${dataB?.flyer}`;
+  const img =
+    import.meta.env.MODE !== "production"
+      ? `${URL}/uploads/events/${dataB?.flyer}`
+      : `${URL}uploads/events/${dataB?.flyer}`;
   return (
     <div>
       <Button
         variant="contained"
         sx={{
           py: { xs: 3, md: 0 },
+          px: { lg: 4.3 },
           borderRadius: "0",
-          width: { xs: "100%", md: "105%" },
+          width: { xs: "100%", md: "105%", lg: "120%" },
           height: "40px",
           mr: 3,
         }}

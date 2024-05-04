@@ -2,7 +2,7 @@ import { styled } from "@mui/material/styles";
 import { Toolbar } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 
-export const DRAWER_WIDTH = 280;
+export const DRAWER_WIDTH = 260;
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }

@@ -362,7 +362,7 @@ export default function agregarEvento() {
                 localization="ES-es"
                 minHeight="90%"
                 value={extFiles}
-                accept="image/*"
+                accept=".png, .jpg"
                 maxFiles={1}
                 maxFileSize={4 * 1024 * 1024}
                 label="Arrastre y suelte la imagen aquí o  haga click y seleccione una imagen "

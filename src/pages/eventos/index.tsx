@@ -278,7 +278,7 @@ export default function Eventos() {
                             <Stack
                               direction={"row"}
                               width={"100%"}
-                              alignItems={"flex-end"}
+                              // alignItems={"flex-end"}
                               justifyContent={"space-around"}
                               overflow={"hidden"}
                             >

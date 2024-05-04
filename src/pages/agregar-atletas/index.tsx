@@ -398,7 +398,7 @@ export default function agregarAtletas() {
                         required
                         sx={{ fontSize: "16px", textAlign: "left" }}
                       >
-                        Cedula
+                        Cédula
                       </FormLabel>
                       <OutlinedInput
                         sx={{

@@ -31,7 +31,11 @@ import Image from "../../shared/style-components/Image";
 import { useDrawerStore } from "../../store/DrawerStore";
 import { theme } from "../style-components/theme/theme";
 
-import { ROUTES_ATLETA, ROUTES_ENTRE } from "../consts/ROUTES_NAVBAR";
+import {
+  ROUTES_ADMIN,
+  ROUTES_ATLETA,
+  ROUTES_ENTRE,
+} from "../consts/ROUTES_NAVBAR";
 import { useState } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { UseAuthStore } from "../../store/UserStore";
@@ -47,7 +51,7 @@ import { useLogout } from "../../pages/login/hooks/useLogin";
 
 export const DRAWER_SPAWN = 900;
 
-export const DRAWER_WIDTH = 280;
+export const DRAWER_WIDTH = 260;
 
 interface Props {
   window?: () => Window;
@@ -134,11 +138,17 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
   const { handleDrawerState } = useDrawerStore();
 
   let routes: any[];
+  let user: any;
 
   if (entity === 1) {
     routes = ROUTES_ENTRE;
+    user = "Entrenador";
   } else if (entity === 2) {
     routes = ROUTES_ATLETA;
+    user = "Atleta";
+  } else if (entity === 999) {
+    routes = ROUTES_ADMIN;
+    user = "Administrador";
   } else {
     routes = [];
   }
@@ -458,7 +468,10 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
           open={open}
           PaperProps={{
             sx: {
-              backgroundColor: "#fff",
+              background:
+                entity === 999
+                  ? " linear-gradient(0deg, rgba(245,245,245,1) 0%, rgba(243,220,217,1) 50%, rgba(243,215,212,1) 100%)"
+                  : "#fff",
               borderRadius: "1em",
               borderTopLeftRadius: 0,
               borderBottomLeftRadius: 0,
@@ -658,6 +671,24 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
             })}
           </List>
           <Stack height={"100%"} justifyContent={"flex-end"}>
+            <ListItem
+              sx={{
+                color: "#E84730",
+                cursor: "pointer",
+                paddingX: 2,
+
+                "&:hover ": {
+                  background: "rgba(0, 0, 0, 0.04)",
+                },
+              }}
+            >
+              <ListItemIcon>
+                <AccountCircleIcon
+                  sx={{ fontSize: "30px", color: "#E84730" }}
+                />
+              </ListItemIcon>
+              <ListItemText primary={user} secondary="Cedula" />
+            </ListItem>
             <Divider sx={{ color: "white" }} />
             <ListItem
               onClick={logOut}
