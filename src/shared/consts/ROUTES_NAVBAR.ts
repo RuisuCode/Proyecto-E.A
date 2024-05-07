@@ -10,8 +10,6 @@ import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
-
-
 export const ROUTES_ADMIN = [
   {
     type: "button",
@@ -53,15 +51,14 @@ export const ROUTES_ADMIN = [
       },
       {
         icon: PersonAddAlt1Icon,
-        title: "Agregar Atletas",
+        title: "Agregar Atleta",
         url: "/agregar-atletas",
       },
     ],
   },
 
-
   {
-    type: "collapse" ,
+    type: "collapse",
     titleButton: "Eventos",
     icon: EventNoteIcon,
     buttonMenu: [
@@ -69,8 +66,6 @@ export const ROUTES_ADMIN = [
       { icon: EventIcon, title: "Agregar evento", url: "/add-event" },
     ],
   },
-
-
 ];
 export const ROUTES_ENTRE = [
   {
@@ -103,7 +98,7 @@ export const ROUTES_ENTRE = [
   },
 
   {
-    type: "collapse" ,
+    type: "collapse",
     titleButton: "Eventos",
     icon: EventNoteIcon,
     buttonMenu: [
@@ -111,7 +106,6 @@ export const ROUTES_ENTRE = [
       { icon: EventIcon, title: "Agregar ", url: "/add-event" },
     ],
   },
-
 ];
 export const ROUTES_ATLETA = [
   {

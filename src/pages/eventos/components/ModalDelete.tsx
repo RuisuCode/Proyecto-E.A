@@ -68,18 +68,17 @@ export default function ModalDeleteEvent({ data }: { data: any }) {
     <div>
       <Button
         variant="contained"
-        
         sx={{
           py: { xs: 3, md: 0 },
-          px:{lg:4.3},
+          px: { lg: 4.3 },
           borderRadius: "0",
-          width: {xs:"110%",lg:'120%'},
+          width: { xs: "110%", lg: "120%" },
           height: "40px",
           mr: { md: 3, xs: 0 },
         }}
         onClick={handleOpen}
       >
-        <Typography textTransform={"initial"}> Eliminar evento</Typography>
+        <Typography textTransform={"initial"}> Eliminar </Typography>
       </Button>
       <Modal
         open={open2}

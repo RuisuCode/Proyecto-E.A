@@ -225,7 +225,7 @@ export default function ModalEditEvent({ dataB }: { dataB: any }) {
         }}
         onClick={handleOpen}
       >
-        <Typography textTransform={"initial"}> Editar evento</Typography>
+        <Typography textTransform={"initial"}> Editar </Typography>
       </Button>
       <Modal
         open={open}
