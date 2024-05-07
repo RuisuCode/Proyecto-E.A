@@ -13,6 +13,7 @@ import {
   IconButton,
   Divider,
   Drawer,
+  Avatar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -45,8 +46,6 @@ import { StyledToolbarHeader } from "../style-components/StyledHeader";
 import { Menu } from "@mui/material";
 import logo from "../assets/logo-recortada.png";
 // ICONS
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import PersonIcon from "@mui/icons-material/Person";
 import { useLogout } from "../../pages/login/hooks/useLogin";
 
 export const DRAWER_SPAWN = 900;
@@ -104,9 +103,11 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
   const [open, setOpen] = useState(false);
   const logoutMutation = useLogout();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const URL: string = import.meta.env.VITE_BACKEND;
 
   const authStore = useStore(UseAuthStore);
   const rol: any = authStore.rolId;
+  const datoUser: any = authStore.user;
 
   const entity: number = rol;
 
@@ -139,6 +140,7 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
 
   let routes: any[];
   let user: any;
+  let cedula1: any;
 
   if (entity === 1) {
     routes = ROUTES_ENTRE;
@@ -149,10 +151,14 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
   } else if (entity === 999) {
     routes = ROUTES_ADMIN;
     user = "Administrador";
+    cedula1 = "01010001";
   } else {
     routes = [];
   }
-
+  const img =
+    import.meta.env.MODE !== "production"
+      ? `${URL}/uploads/coaches/${datoUser?.foto}`
+      : `${URL}uploads/coaches/${datoUser?.foto}`;
   const handleDrawer = () => {
     if (width < DRAWER_SPAWN) {
       handleDrawerState();
@@ -355,9 +361,7 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
           <Stack direction="row" alignItems="center">
             <Stack>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <AccountCircleIcon
-                  sx={{ height: "40px", width: "40px", color: "#fff" }}
-                />
+                <Avatar sx={{ width: 40, height: 40 }} src={img} />
               </IconButton>
               <Menu
                 sx={{
@@ -386,11 +390,20 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                   gap={1}
                   sx={{ width: "232px", paddingLeft: 2, paddingY: 1 }}
                 >
-                  <Stack direction="row" alignItems="center" gap={1}>
-                    <PersonIcon />
-                    <Typography textAlign="start" fontWeight={700}>
-                      Usuario
-                    </Typography>
+                  <Stack direction="row" alignItems="center">
+                    <Avatar sx={{ width: 34, height: 34 }} src={img} />
+                    <Stack alignItems={"center"} width={"180px"}>
+                      <Typography textAlign="start" fontWeight={700}>
+                        {user}
+                      </Typography>
+                      <Typography
+                        textAlign="start"
+                        color={"secondary"}
+                        fontWeight={700}
+                      >
+                        {entity !== 999 ? datoUser?.User_id?.cedula : cedula1}
+                      </Typography>
+                    </Stack>
                   </Stack>
                 </Stack>
                 <Divider />
@@ -520,6 +533,7 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
               };
               if (item.type === "button") {
                 const IconComponent = item.icon;
+
                 return (
                   <motion.div key={index} whileHover={{ marginLeft: 10 }}>
                     <Tooltip
@@ -578,6 +592,7 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                             paddingX: 2,
                             borderRadius: "4px",
                             mb: 1,
+                            backgroundColor: open1 ? "#F9CEC8" : "#ffff",
                             "&:hover": {
                               boxShadow: " rgba(0, 0, 0, 0.35) 0px 5px 15px;",
                             },
@@ -681,13 +696,19 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
                   background: "rgba(0, 0, 0, 0.04)",
                 },
               }}
+              onClick={() => {
+                entity === 1
+                  ? navigate(`entrenador/${datoUser?.User_id?.id}`)
+                  : "";
+              }}
             >
               <ListItemIcon>
-                <AccountCircleIcon
-                  sx={{ fontSize: "30px", color: "#E84730" }}
-                />
+                <Avatar sx={{ width: 34, height: 34 }} src={img} />
               </ListItemIcon>
-              <ListItemText primary={user} secondary="Cedula" />
+              <ListItemText
+                primary={user}
+                secondary={entity !== 999 ? datoUser?.User_id?.cedula : cedula1}
+              />
             </ListItem>
             <Divider sx={{ color: "white" }} />
             <ListItem

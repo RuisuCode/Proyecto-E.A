@@ -1,13 +1,13 @@
-interface ITableColumn {
-  name: string;
-  label: string;
-  options: {
-    filter: boolean;
-    sort?: boolean;
-  };
-}
-
-export const columns: ITableColumn[] = [
+export const columns = (entity: any) => [
+  {
+    name: "Estatus",
+    label: "Estatus",
+    options: {
+      filter: true,
+      sort: true,
+      display: entity === 999 ? true : false,
+    },
+  },
   {
     name: "cedula",
     label: "Cedula",

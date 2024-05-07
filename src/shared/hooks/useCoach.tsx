@@ -25,6 +25,27 @@ export function useAggCoach() {
     },
   });
 }
+export function useEditCoach() {
+  const { id } = useParams();
+  return useMutation({
+    mutationFn: (data: any) => apiService.postFile(data, `/entrenador/${id}`),
+    onSuccess: () => {
+      toast.success("Éxito al editar el entrenador");
+    },
+    onError: (error: any) => {
+      const statusResponse = error.response?.status;
+      {
+        error.response.data?.message.map((item: any) => {
+          toast.error(item.message);
+        });
+      }
+      if (statusResponse === 404) {
+        toast.error(`A ocurrido un error inesperado ${statusResponse} `);
+        return;
+      }
+    },
+  });
+}
 
 export function useGetCoachs() {
   return useQuery({

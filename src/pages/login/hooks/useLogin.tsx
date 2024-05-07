@@ -11,15 +11,16 @@ import { UseAuthStore } from "../../../store/UserStore";
 export function useLogin() {
   const navigate = useNavigate();
   const { setToken } = UseAuthStore();
-  const { setRolId } = UseAuthStore();
+  const { setRolId, setUser } = UseAuthStore();
 
   return useMutation({
     mutationFn: (data: ILogin) => apiService.post(data, "/login"),
     onSuccess: (data: any) => {
       setToken(data.data.token);
       setRolId(data.data.rolId);
+      setUser(data.data.User);
       navigate("/inicio");
-      toast.success("Éxito al iniciar session");
+      toast.success("Éxito al iniciar sesión");
     },
     onError: (err: any) => {
       const error = err as AxiosError;

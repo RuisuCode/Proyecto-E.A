@@ -12,7 +12,6 @@ const AtletasCtg: LazyExoticComponent<React.FC> = lazy(
 const Eventos: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/eventos")
 );
-
 const agregarAtletas: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/agregar-atletas")
 );
@@ -20,10 +19,7 @@ const agregarEvento: LazyExoticComponent<React.FC> = lazy(
   () => import("../../pages/agregar-eventos")
 );
 const configEntrenador: LazyExoticComponent<React.FC> = lazy(
-  () => import("../../pages/configuracion-entrenador")
-);
-const editConfigEntrenador: LazyExoticComponent<React.FC> = lazy(
-  () => import("../../pages/editar-config-entrenador")
+  () => import("../../pages/datos-entre")
 );
 
 const altletaId: LazyExoticComponent<React.FC> = lazy(
@@ -60,14 +56,9 @@ export const entrenadorRoutes = [
     title: "Agregar Atletas",
   },
   {
-    route: "/config-user",
+    route: "/entrenador/:id",
     component: configEntrenador,
-    title: "Configurar Entrenador",
-  },
-  {
-    route: "/edit-config-user",
-    component: editConfigEntrenador,
-    title: "Editar Entrenador",
+    title: "Datos del Entrenador",
   },
   {
     route: "/marcas/:id/marcas_all",

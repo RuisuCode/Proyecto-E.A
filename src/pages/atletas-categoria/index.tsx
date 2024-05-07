@@ -11,22 +11,29 @@ import { options } from "../../shared/consts/TABLE_OPTIONS";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 import LanIcon from "@mui/icons-material/Lan";
-import { useGetAtletas } from "../../shared/hooks/useAtlets";
+import {
+  useGetAtletas,
+  useGetAtletasAdmin,
+} from "../../shared/hooks/useAtlets";
 
 import HelpIcon from "@mui/icons-material/Help";
 import { useEffect } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
 import "../../shared/styles/menuStyles.css";
-
+import NoAccountsIcon from "@mui/icons-material/NoAccounts";
+import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import Loader from "../../shared/components/Loader";
 import { Variants, motion } from "framer-motion";
 import dayjs from "dayjs";
 import getAge2 from "./hooks/getAge2";
+import { useStore } from "zustand";
+import { UseAuthStore } from "../../store/UserStore";
+import { useEntrenadorEstatus } from "../../shared/hooks/useCoach";
 
 declare module "@mui/material/styles" {
   interface Components {
@@ -34,8 +41,14 @@ declare module "@mui/material/styles" {
   }
 }
 export default function AtletasCatg() {
-  const { data, isLoading, refetch } = useGetAtletas();
+  const authStore = useStore(UseAuthStore);
+  const rol: any = authStore.rolId;
+  const entity: number = rol;
+  const { data, isLoading, refetch } =
+    entity === 999 ? useGetAtletasAdmin() : useGetAtletas();
   const navigate = useNavigate();
+  const { mutateAsync } = useEntrenadorEstatus();
+
   const cardVariants: Variants = {
     offscreen: {
       opacity: 0,
@@ -52,58 +65,58 @@ export default function AtletasCatg() {
     },
   };
 
-  const renderOptions = (id: string, index: number) => {
+  const renderOptions = (id: string, index: number, estatus: string) => {
     return (
-      // <Menu
-      //   key={index}
-      //   direction="left"
-      //   position="auto"
-      //   arrow={true}
-      //   menuButton={
-      //     <MenuButton className={"my-menu"}>
-      //       <FaListUl />
-      //     </MenuButton>
-      //   }
-      //   transition
-      // >
-      //   <MenuItem
-      //     className={"my-menuitem"}
-      //     onClick={() => navigate(`/atleta/${id}`)}
-      //   >
-      //     <Button
-      //       startIcon={<AccountCircleIcon sx={{ fontSize: "28px" }} />}
-      //       variant="text"
-      //       sx={{ mb: 1 }}
-      //       fullWidth
-      //     >
-      //       <Typography textTransform={"capitalize"}> Perfil</Typography>
-      //     </Button>
-      //     {/*  /> Perfil */}
-      //   </MenuItem>
-      //   <MenuItem
-      //     className={"my-menuitem"}
-      //     // onClick={''}
-      //   >
-      //     <Button
-      //       startIcon={<DeleteOutlineRoundedIcon sx={{ fontSize: "28px" }} />}
-      //       variant="text"
-      //       color="error"
-      //       fullWidth
-      //     >
-      //       <Typography textTransform={"capitalize"}>Eliminar</Typography>
-      //     </Button>
-      //   </MenuItem>
-      // </Menu>
-      <Stack key={index}>
-      <Button
-        startIcon={<AccountCircleIcon sx={{ fontSize: "28px" }} />}
-        variant="outlined"
-        sx={{ mb: 1 }}
-        onClick={() => navigate(`/atleta/${id}`)}
-      >
-        <Typography textTransform={"capitalize"}> Perfil</Typography>
-      </Button>
-    </Stack>
+      <Stack>
+        {entity !== 999 && (
+          <Stack key={index}>
+            <Button
+              startIcon={<AccountCircleIcon sx={{ fontSize: "28px" }} />}
+              variant="outlined"
+              sx={{ mb: 1 }}
+              onClick={() => navigate(`/atleta/${id}`)}
+            >
+              <Typography textTransform={"capitalize"}> Perfil</Typography>
+            </Button>
+          </Stack>
+        )}
+        {entity === 999 && (
+          <Stack key={index} direction={"row"} justifyContent={"space-around"}>
+            <Tooltip title="Perfil" arrow>
+              <IconButton
+                color="primary"
+                sx={{ mb: 1, width: "40px", height: "40px" }}
+                onClick={() => navigate(`/atleta/${id}`)}
+              >
+                <AccountCircleIcon sx={{ fontSize: "28px" }} />
+              </IconButton>
+            </Tooltip>
+
+            {estatus === "Activo" && (
+              <Tooltip title="Desactivar" arrow>
+                <IconButton
+                  color="error"
+                  sx={{ mb: 1, width: "40px", height: "40px" }}
+                  onClick={() => mutateAsync({ id: id }).then(() => refetch())}
+                >
+                  <NoAccountsIcon sx={{ fontSize: "28px" }} />
+                </IconButton>
+              </Tooltip>
+            )}
+            {estatus === "Inactivo" && (
+              <Tooltip title="Activar" arrow>
+                <IconButton
+                  color="success"
+                  sx={{ mb: 1, width: "40px", height: "40px" }}
+                  onClick={() => mutateAsync({ id: id }).then(() => refetch())}
+                >
+                  <HowToRegOutlinedIcon sx={{ fontSize: "28px" }} />
+                </IconButton>
+              </Tooltip>
+            )}
+          </Stack>
+        )}
+      </Stack>
     );
   };
   const modifiedData = data?.map((item: any, index: number) => {
@@ -114,8 +127,18 @@ export default function AtletasCatg() {
       segundo_apellido,
       fecha_nacimiento,
     } = item;
-    const { cedula, id } = item.User_id;
+    const { cedula, id, estatus } = item.User_id;
     const { categoria } = item.datosDeportivos;
+    const Estatus = (
+      <Typography
+        textAlign={"center"}
+        borderRadius={"13px"}
+        color={"white"}
+        bgcolor={estatus === "Activo" ? "#228800" : "#8f1402"}
+      >
+        {estatus}{" "}
+      </Typography>
+    );
     const Day = Number(dayjs(fecha_nacimiento).format("D"));
     const Month = Number(dayjs(fecha_nacimiento).format("M"));
     const Year = Number(dayjs(fecha_nacimiento).format("YYYY"));
@@ -124,6 +147,7 @@ export default function AtletasCatg() {
     const fechaCtg = dayjs(fecha_nacimiento).format("DD/MM/YYYY");
     return {
       id,
+      Estatus,
       primer_nombre,
       segundo_nombre,
       primer_apellido,
@@ -132,7 +156,7 @@ export default function AtletasCatg() {
       categoria,
       fechaCtg,
       edad,
-      options: renderOptions(id, index),
+      options: renderOptions(id, index, estatus),
     };
   });
   useEffect(() => {
@@ -221,7 +245,7 @@ export default function AtletasCatg() {
                   <MUIDataTable
                     title={"Atletas Por Categoría"}
                     data={modifiedData}
-                    columns={columns}
+                    columns={columns(entity)}
                     options={options}
                   />
                 </ThemeProvider>

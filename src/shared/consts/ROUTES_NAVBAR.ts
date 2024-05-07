@@ -3,8 +3,6 @@ import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-// import AssignmentIcon from "@mui/icons-material/Assignment";
 import EventIcon from "@mui/icons-material/Event";
 import LanIcon from "@mui/icons-material/Lan";
 import AlignVerticalBottomOutlinedIcon from "@mui/icons-material/AlignVerticalBottomOutlined";
@@ -12,44 +10,7 @@ import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
-/* export const ROUTES_SUPERADMIN = [
-  {
-    type: 'button',
-    title: 'Inicio',
-    url: '/inicio',
-    icon: HomeRoundedIcon,
-  },
-  {
-    type: 'collapse',
-    titleButton: 'Eventos',
-    icon: AssignmentRoundedIcon,
-    buttonMenu: [
-      { title: 'Crear', url: '/crear' },
-      { title: 'Listado', url: '/listado' },
-    ],
-  },
-  {
-    type: 'collapse',
-    titleButton: 'Usuarios',
-    icon: GroupRoundedIcon,
-    buttonMenu: [
-      { title: 'Invitados', url: '/invitados' },
-      { title: 'Lista de invitados', url: '/lista-de-invitados' },
-    ],
-  },
-  {
-    type: 'button',
-    title: 'Solicitudes',
-    url: '/solicitudes',
-    icon: DashboardRoundedIcon,
-  },
-  {
-    type: 'button',
-    title: 'Salas',
-    url: '/salas',
-    icon: CollectionsBookmarkRoundedIcon,
-  },
-]; */
+
 
 export const ROUTES_ADMIN = [
   {
@@ -98,14 +59,9 @@ export const ROUTES_ADMIN = [
     ],
   },
 
-  /* {
-    type: "button",
-    title: "Actividades",
-    url: "/activities",
-    icon: AssignmentIcon,
-  }, */
+
   {
-    type: "collapse" /* va a ser un collapse */,
+    type: "collapse" ,
     titleButton: "Eventos",
     icon: EventNoteIcon,
     buttonMenu: [
@@ -114,15 +70,7 @@ export const ROUTES_ADMIN = [
     ],
   },
 
-  /* {
-    type: 'collapse',
-    titleButton: 'Salas',
-    icon: ChairIcon,
-    buttonMenu: [
-      { title: 'Crear Salas', url: '/salas' },
-      { title: 'Tipos de Salas', url: '/tipos-salas' },
-    ],
-  }, */
+
 ];
 export const ROUTES_ENTRE = [
   {
@@ -148,41 +96,22 @@ export const ROUTES_ENTRE = [
       },
       {
         icon: PersonAddAlt1Icon,
-        title: "Agregar Atletas",
+        title: "Agregar",
         url: "/agregar-atletas",
       },
     ],
   },
-  /* {
-    type: "button",
-    title: "Actividades",
-    url: "/activities",
-    icon: AssignmentIcon,
-  }, */
+
   {
-    type: "collapse" /* va a ser un collapse */,
+    type: "collapse" ,
     titleButton: "Eventos",
     icon: EventNoteIcon,
     buttonMenu: [
-      { icon: CalendarMonthIcon, title: "Listado de eventos", url: "/eventos" },
-      { icon: EventIcon, title: "Agregar evento", url: "/add-event" },
+      { icon: CalendarMonthIcon, title: "Listado ", url: "/eventos" },
+      { icon: EventIcon, title: "Agregar ", url: "/add-event" },
     ],
   },
-  {
-    type: "button",
-    title: "Configuración del Entrenador",
-    url: "/config-user",
-    icon: ManageAccountsIcon,
-  },
-  /* {
-    type: 'collapse',
-    titleButton: 'Salas',
-    icon: ChairIcon,
-    buttonMenu: [
-      { title: 'Crear Salas', url: '/salas' },
-      { title: 'Tipos de Salas', url: '/tipos-salas' },
-    ],
-  }, */
+
 ];
 export const ROUTES_ATLETA = [
   {

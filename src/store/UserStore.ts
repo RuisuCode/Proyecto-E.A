@@ -6,11 +6,13 @@ import { persist, createJSONStorage } from "zustand/middleware";
 type State = {
   token?: string;
   rolId?: number;
+  user?: any;
 };
 
 type Action = {
   setToken: (token: string) => void;
   setRolId: (rolId: number) => void;
+  setUser: (user: any) => void;
   logout: () => void;
 };
 
@@ -25,6 +27,11 @@ export const UseAuthStore = create(
       setRolId: (rolId: number) => {
         set(() => ({
           rolId,
+        }));
+      },
+      setUser: (user: any) => {
+        set(() => ({
+          user,
         }));
       },
       logout: () => {

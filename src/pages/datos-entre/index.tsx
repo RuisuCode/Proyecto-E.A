@@ -3,7 +3,6 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Unstable_Grid2";
 import { motion } from "framer-motion";
 import List from "@mui/material/List";
@@ -19,7 +18,6 @@ import { useGetCoachID } from "../../shared/hooks/useCoach";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import WcIcon from "@mui/icons-material/Wc";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import HelpIcon from "@mui/icons-material/Help";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
@@ -34,9 +32,9 @@ import getAge2 from "../atletas-categoria/hooks/getAge2";
 import dayjs from "dayjs";
 import Loader from "../../shared/components/Loader";
 import { useEffect } from "react";
+import ModalEditEntrenador from "./components/ModalEdit";
 
 export default function datosEntre() {
-  // const navigate = useNavigate();
   const URL: string = import.meta.env.VITE_BACKEND;
 
   const { data: coach, isPending, refetch } = useGetCoachID();
@@ -246,21 +244,7 @@ export default function datosEntre() {
                   display={{ xs: "none", md: "flex" }}
                   alignItems={"end"}
                 >
-                  <motion.div whileHover={{ scale: 1.1 }}>
-                    <IconButton
-                      // onClick={() => navigate("/edit-config-user")}
-                      sx={{
-                        bgcolor: "#fff",
-                        boxShadow: 3,
-                        "&:hover": { bgcolor: "#fff", boxShadow: 10 },
-                      }}
-                    >
-                      <DriveFileRenameOutlineIcon
-                        fontSize="large"
-                        color="primary"
-                      />
-                    </IconButton>
-                  </motion.div>
+                  <ModalEditEntrenador dataB={coach?.data} />
                 </Stack>
               </Stack>
             </Box>
@@ -272,21 +256,7 @@ export default function datosEntre() {
               display={{ xs: "flex", md: "none" }}
               alignItems={"end"}
             >
-              <motion.div whileHover={{ scale: 1.1 }}>
-                <IconButton
-                  // onClick={() => navigate("/edit-config-user")}
-                  sx={{
-                    bgcolor: "#fff",
-                    boxShadow: 3,
-                    "&:hover": { bgcolor: "#fff", boxShadow: 10 },
-                  }}
-                >
-                  <DriveFileRenameOutlineIcon
-                    fontSize="large"
-                    color="primary"
-                  />
-                </IconButton>
-              </motion.div>
+              <ModalEditEntrenador dataB={coach?.data} />
             </Stack>
             <Box
               width={"100%"}
@@ -320,11 +290,14 @@ export default function datosEntre() {
                   >
                     Datos personales
                   </Typography>
-                  <Stack direction={"row"} alignItems={"center"}>
+                  <Stack
+                    direction={"row"}
+                    alignContent={"space-between"}
+                    width={"100%"}
+                  >
                     <List
                       sx={{
-                        width: "100%",
-                        maxWidth: 360,
+                        width: "50%",
                         bgcolor: "background.paper",
                       }}
                     >
@@ -357,8 +330,7 @@ export default function datosEntre() {
                     </List>
                     <List
                       sx={{
-                        width: "100%",
-                        maxWidth: 360,
+                        width: "50%",
                         bgcolor: "background.paper",
                       }}
                     >
@@ -414,7 +386,6 @@ export default function datosEntre() {
                     Datos de Comunicación
                   </Typography>
                   <Stack
-                    // direction={"row"}
                     justifyContent={{ xs: "center", md: "initial" }}
                     alignItems={"center"}
                     height={"90%"}
@@ -423,7 +394,6 @@ export default function datosEntre() {
                       sx={{
                         width: "100%",
                         height: "100%",
-                        // bgcolor: "background.paper",
                         display: "flex",
                         flexDirection: { md: "row", xs: "column" },
                         justifyContent: "space-between",

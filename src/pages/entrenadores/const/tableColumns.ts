@@ -9,6 +9,14 @@ interface ITableColumn {
 
 export const columns: ITableColumn[] = [
   {
+    name: "Estatus",
+    label: "Estatus",
+    options: {
+      filter: true,
+      sort: true,
+    },
+  },
+  {
     name: "cedula",
     label: "Cedula",
     options: {
@@ -29,14 +37,6 @@ export const columns: ITableColumn[] = [
     label: "Apellido",
     options: {
       filter: false,
-      sort: true,
-    },
-  },
-  {
-    name: "estatus",
-    label: "Estatus",
-    options: {
-      filter: true,
       sort: true,
     },
   },

@@ -126,12 +126,22 @@ export default function Entrenadores() {
   const modifiedData = data?.data?.map((item: any, index: number) => {
     const { primer_nom, primer_ape, fecha_nacimiento, telefono } = item;
     const { cedula, id, estatus } = item.User_id;
+    const Estatus = (
+      <Typography
+        textAlign={"center"}
+        borderRadius={"13px"}
+        color={"white"}
+        bgcolor={estatus === "Activo" ? "#228800" : "#8f1402"}
+      >
+        {estatus}{" "}
+      </Typography>
+    );
     const fecha = dayjs(fecha_nacimiento).format("DD/MM/YYYY");
     return {
       id,
       primer_nom,
       primer_ape,
-      estatus,
+      Estatus,
       fecha,
       telefono,
       cedula,

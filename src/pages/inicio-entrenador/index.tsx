@@ -25,10 +25,17 @@ import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 import HelpIcon from "@mui/icons-material/Help";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import { useStore } from "zustand";
+import { UseAuthStore } from "../../store/UserStore";
+import dayjs from "dayjs";
+import getAge2 from "../atletas-categoria/hooks/getAge2";
 
 export default function InicioEntrenador() {
+  const navigate = useNavigate();
+  const authStore = useStore(UseAuthStore);
+  const datoUser: any = authStore.user;
+
   const data = [
     { label: "Eventos Importantes", value: 10, color: "#8f1402", onclick: "" },
     { label: "Actividades pendientes", value: 5, color: "#ee6633" },
@@ -39,13 +46,14 @@ export default function InicioEntrenador() {
     { value: 5, color: "#ee6633" },
     { value: 20, color: "#648589" },
   ];
-  const navigate = useNavigate();
   const TOTAL = data.map((item) => item.value).reduce((a, b) => a + b, 0);
 
   const getArcLabel = (params: DefaultizedPieValueType) => {
     const percent = params.value / TOTAL;
     return `${(percent * 100).toFixed(0)}%`;
   };
+  const urlEntrenador = `/entrenador/${datoUser?.User_id?.id}`;
+  const URL: string = import.meta.env.VITE_BACKEND;
 
   return (
     <>
@@ -337,20 +345,27 @@ export default function InicioEntrenador() {
               >
                 Datos del Entrenador
               </Typography>
-              <IconButton
+
+              <Avatar
+                src={
+                  import.meta.env.MODE !== "production"
+                    ? `${URL}/uploads/coaches/${datoUser?.foto}`
+                    : `${URL}uploads/coaches/${datoUser?.foto}`
+                }
                 sx={{
-                  padding: 0,
+                  width: 150,
+                  height: 150,
+                  border: "4px solid #f5f5f5",
                   zIndex: 999,
                   bgcolor: "#fff",
-                  "&:hover": { background: "#fff" },
+                  boxShadow: 5,
+                  mb: 1,
                 }}
-              >
-                <AccountCircleIcon color="primary" sx={{ fontSize: 150 }} />
-              </IconButton>
+              />
               <Card
                 sx={{
                   maxWidth: 545,
-                  width: 400,
+                  width: 420,
                   height: "auto",
                   borderRadius: "1em",
                   position: "relative",
@@ -361,28 +376,38 @@ export default function InicioEntrenador() {
                   <Stack
                     direction={"row"}
                     alignContent={"center"}
-                    justifyContent={"space-around"}
+                    justifyContent={"space-evenly"}
                   >
-                    <Typography
-                      mt={3}
-                      gutterBottom
-                      variant="h6"
-                      component="div"
-                    >
-                      Nombre del entrenador
-                    </Typography>
+                    <Stack direction={"row"} gap={1}>
+                      <Typography
+                        mt={3}
+                        gutterBottom
+                        variant="h6"
+                        component="div"
+                      >
+                        {datoUser?.primer_nom}
+                      </Typography>
+                      <Typography
+                        mt={3}
+                        gutterBottom
+                        variant="h6"
+                        component="div"
+                      >
+                        {datoUser?.primer_ape}
+                      </Typography>
+                    </Stack>
                     <IconButton
                       sx={{ mt: 2 }}
-                      onClick={() => navigate("/config-user")}
+                      onClick={() => navigate(urlEntrenador)}
                     >
                       <ManageAccountsIcon />
                     </IconButton>
                   </Stack>
-                  <Stack direction={"row"} alignItems={"center"}>
+                  <Stack direction={"row"} alignItems={"center"} width={"100%"}>
                     <List
                       sx={{
                         width: "100%",
-                        maxWidth: 360,
+                        minWidth: 180,
                         bgcolor: "background.paper",
                       }}
                     >
@@ -394,7 +419,7 @@ export default function InicioEntrenador() {
                         </ListItemAvatar>
                         <ListItemText
                           primary="Cedula"
-                          secondary="000.000.000"
+                          secondary={datoUser?.User_id?.cedula}
                         />
                       </ListItem>
                       <ListItem>
@@ -404,15 +429,15 @@ export default function InicioEntrenador() {
                           </Avatar>
                         </ListItemAvatar>
                         <ListItemText
-                          primary="Estado Civil"
-                          secondary="Soltero"
+                          primary="Estatus"
+                          secondary={datoUser?.User_id.estatus}
                         />
                       </ListItem>
                     </List>
                     <List
                       sx={{
                         width: "100%",
-                        maxWidth: 360,
+                        minWidth: 240,
                         bgcolor: "background.paper",
                       }}
                     >
@@ -422,7 +447,20 @@ export default function InicioEntrenador() {
                             <PersonIcon />
                           </Avatar>
                         </ListItemAvatar>
-                        <ListItemText primary="Edad" secondary="40" />
+                        <ListItemText
+                          primary="Edad"
+                          secondary={getAge2(
+                            Number(
+                              dayjs(datoUser?.fecha_nacimiento).format("DD")
+                            ),
+                            Number(
+                              dayjs(datoUser?.fecha_nacimiento).format("MM")
+                            ),
+                            Number(
+                              dayjs(datoUser?.fecha_nacimiento).format("YYYY")
+                            )
+                          )}
+                        />
                       </ListItem>
                       <ListItem>
                         <ListItemAvatar>
@@ -432,7 +470,9 @@ export default function InicioEntrenador() {
                         </ListItemAvatar>
                         <ListItemText
                           primary="Fecha de Nacimiento"
-                          secondary="Jan 7, 2014"
+                          secondary={dayjs(datoUser?.fecha_nacimiento).format(
+                            "DD/MM/YYYY"
+                          )}
                         />
                       </ListItem>
                     </List>
