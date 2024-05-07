@@ -278,8 +278,6 @@ export default function Eventos() {
                             <Stack
                               direction={"row"}
                               width={"100%"}
-                              // alignItems={"flex-end"}
-                              justifyContent={"space-around"}
                               overflow={"hidden"}
                             >
                               <ModalDeleteEvent data={item} />

@@ -212,17 +212,17 @@ export default function ModalEditEvent({ dataB }: { dataB: any }) {
       ? `${URL}/uploads/events/${dataB?.flyer}`
       : `${URL}uploads/events/${dataB?.flyer}`;
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <Button
         variant="contained"
         sx={{
           py: { xs: 3, md: 0 },
-          px: { lg: 4.3 },
           borderRadius: "0",
-          width: { xs: "100%", md: "105%", lg: "120%" },
+          width: { xs: "100%", md: "100%", lg: "100%" },
           height: "40px",
           mr: 3,
         }}
+        fullWidth
         onClick={handleOpen}
       >
         <Typography textTransform={"initial"}> Editar </Typography>
