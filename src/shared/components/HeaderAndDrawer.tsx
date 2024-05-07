@@ -699,7 +699,8 @@ export function HeaderAndDrawer(props: Props): JSX.Element {
               onClick={() => {
                 entity === 1
                   ? navigate(`entrenador/${datoUser?.User_id?.id}`)
-                  : "";
+                  : "",
+                  handleDrawerClose();
               }}
             >
               <ListItemIcon>
