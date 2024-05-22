@@ -25,6 +25,8 @@ import dayjs from "dayjs";
 import Loader from "../../shared/components/Loader";
 import ModalDeleteEvent from "./components/ModalDelete";
 import ModalEditEvent from "./components/ModalEdit";
+import { useStore } from "zustand";
+import { UseAuthStore } from "../../store/UserStore";
 
 const style = {
   position: "absolute" as "absolute",
@@ -44,6 +46,9 @@ const style = {
 
 export default function Eventos() {
   const navigate = useNavigate();
+  const authStore = useStore(UseAuthStore);
+  const rol: any = authStore.rolId;
+  const entity: number = rol;
   const { data: events, refetch, isPending } = useGetEvents();
   useEffect(() => {
     refetch();
@@ -135,7 +140,7 @@ export default function Eventos() {
             gap={3}
             alignItems={"center"}
           >
-            <Stack alignItems={"flex-end"}>
+            <Stack alignItems={"flex-end"} display={entity===2 ? 'none' : 'flex'}>
               <Badge
                 sx={{
                   borderRadius: "10px",
@@ -246,7 +251,7 @@ export default function Eventos() {
                           <Stack width={"55%"}>
                             <Box
                               sx={{
-                                height: "90%",
+                                height: entity===2 ? '100%' : "90%",
                                 width: "100%",
                                 zIndex: 30,
                                 pt: 2,
@@ -268,7 +273,7 @@ export default function Eventos() {
                                 textAlign={"justify"}
                                 justifyContent={"center"}
                                 color="text.secondary"
-                                height={"70%"}
+                                height={ "70%"}
                                 px={2}
                                 pt={1}
                               >
@@ -279,6 +284,7 @@ export default function Eventos() {
                               direction={"row"}
                               width={"100%"}
                               overflow={"hidden"}
+                              display={entity=== 2 ? 'none' : 'flex'}
                             >
                               <ModalDeleteEvent data={item} />
                               <ModalEditEvent dataB={item} />

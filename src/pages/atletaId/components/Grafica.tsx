@@ -255,7 +255,7 @@ export default function Grafica() {
                 <Tooltip />
                 <Legend iconType="circle" height={36} verticalAlign="top" />
                 <Area
-                  dataKey={"Marcas"}
+                  dataKey={"Marca"}
                   stroke="#ee4328"
                   fill="url(#colorUv)"
                   fillOpacity={1}

@@ -11,7 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 export function useAggAtlets() {
   const navigate = useNavigate();
   return useMutation({
-    mutationFn: (data: any) => apiService.post(data, "/atleta"),
+    mutationFn: (data: any) => apiService.postFile(data, "/atleta"),
     onSuccess: () => {
       toast.success("Éxito al agregar atleta");
       navigate("/atletas_nivel");
@@ -33,9 +33,30 @@ export function useAggAtlets() {
 export function useEditAtlets() {
   const { id } = useParams();
   return useMutation({
-    mutationFn: (data: any) => apiService.put(data, `/atleta/${id}`),
+    mutationFn: (data: any) => apiService.postFile(data, `/atleta/${id}`),
     onSuccess: () => {
-      toast.success("Éxito al editar el atleta");
+      toast.success("Éxito al editar del atleta");
+    },
+    onError: (error: any) => {
+      const statusResponse = error.response?.status;
+      {
+        error.response.data?.message.map((item: any) => {
+          toast.error(item.message);
+        });
+      }
+      if (statusResponse === 404) {
+        toast.error(`A ocurrido un error inesperado ${statusResponse} `);
+        return;
+      }
+    },
+  });
+}
+export function useTestCooperAtlets() {
+  const { id } = useParams();
+  return useMutation({
+    mutationFn: (data: any) => apiService.put(data, `/atleta/${id}/T`),
+    onSuccess: () => {
+      toast.success("Éxito al registar el test de cooper del atleta");
     },
     onError: (error: any) => {
       const statusResponse = error.response?.status;
@@ -97,4 +118,3 @@ export function useGetAtletaId() {
   });
   return atletaId;
 }
-

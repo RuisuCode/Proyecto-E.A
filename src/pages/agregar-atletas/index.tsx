@@ -30,6 +30,15 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import getAge from "./hooks/getAge";
 import { motion } from "framer-motion";
+import {
+  Dropzone,
+  ExtFile,
+  FileMosaic,
+  FullScreen,
+  ImagePreview,
+} from "@files-ui/react";
+import { FormControlLabel, InputAdornment } from "@mui/material";
+import Switch from "@mui/material/Switch";
 
 export default function agregarAtletas() {
   const Theme = theme;
@@ -42,8 +51,11 @@ export default function agregarAtletas() {
   });
 
   const [gen, setGen] = useState("");
+  const [extFiles, setExtFiles] = useState<any>([]);
+  const [imageSrc, setImageSrc] = useState(undefined);
   const [tSangre, setTSangre] = useState("");
   const { mutate, isPending } = useAggAtlets();
+  const [cooper, setCooper] = useState(false);
   const { control } = useForm();
   const [fechaNac, setFechaNac] = useState(null);
   const [categoria, setCategoria] = useState("");
@@ -61,7 +73,6 @@ export default function agregarAtletas() {
   const day = Number(dayjs(fechaNac).format("D"));
   const month = Number(dayjs(fechaNac).format("M"));
   const year = Number(dayjs(fechaNac).format("YYYY"));
-
   const edad = getAge(day, month, year);
   useEffect(() => {
     if (edad < 18) {
@@ -103,9 +114,13 @@ export default function agregarAtletas() {
       primer_apellido: data?.primer_apellido,
       segundo_apellido: data?.segundo_apellido,
       cedula: data?.cedula,
+      foto: extFiles[0].file,
       genero: gen,
       fechaNacimiento: fecha,
       estatura: data?.estatura,
+      estudios:data?.estudios,
+      estatura_sentd: data?.estatura_sentd,
+      test_cooper: data?.test_cooper,
       peso: data?.peso,
       categoria: categoria,
       envergadura: data?.envergadura,
@@ -122,6 +137,35 @@ export default function agregarAtletas() {
     };
 
     mutate(sendData);
+  };
+
+  const updateFiles = (incommingFiles: any) => {
+    setExtFiles(incommingFiles);
+  };
+  const onDelete = (id: any) => {
+    setExtFiles(extFiles.filter((x: any) => x.id !== id));
+  };
+  const handleSee = (imageSource: any) => {
+    setImageSrc(imageSource);
+  };
+
+  const handleAbort = (id: any) => {
+    setExtFiles(
+      extFiles.map((ef: any) => {
+        if (ef.id === id) {
+          return { ...ef, uploadStatus: "aborted" };
+        } else return { ...ef };
+      })
+    );
+  };
+  const handleCancel = (id: any) => {
+    setExtFiles(
+      extFiles.map((ef: any) => {
+        if (ef.id === id) {
+          return { ...ef, uploadStatus: undefined };
+        } else return { ...ef };
+      })
+    );
   };
 
   return (
@@ -516,9 +560,93 @@ export default function agregarAtletas() {
                   }}
                   align="center"
                 >
-                  Datos Genéticos
+                  Datos Genéticos y Datos Antropométricos
                 </Typography>
-                <Stack justifyContent={"space-around"} height={"100%"}>
+                <Stack height={"100%"} justifyContent={"space-around"}>
+                  <Stack direction={{ md: "row", xs: "column" }}>
+                    <FormControl
+                      sx={{
+                        px: 1,
+                        width: "100%",
+                        height: "10vh",
+                      }}
+                    >
+                      <FormLabel
+                        required
+                        sx={{ fontSize: "16px", textAlign: "left" }}
+                      >
+                        Estatura(cm)
+                      </FormLabel>
+                      <OutlinedInput
+                        sx={{
+                          minHeight: "35px",
+                          boxShadow: 1,
+                          borderRadius: "1em",
+                        }}
+                        type="number"
+                        placeholder="Ingrese su estatura"
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <Typography fontWeight={"bold"} color={"#b9b4b1"}>
+                              CM
+                            </Typography>
+                          </InputAdornment>
+                        }
+                        error={errors.estatura && true}
+                        {...register("estatura", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
+                      />
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.estatura?.message && errors.estatura.message}
+                      </FormHelperText>
+                    </FormControl>
+                    <FormControl
+                      sx={{
+                        px: 1,
+                        width: "100%",
+                        height: "10vh",
+                      }}
+                    >
+                      <FormLabel
+                        required
+                        sx={{ fontSize: "16px", textAlign: "left" }}
+                      >
+                        Estatura sentado(cm)
+                      </FormLabel>
+                      <OutlinedInput
+                        sx={{
+                          minHeight: "35px",
+                          boxShadow: 1,
+                          borderRadius: "1em",
+                        }}
+                        type="number"
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <Typography fontWeight={"bold"} color={"#b9b4b1"}>
+                              CM
+                            </Typography>
+                          </InputAdornment>
+                        }
+                        placeholder="Ingrese su estatura sentado"
+                        error={errors.estatura_sentd && true}
+                        {...register("estatura_sentd", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
+                      />
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.estatura_sentd?.message &&
+                          errors.estatura_sentd.message}
+                      </FormHelperText>
+                    </FormControl>
+                  </Stack>
+
                   <FormControl
                     sx={{
                       px: 1,
@@ -530,7 +658,7 @@ export default function agregarAtletas() {
                       required
                       sx={{ fontSize: "16px", textAlign: "left" }}
                     >
-                      Estatura
+                      Peso(kg)
                     </FormLabel>
                     <OutlinedInput
                       sx={{
@@ -538,46 +666,20 @@ export default function agregarAtletas() {
                         boxShadow: 1,
                         borderRadius: "1em",
                       }}
-                      type="float"
-                      placeholder="Ingrese su estatura"
-                      error={errors.estatura && true}
-                      {...register("estatura", {
-                        required: {
-                          value: true,
-                          message: "Este campo es requerido.",
-                        },
-                      })}
-                    />
-                    <FormHelperText sx={{ color: "#000" }}>
-                      {errors.estatura?.message && errors.estatura.message}
-                    </FormHelperText>
-                  </FormControl>
-                  <FormControl
-                    sx={{
-                      px: 1,
-                      width: "100%",
-                      height: "10vh",
-                    }}
-                  >
-                    <FormLabel
-                      required
-                      sx={{ fontSize: "16px", textAlign: "left" }}
-                    >
-                      Peso
-                    </FormLabel>
-                    <OutlinedInput
-                      sx={{
-                        minHeight: "35px",
-                        boxShadow: 1,
-                        borderRadius: "1em",
-                      }}
-                      type="number"
+                      type="string"
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <Typography fontWeight={"bold"} color={"#b9b4b1"}>
+                            KG
+                          </Typography>
+                        </InputAdornment>
+                      }
                       placeholder="Ingrese su peso"
                       error={errors.peso && true}
                       {...register("peso", {
-                        required: {
-                          value: true,
-                          message: "Este campo es requerido.",
+                        pattern: {
+                          value: /[0-9]+([,][0-9]+)?$/,
+                          message: "El valor ingresado debe tener decimales",
                         },
                       })}
                     />
@@ -585,37 +687,109 @@ export default function agregarAtletas() {
                       {errors.peso?.message && errors.peso.message}
                     </FormHelperText>
                   </FormControl>
-                  <FormControl
-                    sx={{
-                      px: 1,
-                      width: "100%",
-                      height: "10vh",
-                    }}
-                  >
-                    <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
-                      Envergadura
-                    </FormLabel>
-                    <OutlinedInput
-                      sx={{
-                        minHeight: "35px",
-                        boxShadow: 1,
-                        borderRadius: "1em",
-                      }}
-                      type="number"
-                      placeholder="Ingrese su envergadura"
-                      error={errors.envergadura && true}
-                      {...register("envergadura", {
-                        required: {
-                          value: true,
-                          message: "Este campo es requerido.",
-                        },
-                      })}
+                  <Stack px={1} alignItems={"center"} direction={"column"}>
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={cooper}
+                          onChange={() => setCooper(!cooper)}
+                        />
+                      }
+                      label={
+                        <Typography color={"#808080"}>
+                          ¿Realizaste test de cooper?
+                        </Typography>
+                      }
                     />
-                    <FormHelperText sx={{ color: "#000" }}>
-                      {errors.envergadura?.message &&
-                        errors.envergadura.message}
-                    </FormHelperText>
-                  </FormControl>
+                    <Stack
+                      direction={{ md: "row", xs: "column" }}
+                      width={"100%"}
+                      gap={1}
+                    >
+                      <FormControl
+                        sx={{
+                          width: "100%",
+                          height: "10vh",
+                        }}
+                      >
+                        <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
+                          Envergadura(cm)
+                        </FormLabel>
+                        <OutlinedInput
+                          sx={{
+                            minHeight: "35px",
+                            boxShadow: 1,
+                            borderRadius: "1em",
+                          }}
+                          type="number"
+                          placeholder="Ingrese su envergadura"
+                          endAdornment={
+                            <InputAdornment position="end">
+                              <Typography fontWeight={"bold"} color={"#b9b4b1"}>
+                                CM
+                              </Typography>
+                            </InputAdornment>
+                          }
+                          error={errors.envergadura && true}
+                          {...register("envergadura", {
+                            required: {
+                              value: true,
+                              message: "Este campo es requerido.",
+                            },
+                          })}
+                        />
+                        <FormHelperText sx={{ color: "#000" }}>
+                          {errors.envergadura?.message &&
+                            errors.envergadura.message}
+                        </FormHelperText>
+                      </FormControl>
+                      {cooper && (
+                        <FormControl
+                          sx={{
+                            width: "100%",
+                            height: "10vh",
+                          }}
+                        >
+                          <FormLabel
+                            sx={{ fontSize: "16px", textAlign: "left" }}
+                          >
+                            Test de cooper(M)
+                          </FormLabel>
+                          <OutlinedInput
+                            sx={{
+                              minHeight: "35px",
+                              boxShadow: 1,
+                              borderRadius: "1em",
+                            }}
+                            type="string"
+                            placeholder="Ingrese la distancia "
+                            endAdornment={
+                              <InputAdornment position="end">
+                                <Typography
+                                  fontWeight={"bold"}
+                                  color={"#b9b4b1"}
+                                >
+                                  M
+                                </Typography>
+                              </InputAdornment>
+                            }
+                            error={errors.test_cooper && true}
+                            {...register("test_cooper", {
+                              pattern: {
+                                value: /[0-9]+([,][0-9]+)?$/,
+                                message:
+                                  "El valor ingresado debe tener decimales",
+                              },
+                            })}
+                          />
+                          <FormHelperText sx={{ color: "#000" }}>
+                            {errors.test_cooper?.message &&
+                              errors.test_cooper.message}
+                          </FormHelperText>
+                        </FormControl>
+                      )}
+                    </Stack>
+                  </Stack>
                   <FormControl
                     sx={{
                       px: 1,
@@ -658,6 +832,67 @@ export default function agregarAtletas() {
                 </Stack>
               </Stack>
             </Grid>
+            <Stack width={"100%"} mt={1} pb={1} alignItems={"center"}>
+              <Stack
+                width={{ md: "50%", xs: "100%" }}
+                bgcolor={"#fff"}
+                borderRadius={"1em"}
+                boxShadow={3}
+                height={"100%"}
+                alignItems={"center"}
+              >
+                <Typography
+                  width={"100%"}
+                  bgcolor={"#f5f5f5"}
+                  letterSpacing={1}
+                  sx={{
+                    borderTopLeftRadius: "1em",
+                    borderTopRightRadius: "1em",
+                  }}
+                  align="center"
+                >
+                  Foto de perfil
+                </Typography>
+                <Stack height={"50%"}>
+                  <Dropzone
+                    onChange={updateFiles}
+                    localization="ES-es"
+                    value={extFiles}
+                    required
+                    accept=".png, .jpg"
+                    maxFiles={1}
+                    style={{ border: "none" }}
+                    maxFileSize={4 * 1024 * 1024}
+                    label="Arrastre y suelte la imagen aquí o  haga click y seleccione una imagen "
+                    uploadConfig={{
+                      autoUpload: true,
+                    }}
+                  >
+                    {extFiles.map((file: ExtFile) => (
+                      <FileMosaic
+                        {...file}
+                        key={file.id}
+                        onDelete={onDelete}
+                        onSee={handleSee}
+                        onAbort={handleAbort}
+                        onCancel={handleCancel}
+                        resultOnTooltip
+                        alwaysActive
+                        preview
+                        info
+                      />
+                    ))}
+                  </Dropzone>
+
+                  <FullScreen
+                    open={imageSrc !== undefined}
+                    onClose={() => setImageSrc(undefined)}
+                  >
+                    <ImagePreview src={imageSrc} />
+                  </FullScreen>
+                </Stack>
+              </Stack>
+            </Stack>
             {edad >= 18 && (
               <Grid my={2} minWidth={"100%"}>
                 <Stack
@@ -747,6 +982,58 @@ export default function agregarAtletas() {
                     </Stack>
                   </Stack>
                 </Stack>
+                <Stack
+                  width={"100%"}
+                  bgcolor={"#fff"}
+                  borderRadius={"1em"}
+                  my={1.5}
+                  pb={1}
+                  boxShadow={3}
+                  height={"auto"}
+                >
+                  <Typography
+                    width={"100%"}
+                    bgcolor={"#f5f5f5"}
+                    letterSpacing={1}
+                    sx={{
+                      borderTopLeftRadius: "1em",
+                      borderTopRightRadius: "1em",
+                    }}
+                    align="center"
+                  >
+                    Formacion Academica
+                  </Typography>
+                  <FormControl
+                    sx={{
+                      px: 1,
+                      width: "100%",
+                      height: "10vh",
+                    }}
+                  >
+                    <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
+                      ¿Donde estudias?
+                    </FormLabel>
+                    <OutlinedInput
+                      sx={{
+                        minHeight: "35px",
+                        boxShadow: 1,
+                        borderRadius: "1em",
+                      }}
+                      type="string"
+                      placeholder="Coloque el nombre de la institucion donde estudias"
+                      error={errors.estudios && true}
+                      {...register("estudios", {
+                        required: {
+                          value: true,
+                          message: "Este campo es requerido.",
+                        },
+                      })}
+                    />
+                    <FormHelperText sx={{ color: "#000" }}>
+                      {errors.estudios?.message && errors.estudios.message}
+                    </FormHelperText>
+                  </FormControl>
+                </Stack>
               </Grid>
             )}
             {edad < 18 && (
@@ -835,262 +1122,320 @@ export default function agregarAtletas() {
               </Grid>
             )}
             {edad < 18 && (
-              <Grid minWidth={"100%"}>
-                <Stack
-                  width={"100%"}
-                  bgcolor={"#fff"}
-                  borderRadius={"1em"}
-                  my={1}
-                  boxShadow={3}
-                  height={"100%"}
-                >
-                  <Typography
-                    width={"100%"}
-                    bgcolor={"#f5f5f5"}
-                    letterSpacing={1}
-                    align="center"
-                    sx={{
-                      borderTopLeftRadius: "1em",
-                      borderTopRightRadius: "1em",
-                    }}
-                  >
-                    Datos del Representante del atleta
-                  </Typography>
+              <>
+                <Grid minWidth={"100%"}>
                   <Stack
-                    justifyContent={"space-around"}
                     width={"100%"}
-                    alignContent={"center"}
+                    bgcolor={"#fff"}
+                    borderRadius={"1em"}
+                    my={1}
+                    boxShadow={3}
                     height={"100%"}
                   >
-                    <Stack
-                      direction={{ md: "row", xs: "column" }}
-                      justifyContent={"space-around"}
+                    <Typography
+                      width={"100%"}
+                      bgcolor={"#f5f5f5"}
+                      letterSpacing={1}
+                      align="center"
+                      sx={{
+                        borderTopLeftRadius: "1em",
+                        borderTopRightRadius: "1em",
+                      }}
                     >
-                      <FormControl
-                        sx={{
-                          my: 1,
-                          px: 1,
-                          width: { md: "50%", xs: "100%" },
-                          height: "10vh",
-                        }}
-                      >
-                        <FormLabel
-                          required
-                          sx={{ fontSize: "16px", textAlign: "left" }}
-                        >
-                          Nombre
-                        </FormLabel>
-                        <OutlinedInput
-                          sx={{
-                            minHeight: "35px",
-                            boxShadow: 1,
-                            borderRadius: "1em",
-                          }}
-                          type="text"
-                          placeholder="Ingrese el nombre de su representante"
-                          error={errors.nombre_repre && true}
-                          {...register("nombre_repre", {
-                            required: {
-                              value: true,
-                              message: "Este campo es requerido.",
-                            },
-                          })}
-                        />
-                        <FormHelperText sx={{ color: "#000" }}>
-                          {errors.nombre_repre?.message &&
-                            errors.nombre_repre.message}
-                        </FormHelperText>
-                      </FormControl>
-                      <FormControl
-                        sx={{
-                          my: 1,
-                          px: 1,
-                          width: { md: "50%", xs: "100%" },
-                          height: "10vh",
-                        }}
-                      >
-                        <FormLabel
-                          required
-                          sx={{ fontSize: "16px", textAlign: "left" }}
-                        >
-                          Apellido
-                        </FormLabel>
-                        <OutlinedInput
-                          sx={{
-                            minHeight: "35px",
-                            boxShadow: 1,
-                            borderRadius: "1em",
-                          }}
-                          type="text"
-                          placeholder="Ingrese el apellido del representante"
-                          error={errors.apellido_repre && true}
-                          {...register("apellido_repre", {
-                            required: {
-                              value: true,
-                              message: "Este campo es requerido",
-                            },
-                          })}
-                        />
-                        <FormHelperText sx={{ color: "#000" }}>
-                          {" "}
-                          {errors.apellido_repre?.message &&
-                            errors.apellido_repre.message}
-                        </FormHelperText>
-                      </FormControl>
-                    </Stack>
+                      Datos del Representante del atleta
+                    </Typography>
                     <Stack
-                      direction={{ md: "row", xs: "column" }}
                       justifyContent={"space-around"}
+                      width={"100%"}
+                      alignContent={"center"}
+                      height={"100%"}
                     >
-                      <FormControl
-                        sx={{
-                          my: 1,
-                          px: 1,
-                          width: { md: "50%", xs: "100%" },
-                          height: "10vh",
-                        }}
+                      <Stack
+                        direction={{ md: "row", xs: "column" }}
+                        justifyContent={"space-around"}
                       >
-                        <FormLabel
-                          required
-                          sx={{ fontSize: "16px", textAlign: "left" }}
-                        >
-                          Cédula
-                        </FormLabel>
-                        <OutlinedInput
+                        <FormControl
                           sx={{
-                            minHeight: "35px",
-                            boxShadow: 1,
-                            borderRadius: "1em",
-                          }}
-                          type="number"
-                          placeholder="Ingrese la cedula del representante"
-                          error={errors.cedula_repre && true}
-                          {...register("cedula_repre", {
-                            required: {
-                              value: true,
-                              message: "Este campo es requerido.",
-                            },
-                          })}
-                        />
-                        <FormHelperText sx={{ color: "#000" }}>
-                          {errors.cedula_repre?.message &&
-                            errors.cedula_repre.message}
-                        </FormHelperText>
-                      </FormControl>
-                      <FormControl
-                        sx={{
-                          my: 1,
-                          px: 1,
-                          width: { md: "50%", xs: "100%" },
-                          height: "10vh",
-                        }}
-                      >
-                        <FormLabel
-                          required
-                          sx={{ fontSize: "16px", textAlign: "left" }}
-                        >
-                          Parentesco
-                        </FormLabel>
-                        <Select
-                          id="Parentesco"
-                          required
-                          placeholder="Coloque su parentesco"
-                          defaultValue={""}
-                          onChange={(e) => setParentesco(e.target.value)}
-                          sx={{
-                            borderRadius: "1em",
-                            minHeight: "45px",
-                            boxShadow: 1,
+                            my: 1,
+                            px: 1,
+                            width: { md: "50%", xs: "100%" },
+                            height: "10vh",
                           }}
                         >
-                          <MenuItem value={"Padre"}>Padre</MenuItem>
-                          <MenuItem value={"Madre"}>Madre</MenuItem>
-                          <MenuItem value={"Tio/a"}>Tio/a</MenuItem>
-                          <MenuItem value={"Primo/a"}>Primo/a</MenuItem>
-                          <MenuItem value={"Abuelo/a"}>Abuelo/a</MenuItem>
-                          <MenuItem value={"Otro/a"}>Otro/a</MenuItem>
-                        </Select>
-                        <FormHelperText sx={{ color: "#000" }}>
-                          {errors.parentesco?.message &&
-                            errors.parentesco.message}
-                        </FormHelperText>
-                      </FormControl>
-                    </Stack>
-                    <Stack
-                      direction={{ md: "row", xs: "column" }}
-                      justifyContent={"space-around"}
-                    >
-                      <FormControl
-                        sx={{
-                          my: 1,
-                          px: 1,
-                          width: { md: "50%", xs: "100%" },
-                          height: "10vh",
-                        }}
-                      >
-                        <FormLabel
-                          required
-                          sx={{ fontSize: "16px", textAlign: "left" }}
+                          <FormLabel
+                            required
+                            sx={{ fontSize: "16px", textAlign: "left" }}
+                          >
+                            Nombre
+                          </FormLabel>
+                          <OutlinedInput
+                            sx={{
+                              minHeight: "35px",
+                              boxShadow: 1,
+                              borderRadius: "1em",
+                            }}
+                            type="text"
+                            placeholder="Ingrese el nombre de su representante"
+                            error={errors.nombre_repre && true}
+                            {...register("nombre_repre", {
+                              required: {
+                                value: true,
+                                message: "Este campo es requerido.",
+                              },
+                            })}
+                          />
+                          <FormHelperText sx={{ color: "#000" }}>
+                            {errors.nombre_repre?.message &&
+                              errors.nombre_repre.message}
+                          </FormHelperText>
+                        </FormControl>
+                        <FormControl
+                          sx={{
+                            my: 1,
+                            px: 1,
+                            width: { md: "50%", xs: "100%" },
+                            height: "10vh",
+                          }}
                         >
-                          Teléfono
-                        </FormLabel>
-                        <OutlinedInput
-                          sx={{
-                            minHeight: "35px",
-                            boxShadow: 1,
-                            borderRadius: "1em",
-                          }}
-                          type="number"
-                          placeholder="Ingrese el Telefono del representante"
-                          error={errors.telefono_repre && true}
-                          {...register("telefono_repre", {
-                            required: {
-                              value: true,
-                              message: "Este campo es requerido.",
-                            },
-                            minLength: {
-                              value: 11 || 12,
-                              message:
-                                "El numero de telefono debe tener mínimo 11 caracteres",
-                            },
-                          })}
-                        />
-                        <FormHelperText sx={{ color: "#000" }}>
-                          {errors.telefono_repre?.message &&
-                            errors.telefono_repre.message}
-                        </FormHelperText>
-                      </FormControl>
-                      <FormControl
-                        sx={{
-                          my: 1,
-                          px: 1,
-                          width: { md: "50%", xs: "100%" },
-                          height: "10vh",
-                        }}
+                          <FormLabel
+                            required
+                            sx={{ fontSize: "16px", textAlign: "left" }}
+                          >
+                            Apellido
+                          </FormLabel>
+                          <OutlinedInput
+                            sx={{
+                              minHeight: "35px",
+                              boxShadow: 1,
+                              borderRadius: "1em",
+                            }}
+                            type="text"
+                            placeholder="Ingrese el apellido del representante"
+                            error={errors.apellido_repre && true}
+                            {...register("apellido_repre", {
+                              required: {
+                                value: true,
+                                message: "Este campo es requerido",
+                              },
+                            })}
+                          />
+                          <FormHelperText sx={{ color: "#000" }}>
+                            {" "}
+                            {errors.apellido_repre?.message &&
+                              errors.apellido_repre.message}
+                          </FormHelperText>
+                        </FormControl>
+                      </Stack>
+                      <Stack
+                        direction={{ md: "row", xs: "column" }}
+                        justifyContent={"space-around"}
                       >
-                        <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
-                          Correo Electrónico
-                        </FormLabel>
-                        <OutlinedInput
+                        <FormControl
                           sx={{
-                            minHeight: "35px",
-                            boxShadow: 1,
-                            borderRadius: "1em",
+                            my: 1,
+                            px: 1,
+                            width: { md: "50%", xs: "100%" },
+                            height: "10vh",
                           }}
-                          type="email"
-                          placeholder="Ingrese el correo electronico del representante"
-                          error={errors.email_repre && true}
-                          {...register("email_repre")}
-                        />
-                        <FormHelperText sx={{ color: "#000" }}>
-                          {errors.email_repre?.message &&
-                            errors.email_repre.message}
-                        </FormHelperText>
-                      </FormControl>
+                        >
+                          <FormLabel
+                            required
+                            sx={{ fontSize: "16px", textAlign: "left" }}
+                          >
+                            Cédula
+                          </FormLabel>
+                          <OutlinedInput
+                            sx={{
+                              minHeight: "35px",
+                              boxShadow: 1,
+                              borderRadius: "1em",
+                            }}
+                            type="number"
+                            placeholder="Ingrese la cedula del representante"
+                            error={errors.cedula_repre && true}
+                            {...register("cedula_repre", {
+                              required: {
+                                value: true,
+                                message: "Este campo es requerido.",
+                              },
+                            })}
+                          />
+                          <FormHelperText sx={{ color: "#000" }}>
+                            {errors.cedula_repre?.message &&
+                              errors.cedula_repre.message}
+                          </FormHelperText>
+                        </FormControl>
+                        <FormControl
+                          sx={{
+                            my: 1,
+                            px: 1,
+                            width: { md: "50%", xs: "100%" },
+                            height: "10vh",
+                          }}
+                        >
+                          <FormLabel
+                            required
+                            sx={{ fontSize: "16px", textAlign: "left" }}
+                          >
+                            Parentesco
+                          </FormLabel>
+                          <Select
+                            id="Parentesco"
+                            required
+                            placeholder="Coloque su parentesco"
+                            defaultValue={""}
+                            onChange={(e) => setParentesco(e.target.value)}
+                            sx={{
+                              borderRadius: "1em",
+                              minHeight: "45px",
+                              boxShadow: 1,
+                            }}
+                          >
+                            <MenuItem value={"Padre"}>Padre</MenuItem>
+                            <MenuItem value={"Madre"}>Madre</MenuItem>
+                            <MenuItem value={"Tio/a"}>Tio/a</MenuItem>
+                            <MenuItem value={"Primo/a"}>Primo/a</MenuItem>
+                            <MenuItem value={"Abuelo/a"}>Abuelo/a</MenuItem>
+                            <MenuItem value={"Otro/a"}>Otro/a</MenuItem>
+                          </Select>
+                          <FormHelperText sx={{ color: "#000" }}>
+                            {errors.parentesco?.message &&
+                              errors.parentesco.message}
+                          </FormHelperText>
+                        </FormControl>
+                      </Stack>
+                      <Stack
+                        direction={{ md: "row", xs: "column" }}
+                        justifyContent={"space-around"}
+                      >
+                        <FormControl
+                          sx={{
+                            my: 1,
+                            px: 1,
+                            width: { md: "50%", xs: "100%" },
+                            height: "10vh",
+                          }}
+                        >
+                          <FormLabel
+                            required
+                            sx={{ fontSize: "16px", textAlign: "left" }}
+                          >
+                            Teléfono
+                          </FormLabel>
+                          <OutlinedInput
+                            sx={{
+                              minHeight: "35px",
+                              boxShadow: 1,
+                              borderRadius: "1em",
+                            }}
+                            type="number"
+                            placeholder="Ingrese el Telefono del representante"
+                            error={errors.telefono_repre && true}
+                            {...register("telefono_repre", {
+                              required: {
+                                value: true,
+                                message: "Este campo es requerido.",
+                              },
+                              minLength: {
+                                value: 11 || 12,
+                                message:
+                                  "El numero de telefono debe tener mínimo 11 caracteres",
+                              },
+                            })}
+                          />
+                          <FormHelperText sx={{ color: "#000" }}>
+                            {errors.telefono_repre?.message &&
+                              errors.telefono_repre.message}
+                          </FormHelperText>
+                        </FormControl>
+                        <FormControl
+                          sx={{
+                            my: 1,
+                            px: 1,
+                            width: { md: "50%", xs: "100%" },
+                            height: "10vh",
+                          }}
+                        >
+                          <FormLabel
+                            sx={{ fontSize: "16px", textAlign: "left" }}
+                          >
+                            Correo Electrónico
+                          </FormLabel>
+                          <OutlinedInput
+                            sx={{
+                              minHeight: "35px",
+                              boxShadow: 1,
+                              borderRadius: "1em",
+                            }}
+                            type="email"
+                            placeholder="Ingrese el correo electronico del representante"
+                            error={errors.email_repre && true}
+                            {...register("email_repre")}
+                          />
+                          <FormHelperText sx={{ color: "#000" }}>
+                            {errors.email_repre?.message &&
+                              errors.email_repre.message}
+                          </FormHelperText>
+                        </FormControl>
+                      </Stack>
                     </Stack>
                   </Stack>
-                </Stack>
-              </Grid>
+                </Grid>
+                <Grid minWidth={"100%"}>
+                  <Stack
+                    width={"100%"}
+                    bgcolor={"#fff"}
+                    borderRadius={"1em"}
+                    my={1.5}
+                    pb={1}
+                    boxShadow={3}
+                    height={"auto"}
+                  >
+                    <Typography
+                      width={"100%"}
+                      bgcolor={"#f5f5f5"}
+                      letterSpacing={1}
+                      sx={{
+                        borderTopLeftRadius: "1em",
+                        borderTopRightRadius: "1em",
+                      }}
+                      align="center"
+                    >
+                      Formacion Academica
+                    </Typography>
+                    <FormControl
+                      sx={{
+                        px: 1,
+                        width: "100%",
+                        height: "10vh",
+                      }}
+                    >
+                      <FormLabel sx={{ fontSize: "16px", textAlign: "left" }}>
+                        ¿Donde estudias?
+                      </FormLabel>
+                      <OutlinedInput
+                        sx={{
+                          minHeight: "35px",
+                          boxShadow: 1,
+                          borderRadius: "1em",
+                        }}
+                        type="string"
+                        placeholder="Coloque el nombre de la institucion donde estudias"
+                        error={errors.estudios && true}
+                        {...register("estudios", {
+                          required: {
+                            value: true,
+                            message: "Este campo es requerido.",
+                          },
+                        })}
+                      />
+                      <FormHelperText sx={{ color: "#000" }}>
+                        {errors.estudios?.message && errors.estudios.message}
+                      </FormHelperText>
+                    </FormControl>
+                  </Stack>
+                </Grid>
+              </>
             )}
           </Grid>
           <Stack mt={2}>

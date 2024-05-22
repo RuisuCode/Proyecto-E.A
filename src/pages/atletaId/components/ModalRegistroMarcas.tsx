@@ -109,7 +109,7 @@ export default function ModalRegistro() {
 
     mutate(sendData, {
       onSuccess: () => {
-        setOpen(false);
+        handleClose();
         reset();
         setTypeTest(0);
         refetch();
@@ -553,7 +553,7 @@ export default function ModalRegistro() {
                           }}
                           {...register("distancia", {
                             pattern: {
-                              value: /[0-9]+,[0-9]{2,2}/,
+                              value: /[0-9]+([,][0-9]+)?$/,
                               message:
                                 "El valor ingresado debe tener decimales",
                             },
@@ -644,7 +644,7 @@ export default function ModalRegistro() {
                         variant="standard"
                       >
                         <FormLabel sx={{ fontWeight: "bold" }} required>
-                          Tiempo(mm:ss:mili)
+                          Tiempo(min:ss:mili)
                         </FormLabel>
                         <OutlinedInput
                           type="string"

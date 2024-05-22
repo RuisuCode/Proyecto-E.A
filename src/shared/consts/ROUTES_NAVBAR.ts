@@ -114,4 +114,10 @@ export const ROUTES_ATLETA = [
     url: "/inicio",
     icon: HomeRoundedIcon,
   },
+  {
+    type: "button",
+    title: "Eventos",
+    url: "/eventos",
+    icon: CalendarMonthIcon,
+  },
 ];

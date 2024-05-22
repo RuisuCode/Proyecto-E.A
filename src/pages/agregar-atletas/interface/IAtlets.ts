@@ -7,6 +7,7 @@ export interface IAtlets {
   genero: number;
   fechnac: string;
   estatura: number;
+  estatura_sentd: number;
   peso: number;
   envergadura: number;
   categoria: string;
@@ -19,5 +20,7 @@ export interface IAtlets {
   email_repre: string;
   cedula_repre: string;
   repre: boolean;
-  nivel:string;
+  nivel: string;
+  estudios: string;
+  test_cooper: number;
 }

@@ -36,6 +36,11 @@ export function usePruebas() {
     queryFn: () => apiService.get(`/pruebas/${id}`),
   });
 }
+export function usePruebasInicio() {
+  return useMutation({
+    mutationFn: (data: any) => apiService.post(data, `/pruebas`),
+  });
+}
 export function PruebasCampo() {
   const pruebas = useMutation({
     mutationFn: () => apiService.get("/pruebasCampo"),

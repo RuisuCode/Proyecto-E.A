@@ -13,7 +13,6 @@ import Grid from "@mui/material/Unstable_Grid2";
 
 /* icons */
 import LanOutlinedIcon from "@mui/icons-material/LanOutlined";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HelpIcon from "@mui/icons-material/Help";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import BadgeIcon from "@mui/icons-material/Badge";
@@ -25,7 +24,6 @@ import Tabs from "@mui/material/Tabs/Tabs";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
 import Tab from "@mui/material/Tab/Tab";
 import { useState } from "react";
-import { Divider } from "@mui/material";
 import Marcas from "./components/Marcas";
 import Grafica from "./components/Grafica";
 import Loader from "../../shared/components/Loader";
@@ -35,11 +33,13 @@ import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import dayjs from "dayjs";
 import getAge2 from "../atletas-categoria/hooks/getAge2";
 import ModalEditAtleta from "./components/ModalEditAtleta";
+import ModalTestCooper from "./components/ModalTestCooper";
 
 export default function AtletaId() {
   const { data: dataAtleta, isLoading } = useGetAtletaId();
 
   const [value, setValue] = useState(0);
+  const URL: string = import.meta.env.VITE_BACKEND;
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -306,21 +306,23 @@ export default function AtletaId() {
                   </Stack>
 
                   <Avatar
-                    component={"li"}
-                    // onClick={() => console.log("hola")}
+                    src={
+                      import.meta.env.MODE !== "production"
+                        ? `${URL}/uploads/atlets/${dataAtleta[0]?.foto}`
+                        : `${URL}uploads/atlets/${dataAtleta[0]?.foto}`
+                    }
                     sx={{
-                      bgcolor: "#ffff",
                       width: 150,
                       height: 150,
-                      position: "relative",
+                      border: "4px solid #f5f5f5",
                       zIndex: 999,
+                      bgcolor: "#fff",
+                      position: "relative",
                       boxShadow: 5,
-                      top: 40,
-                      mr: 1,
+                      top: { md: 30, xs: 0 },
+                      ml: 0.5,
                     }}
-                  >
-                    <AccountCircleIcon sx={{ fontSize: 150 }} color="primary" />
-                  </Avatar>
+                  />
                 </Stack>
               </Box>
               <Stack mt={8} width={"100%"}>
@@ -487,11 +489,6 @@ export default function AtletaId() {
                                   : dataAtleta[0]?.email}
                               </Typography>
                             </Stack>
-                            <Divider
-                              orientation="horizontal"
-                              flexItem
-                              sx={{ width: "100%", borderColor: "#5E6973" }}
-                            />
                           </Stack>
                         </Grid>
 
@@ -499,13 +496,110 @@ export default function AtletaId() {
                           <Stack
                             height={"100%"}
                             flexDirection={"column"}
-                            gap={1}
+                            gap={0.5}
                             justifyContent={"space-evenly"}
                           >
                             <Stack
                               justifyContent={"space-between"}
+                              gap={0.1}
+                              flexDirection={{ md: "row", xs: "column" }}
+                            >
+                              <Stack flexDirection={"row"}>
+                                <Typography
+                                  textAlign={"start"}
+                                  fontWeight={"bold"}
+                                  mr={0.1}
+                                >
+                                  Estatura:
+                                </Typography>
+                                <Typography>
+                                  {`${dataAtleta[2]?.estatura}CM`}
+                                </Typography>
+                              </Stack>
+                              <Stack flexDirection={"row"}>
+                                <Typography
+                                  textAlign={"start"}
+                                  fontWeight={"bold"}
+                                  mr={0.1}
+                                >
+                                  Estatura sentado:
+                                </Typography>
+                                <Typography >
+                                  {`${dataAtleta[2]?.estatura_sentd}CM`}
+                                </Typography>
+                              </Stack>
+                              <Stack flexDirection={"row"}>
+                                <Typography
+                                  textAlign={"start"}
+                                  fontWeight={"bold"}
+                                  mr={0.1}
+                                >
+                                  Peso:
+                                </Typography>
+                                <Typography>{`${dataAtleta[2]?.peso}KG`}</Typography>
+                              </Stack>
+                            </Stack>
+
+                            <Stack
+                              justifyContent={"space-between"}
                               gap={2}
-                              flexDirection={"row"}
+                              flexDirection={{ md: "row", xs: "column" }}
+                            >
+                              <Stack
+                                alignItems={"center"}
+                                flexDirection={"row"}
+                              >
+                                <Typography
+                                  textAlign={"start"}
+                                  fontWeight={"bold"}
+                                  mr={1}
+                                >
+                                  Test de Cooper:
+                                </Typography>
+                                <Typography>
+                                  {dataAtleta[1]?.test_cooper === 0
+                                    ? "No realizado"
+                                    : `${dataAtleta[1]?.test_cooper} M`}
+                                </Typography>
+                              </Stack>
+                              <Stack
+                                display={
+                                  dataAtleta[1]?.test_cooper != 0
+                                    ? "none"
+                                    : "flex"
+                                }
+                              >
+                                <ModalTestCooper />
+                              </Stack>
+                              <Stack
+                                display={
+                                  dataAtleta[1]?.test_cooper === 0
+                                    ? "none"
+                                    : "flex"
+                                }
+                                flexDirection={"row"}
+                              >
+                                <Typography
+                                  textAlign={"start"}
+                                  fontWeight={"bold"}
+                                  mr={1}
+                                >
+                                  Calificación:
+                                </Typography>
+                                <Typography>
+                                  {dataAtleta[1]?.cal_test_cooper}
+                                </Typography>
+                              </Stack>
+                            </Stack>
+                            <Stack
+                              justifyContent={"space-between"}
+                              gap={2}
+                              display={
+                                dataAtleta[1]?.test_cooper === 0
+                                  ? "none"
+                                  : "flex"
+                              }
+                              flexDirection={{ md: "row", xs: "column" }}
                             >
                               <Stack flexDirection={"row"}>
                                 <Typography
@@ -513,21 +607,47 @@ export default function AtletaId() {
                                   fontWeight={"bold"}
                                   mr={1}
                                 >
-                                  Estatura:
+                                  VO2Max:
                                 </Typography>
                                 <Typography>
-                                  {dataAtleta[2]?.estatura}
+                                  {dataAtleta[1]?.vo_2_max} L/min
                                 </Typography>
                               </Stack>
+                            </Stack>
+                            <Stack
+                              justifyContent={"space-between"}
+                              gap={2}
+                              flexDirection={{ md: "row", xs: "column" }}
+                            >
                               <Stack flexDirection={"row"}>
                                 <Typography
                                   textAlign={"start"}
                                   fontWeight={"bold"}
-                                  mr={1}
+                                  mr={0.5}
                                 >
-                                  Peso:
+                                  Indice Cormico:
                                 </Typography>
-                                <Typography>{dataAtleta[2]?.peso}</Typography>
+                                <Typography>
+                                  {dataAtleta[2]?.indc_cormico}
+                                </Typography>
+                              </Stack>
+                            </Stack>
+                            <Stack
+                              justifyContent={"space-between"}
+                              gap={2}
+                              flexDirection={{ md: "row", xs: "column" }}
+                            >
+                              <Stack flexDirection={"row"}>
+                                <Typography
+                                  textAlign={"start"}
+                                  fontWeight={"bold"}
+                                  mr={0.5}
+                                >
+                                  Indice masa corporal:
+                                </Typography>
+                                <Typography>
+                                  {dataAtleta[2]?.indc_masa}
+                                </Typography>
                               </Stack>
                             </Stack>
                             <Stack
@@ -604,16 +724,11 @@ export default function AtletaId() {
                                   Envergadura:
                                 </Typography>
                                 <Typography>
-                                  {dataAtleta[2]?.envergadura}
+                                  {`${dataAtleta[2]?.envergadura} CM`}
                                 </Typography>
                               </Stack>
                             </Stack>
                           </Stack>
-                          <Divider
-                            orientation="horizontal"
-                            flexItem
-                            sx={{ width: "100%", borderColor: "#5E6973" }}
-                          />
                         </Grid>
 
                         <Grid
@@ -628,7 +743,7 @@ export default function AtletaId() {
                             height={"100%"}
                             flexDirection={"column"}
                             gap={1}
-                            justifyContent={"space-between"}
+                            justifyContent={"space-evenly"}
                           >
                             <Stack
                               justifyContent={"space-between"}
@@ -673,17 +788,18 @@ export default function AtletaId() {
                                     : dataAtleta[1]?.observaciones}
                                 </Typography>
                               </Stack>
+                              <Stack flexDirection={"column"}>
+                                <Typography fontWeight={"bold"} mr={1}>
+                                  Formación académica:
+                                </Typography>
+                                <Typography textAlign={"justify"}>
+                                  {dataAtleta[0]?.estudios === null
+                                    ? "No registrado"
+                                    : dataAtleta[0]?.estudios}
+                                </Typography>
+                              </Stack>
                             </Stack>
                           </Stack>
-                          <Divider
-                            orientation="horizontal"
-                            flexItem
-                            sx={{
-                              width: "100%",
-                              borderColor: "#5E6973",
-                              display: { md: "none", xs: "flex" },
-                            }}
-                          />
                         </Grid>
                         {dataAtleta[3] !== null && (
                           <Grid px={1} width={"100%"} xs={2} sm={4} md={6}>
@@ -765,19 +881,10 @@ export default function AtletaId() {
                                   Teléfono:
                                 </Typography>
                                 <Typography>
-                                  {dataAtleta[3]?.telefono_repre}
+                                  {`0${dataAtleta[3]?.telefono_repre}`}
                                 </Typography>
                               </Stack>
                             </Stack>
-                            <Divider
-                              orientation="horizontal"
-                              flexItem
-                              sx={{
-                                width: "100%",
-                                borderColor: "#5E6973",
-                                display: { md: "none", xs: "flex" },
-                              }}
-                            />
                           </Grid>
                         )}
                       </Grid>

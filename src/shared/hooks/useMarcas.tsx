@@ -24,6 +24,23 @@ export function useMarcas() {
     },
   });
 }
+export function useMarcasAllAtleta() {
+  return useMutation({
+    mutationFn: (data: any) => apiService.post(data, `/marcasAll`),
+    onError: (error: any) => {
+      const statusResponse = error.response?.status;
+      {
+        error.response.data?.message.map((item: any) => {
+          toast.error(item.message);
+        });
+      }
+      if (statusResponse === 404) {
+        toast.error(`A ocurrido un error inesperado ${statusResponse} `);
+        return;
+      }
+    },
+  });
+}
 export function useGetMarcas2() {
   const QUERY_KEY = "Marcas2";
   const { id } = useParams();
@@ -95,6 +112,14 @@ export function useGraficaPost() {
   const { id } = useParams();
   return useMutation({
     mutationFn: (data: any) => apiService.post(data, `/grafica/${id}`),
+    onError: () => {
+      toast.error("Error al obtener los datos");
+    },
+  });
+}
+export function useGraficaInicioPost() {
+  return useMutation({
+    mutationFn: (data: any) => apiService.post(data, `/grafica`),
     onError: () => {
       toast.error("Error al obtener los datos");
     },

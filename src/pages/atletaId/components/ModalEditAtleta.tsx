@@ -16,11 +16,13 @@ import { theme } from "../../../shared/style-components/theme/theme";
 import Loader from "../../../shared/components/Loader";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import Switch, { SwitchProps } from "@mui/material/Switch";
+
 import styled from "@mui/material/styles/styled";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import "dayjs/locale/es";
-import { IconButton } from "@mui/material";
+import { FormControlLabel, IconButton } from "@mui/material";
 
 import SendIcon from "@mui/icons-material/Send";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -29,6 +31,64 @@ import CloseIcon from "@mui/icons-material/Close";
 import { IAtlets } from "../../agregar-atletas/interface/IAtlets";
 import { useEditAtlets, useGetAtletaId } from "../../../shared/hooks/useAtlets";
 import getAge2 from "../../atletas-categoria/hooks/getAge2";
+import {
+  Dropzone,
+  ExtFile,
+  FileMosaic,
+  FullScreen,
+  ImagePreview,
+} from "@files-ui/react";
+
+const IOSSwitch = styled((props: SwitchProps) => (
+  <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+))(({ theme }) => ({
+  width: 42,
+  height: 26,
+  padding: 0,
+  "& .MuiSwitch-switchBase": {
+    padding: 0,
+    margin: 2,
+    transitionDuration: "300ms",
+    "&.Mui-checked": {
+      transform: "translateX(16px)",
+      color: "#fff",
+      "& + .MuiSwitch-track": {
+        backgroundColor: theme.palette.mode === "dark" ? "#EB5D47" : "#E84730",
+        opacity: 1,
+        border: 0,
+      },
+      "&.Mui-disabled + .MuiSwitch-track": {
+        opacity: 0.5,
+      },
+    },
+    "&.Mui-focusVisible .MuiSwitch-thumb": {
+      color: "#E84730",
+      border: "6px solid #fff",
+    },
+    "&.Mui-disabled .MuiSwitch-thumb": {
+      color:
+        theme.palette.mode === "light"
+          ? theme.palette.grey[100]
+          : theme.palette.grey[600],
+    },
+    "&.Mui-disabled + .MuiSwitch-track": {
+      opacity: theme.palette.mode === "light" ? 0.7 : 0.3,
+    },
+  },
+  "& .MuiSwitch-thumb": {
+    boxSizing: "border-box",
+    width: 22,
+    height: 22,
+  },
+  "& .MuiSwitch-track": {
+    borderRadius: 26 / 2,
+    backgroundColor: theme.palette.mode === "light" ? "#E9E9EA" : "#39393D",
+    opacity: 1,
+    transition: theme.transitions.create(["background-color"], {
+      duration: 500,
+    }),
+  },
+}));
 
 const style = {
   position: "absolute" as "absolute",
@@ -49,11 +109,18 @@ const style = {
 export default function ModalEditAtleta({ dataB }: { dataB: any }) {
   const { refetch } = useGetAtletaId();
   const { mutate, isPending } = useEditAtlets();
+  const URL: string = import.meta.env.VITE_BACKEND;
+
 
   const fechaB = dayjs(dataB[0]?.fecha_nacimiento);
   const [open, setOpen] = useState(false);
+  const [cedulaC, setCedulaC] = useState(false);
   const [gen, setGen] = useState("");
   const [categoria, setCategoria] = useState("");
+  const [changeImg, setChangeImg] = useState(false);
+  const [extFiles, setExtFiles] = useState<any>([]);
+  const [imageSrc, setImageSrc] = useState(undefined);
+
   const [nivel, setNivel] = useState("");
   const [repre, setRepre] = useState(false);
   const [parentesco, setParentesco] = useState("");
@@ -81,7 +148,11 @@ export default function ModalEditAtleta({ dataB }: { dataB: any }) {
       segundo_apellido: data?.segundo_apellido,
       genero: gen,
       fechaNacimiento: Fecha,
+      cedula: data?.cedula,
+      changeCedula: cedulaC,
       estatura: data?.estatura,
+      estatura_sentd: data?.estatura_sentd,
+      foto: changeImg === true ? extFiles[0]?.file : undefined,
       peso: data?.peso,
       categoria: categoria,
       nivel: nivel,
@@ -101,6 +172,9 @@ export default function ModalEditAtleta({ dataB }: { dataB: any }) {
       onSuccess: () => {
         setOpen(false);
         refetch();
+        setExtFiles([]);
+        setChangeImg(false);
+        setCedulaC(false);
       },
     });
   };
@@ -132,8 +206,9 @@ export default function ModalEditAtleta({ dataB }: { dataB: any }) {
       setValue("segundo_nombre", dataB[0]?.segundo_nombre);
       setValue("primer_apellido", dataB[0]?.primer_apellido);
       setValue("segundo_apellido", dataB[0]?.segundo_apellido);
-
+      setValue("cedula", dataB[4]);
       setValue("estatura", dataB[2]?.estatura);
+      setValue("estatura_sentd", dataB[2]?.estatura_sentd);
       setValue("peso", dataB[2]?.peso);
       setValue("envergadura", dataB[2]?.envergadura);
       setValue("telefono", dataB[0]?.telefono);
@@ -165,7 +240,45 @@ export default function ModalEditAtleta({ dataB }: { dataB: any }) {
   };
   const handleClose = () => {
     setOpen(false);
+    setCedulaC(false);
+    setExtFiles([]);
+    setChangeImg(false);
   };
+
+  const updateFiles = (incommingFiles: any) => {
+    setExtFiles(incommingFiles);
+  };
+  const onDelete = (id: any) => {
+    setExtFiles(extFiles.filter((x: any) => x.id !== id));
+  };
+  const handleSee = (imageSource: any) => {
+    setImageSrc(imageSource);
+  };
+
+  const handleAbort = (id: any) => {
+    setExtFiles(
+      extFiles.map((ef: any) => {
+        if (ef.id === id) {
+          return { ...ef, uploadStatus: "aborted" };
+        } else return { ...ef };
+      })
+    );
+  };
+  const handleCancel = (id: any) => {
+    setExtFiles(
+      extFiles.map((ef: any) => {
+        if (ef.id === id) {
+          return { ...ef, uploadStatus: undefined };
+        } else return { ...ef };
+      })
+    );
+  };
+
+  const img =
+    import.meta.env.MODE !== "production"
+      ? `${URL}/uploads/atlets/${dataB[0]?.foto}`
+      : `${URL}uploads/atlets/${dataB[0]?.foto}`;
+
   const Theme = theme;
 
   const variants = {
@@ -439,6 +552,158 @@ export default function ModalEditAtleta({ dataB }: { dataB: any }) {
                 </FormControl>
               </Stack>
               <Stack
+                direction={{ md: "row", xs: "column" }}
+                width={"100%"}
+                alignItems={"center"}
+                px={1}
+                justifyContent={!cedulaC ? "flex-start" : "center"}
+              >
+                <FormControlLabel
+                  control={
+                    <IOSSwitch
+                      sx={{ m: 1 }}
+                      checked={cedulaC}
+                      onChange={() => setCedulaC(!cedulaC)}
+                    />
+                  }
+                  label={
+                    <Typography color={"#808080"}>Cambiar cedula</Typography>
+                  }
+                />
+                {cedulaC && (
+                  <FormControl
+                    sx={{
+                      height: "90px",
+                      px: 1,
+                      width: { xs: "100%", md: "50%" },
+                    }}
+                    variant="standard"
+                  >
+                    <FormLabel sx={{ fontWeight: "bold" }}>Cedula</FormLabel>
+                    <OutlinedInput
+                      type="number"
+                      defaultValue={dataB[4]}
+                      sx={{
+                        bgcolor: "#f5f5f5",
+                        border: "none",
+                        borderRadius: "10px",
+                        minHeight: 50,
+
+                        "& .MuiOutlinedInput": {
+                          backgroundColor: "#f5f5f5",
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                          "&:hover .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "transparent",
+                          },
+                        },
+                      }}
+                      {...register("cedula")}
+                    />
+                    <FormHelperText sx={{ color: "#000" }}>
+                      {errors.segundo_apellido?.message &&
+                        errors.segundo_apellido.message}
+                    </FormHelperText>
+                  </FormControl>
+                )}
+              </Stack>
+              <Stack
+                bgcolor={"#f5f5f5"}
+                p={1}
+                py={2}
+                my={1}
+                width={{ md: "50%", xs: "100%" }}
+                borderRadius={"13px"}
+                height={{ md: "auto", xs: "300px" }}
+                border={"1px solid #b9b4b1"}
+              >
+                <FormLabel
+                  sx={{ textAlign: "center", py: 0, fontWeight: "bold" }}
+                  required
+                >
+                  Foto de perfil
+                </FormLabel>
+                <Stack
+                  height={"100%"}
+                  alignItems={"center"}
+                  display={changeImg === false ? "flex" : "none"}
+                  justifyContent={"center"}
+                >
+                  <img
+                    src={img}
+                    width={"50%"}
+                    height={"auto"}
+                    style={{ marginBottom: 1 }}
+                  />
+                  <Button
+                    variant="contained"
+                    sx={{ textTransform: "initial", borderRadius: "10px" }}
+                    onClick={() => setChangeImg(true)}
+                  >
+                    Cambiar imagen
+                  </Button>
+                </Stack>
+                <Stack
+                  height={"100%"}
+                  display={changeImg === true ? "flex" : "none"}
+                  pb={3}
+                  gap={{ xs: 0.5, md: 2 }}
+                  alignItems={"center"}
+                >
+                  <Dropzone
+                    onChange={updateFiles}
+                    localization="ES-es"
+                    minHeight="90%"
+                    value={extFiles}
+                    accept="image/*"
+                    maxFiles={1}
+                    maxFileSize={4 * 1024 * 1024}
+                    label="Arrastre y suelte la imagen aquí o  haga click y seleccione una imagen "
+                    uploadConfig={{
+                      autoUpload: true,
+                    }}
+                  >
+                    {extFiles.map((file: ExtFile) => (
+                      <FileMosaic
+                        {...file}
+                        key={file.id}
+                        onDelete={onDelete}
+                        onSee={handleSee}
+                        onAbort={handleAbort}
+                        onCancel={handleCancel}
+                        resultOnTooltip
+                        alwaysActive
+                        preview
+                        info
+                      />
+                    ))}
+                  </Dropzone>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      textTransform: "initial",
+                      borderRadius: "10px",
+                      width: "100px ",
+                    }}
+                    onClick={() => setChangeImg(false)}
+                  >
+                    Cancelar
+                  </Button>
+                  <Stack display={imageSrc !== undefined ? "flex" : "none"}>
+                    <FullScreen
+                      open={imageSrc !== undefined}
+                      onClose={() => setImageSrc(undefined)}
+                    >
+                      <ImagePreview src={imageSrc} />
+                    </FullScreen>
+                  </Stack>
+                </Stack>
+              </Stack>
+              <Stack
                 width={"100%"}
                 direction={{ md: "row", xs: "column" }}
                 alignItems={"center"}
@@ -679,7 +944,9 @@ export default function ModalEditAtleta({ dataB }: { dataB: any }) {
                   }}
                   variant="standard"
                 >
-                  <FormLabel sx={{ fontWeight: "bold" }}>Estatura</FormLabel>
+                  <FormLabel sx={{ fontWeight: "bold" }}>
+                    Estatura(cm)
+                  </FormLabel>
                   <OutlinedInput
                     type="number"
                     defaultValue={dataB[2]?.estatura}
@@ -716,10 +983,12 @@ export default function ModalEditAtleta({ dataB }: { dataB: any }) {
                   }}
                   variant="standard"
                 >
-                  <FormLabel sx={{ fontWeight: "bold" }}>Peso</FormLabel>
+                  <FormLabel sx={{ fontWeight: "bold" }}>
+                    Estatura sentado(cm)
+                  </FormLabel>
                   <OutlinedInput
                     type="number"
-                    defaultValue={dataB[2]?.peso}
+                    defaultValue={dataB[2]?.estatura_sentd}
                     sx={{
                       bgcolor: "#f5f5f5",
                       border: "none",
@@ -739,7 +1008,51 @@ export default function ModalEditAtleta({ dataB }: { dataB: any }) {
                         },
                       },
                     }}
-                    {...register("peso")}
+                    {...register("estatura_sentd")}
+                  />
+                  <FormHelperText sx={{ color: "#000" }}>
+                    {errors.estatura_sentd?.message &&
+                      errors.estatura_sentd.message}
+                  </FormHelperText>
+                </FormControl>
+                <FormControl
+                  sx={{
+                    height: "90px",
+                    px: 1,
+                    width: { xs: "95%", md: "85%", lg: "75%" },
+                  }}
+                  variant="standard"
+                >
+                  <FormLabel sx={{ fontWeight: "bold" }}>Peso(kg)</FormLabel>
+                  <OutlinedInput
+                    type="string"
+                    defaultValue={dataB[2]?.peso}
+                    error={errors.peso && true}
+                    sx={{
+                      bgcolor: "#f5f5f5",
+                      border: "none",
+                      borderRadius: "10px",
+                      minHeight: 50,
+
+                      "& .MuiOutlinedInput": {
+                        backgroundColor: "#f5f5f5",
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "transparent",
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "transparent",
+                        },
+                        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "transparent",
+                        },
+                      },
+                    }}
+                    {...register("peso", {
+                      pattern: {
+                        value: /[0-9]+([,][0-9]+)?$/,
+                        message: "El valor ingresado debe tener decimales",
+                      },
+                    })}
                   />
                   <FormHelperText sx={{ color: "#000" }}>
                     {errors.peso?.message && errors.peso.message}
@@ -753,7 +1066,9 @@ export default function ModalEditAtleta({ dataB }: { dataB: any }) {
                   }}
                   variant="standard"
                 >
-                  <FormLabel sx={{ fontWeight: "bold" }}>Envergadura</FormLabel>
+                  <FormLabel sx={{ fontWeight: "bold" }}>
+                    Envergadura(cm)
+                  </FormLabel>
                   <OutlinedInput
                     type="number"
                     defaultValue={dataB[2]?.envergadura}

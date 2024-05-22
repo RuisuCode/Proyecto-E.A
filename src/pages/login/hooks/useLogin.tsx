@@ -70,7 +70,7 @@ export function useLogout() {
     },
     onError: (error: any) => {
       const statusResponse = error.response?.status;
-      toast.error("Error al intentar cerrar sesión");
+
       if (statusResponse === 401) {
         sessionStorage.removeItem("auth");
         navigate("/", { replace: true });

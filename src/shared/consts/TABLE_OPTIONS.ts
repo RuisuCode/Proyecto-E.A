@@ -2,7 +2,8 @@ export const options: any = {
   download: false,
   selectableRows: "none",
   filterType: "dropdown",
-
+  rowsPerPage:5,
+  rowsPerPageOptions:[5,10,15,20,50],
   responsive: "simple",
   textLabels: {
     body: {
