@@ -320,7 +320,7 @@ export default function GraficaInicioAtleta({ idAtleta }: { idAtleta: any }) {
                     />
                     <YAxis
                       label={{
-                        value: tipoId === 1 ? "Metro" : "Minutos",
+                        value: tipoId === 1 ? "Metro" : "Segundos",
                         angle: -90,
                         position: "insideLeft",
                         offset: 15,

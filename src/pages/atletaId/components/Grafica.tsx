@@ -204,7 +204,7 @@ export default function Grafica() {
                     value: tipoId === 1 ? "Metro" : "Segundos",
                     angle: -90,
                     position: "insideLeft",
-                    offset: 10,
+                    offset: 5,
                   }}
                   reversed={tipoId === 1 ? false : true}
                 />
@@ -246,7 +246,7 @@ export default function Grafica() {
                 />
                 <YAxis
                   label={{
-                    value: tipoId === 1 ? "Metro" : "Minutos",
+                    value: tipoId === 1 ? "Metro" : "Segundos",
                     angle: -90,
                     position: "insideLeft",
                     offset: 15,

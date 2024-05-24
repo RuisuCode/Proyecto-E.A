@@ -34,6 +34,7 @@ import dayjs from "dayjs";
 import getAge2 from "../atletas-categoria/hooks/getAge2";
 import ModalEditAtleta from "./components/ModalEditAtleta";
 import ModalTestCooper from "./components/ModalTestCooper";
+import ModalUpdateTestCooper from "./components/ModalUpdtTestCooper";
 
 export default function AtletaId() {
   const { data: dataAtleta, isLoading } = useGetAtletaId();
@@ -164,7 +165,7 @@ export default function AtletaId() {
           >
             <Stack
               bgcolor={"#fff"}
-              width={{ xs: "95vw", md: "60vw" }}
+              width={{ xs: "95vw", md: "65vw" }}
               height={"auto"}
               borderRadius={"1em"}
               boxShadow={5}
@@ -180,6 +181,7 @@ export default function AtletaId() {
                 borderRadius={"1em"}
                 boxShadow={5}
                 p={3}
+                px={{ md: 5, xs: 1 }}
                 alignItems={"center"}
                 display={"flex"}
               >
@@ -524,7 +526,7 @@ export default function AtletaId() {
                                 >
                                   Estatura sentado:
                                 </Typography>
-                                <Typography >
+                                <Typography>
                                   {`${dataAtleta[2]?.estatura_sentd}CM`}
                                 </Typography>
                               </Stack>
@@ -888,7 +890,22 @@ export default function AtletaId() {
                           </Grid>
                         )}
                       </Grid>
-                      <ModalEditAtleta dataB={dataAtleta} />
+                      <Stack
+                        direction={"row"}
+                        alignItems={"center"}
+                        justifyContent={"space-between"}
+                      >
+                        <Stack
+                          display={
+                            dataAtleta[1]?.test_cooper != 0 ? "flex" : "none"
+                          }
+                        >
+                          <ModalUpdateTestCooper
+                            tcooper={dataAtleta[1]?.test_cooper}
+                          />
+                        </Stack>
+                        <ModalEditAtleta dataB={dataAtleta} />
+                      </Stack>
                     </Stack>
                   </CustomTabPanel>
                   <CustomTabPanel value={value} index={2}>
