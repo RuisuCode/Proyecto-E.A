@@ -21,7 +21,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import Switch, { SwitchProps } from "@mui/material/Switch";
 import "dayjs/locale/es";
-import { FormControlLabel, IconButton } from "@mui/material";
+import { FormControlLabel, IconButton, Tooltip } from "@mui/material";
 
 import SendIcon from "@mui/icons-material/Send";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
@@ -139,7 +139,7 @@ export default function ModalEditEntrenador({ dataB }: { dataB: any }) {
       primer_ape: data?.primer_apellido,
       segundo_ape: data?.segundo_apellido,
       genero: gen,
-      changeCedula:cedulaC,
+      changeCedula: cedulaC,
       fechaNacimiento: Fecha,
       foto: changeImg === true ? extFiles[0]?.file : undefined,
       grado_academico: data?.grd_aca,
@@ -256,16 +256,18 @@ export default function ModalEditEntrenador({ dataB }: { dataB: any }) {
   return (
     <div>
       <motion.div whileHover={{ scale: 1.1 }}>
-        <IconButton
-          onClick={handleOpen}
-          sx={{
-            bgcolor: "#fff",
-            boxShadow: 3,
-            "&:hover": { bgcolor: "#fff", boxShadow: 10 },
-          }}
-        >
-          <DriveFileRenameOutlineIcon fontSize="large" color="primary" />
-        </IconButton>
+        <Tooltip title="Editar datos" arrow>
+          <IconButton
+            onClick={handleOpen}
+            sx={{
+              bgcolor: "#fff",
+              boxShadow: 3,
+              "&:hover": { bgcolor: "#fff", boxShadow: 10 },
+            }}
+          >
+            <DriveFileRenameOutlineIcon fontSize="large" color="primary" />
+          </IconButton>
+        </Tooltip>
       </motion.div>
       <Modal
         open={open}
